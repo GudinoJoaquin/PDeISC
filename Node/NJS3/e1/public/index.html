@@ -3,19 +3,56 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ejercico 1</title>
+    <title>Ejercicio 1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <h1>Ejercicio 1</h1>
-    <p>Agregar y cambiar H1</p>
-    <button onclick="agregarH1()">Agregar H1</button>
-    <button onclick="cambiarH1()">Cambiar H1</button>
-    <button onclick="colorH1()">Cambiar color H1</button>
+  <body class="p-6 font-sans bg-gray-100 flex flex-col items-center justify-center min-h-screen">
+    <h1 class="text-2xl font-bold mb-4 text-center">Ejercicio 1</h1>
 
-    <p>Agregar y cambiar imagen</p>
-    <button onclick="agregarImg()">Agregar imagen</button>
-    <button onclick="cambiarImg()">Cambiar imagen</button>
-    <button onclick="resizeImg()">Cambiar tamaño de imagen</button>
+    <div class="mb-6 text-center">
+      <p class="mb-4">Agregar y cambiar H1</p>
+      <button
+        id="addH1Btn"
+        class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mb-4"
+        onclick="agregarH1()"
+      >
+        Agregar H1
+      </button>
+      <button
+        class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 mb-4"
+        onclick="cambiarH1()"
+      >
+        Cambiar H1
+      </button>
+      <button
+        class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 mb-4"
+        onclick="colorH1()"
+      >
+        Cambiar color H1
+      </button>
+    </div>
+
+    <div class="mb-6 text-center">
+      <p class="mt-4">Agregar y cambiar imagen</p>
+      <button
+        class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 mb-4"
+        onclick="agregarImg()"
+      >
+        Agregar imagen
+      </button>
+      <button
+        class="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 mb-4"
+        onclick="cambiarImg()"
+      >
+        Cambiar imagen
+      </button>
+      <button
+        class="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 mb-4"
+        onclick="resizeImg()"
+      >
+        Cambiar tamaño de imagen
+      </button>
+    </div>
 
     <script src="script.js"></script>
   </body>

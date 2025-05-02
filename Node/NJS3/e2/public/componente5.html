@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Componente 5</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
       body {
         height: 1000px;
@@ -15,18 +16,30 @@
         transform: translateY(-50%);
         background: rgba(0, 0, 0, 0.7);
         color: white;
-        padding: 4px 8px;
+        padding: 8px 12px;
         border-radius: 8px;
-        font-size: 14px;
+        font-size: 16px;
         z-index: 9999;
         pointer-events: none;
       }
     </style>
   </head>
-  <body>
-    <h1>Componente 5</h1>
-    <p>Scrollee hacia abajo para ver el porcentaje de scroll</p>
-    <button onclick="navegar('/')">Volver</button>
+  <body
+    class="bg-gray-100 text-gray-800 font-sans flex flex-col items-center justify-center min-h-screen"
+  >
+    <div class="text-center p-6 bg-white rounded-lg shadow-lg max-w-md w-[90%]">
+      <h1 class="text-3xl font-semibold mb-4">Componente 5</h1>
+      <p class="text-lg mb-4">
+        Desplázate hacia abajo para ver el porcentaje de scroll
+      </p>
+
+      <button
+        onclick="navegar('/')"
+        class="px-6 py-2 bg-gray-400 text-white rounded-lg shadow-md hover:bg-gray-500 transition duration-300"
+      >
+        Volver
+      </button>
+    </div>
 
     <div id="scroll-indicator">0%</div>
 

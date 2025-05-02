@@ -1,18 +1,18 @@
-//Importar Express y Path para enviar archivos de public
+//Importar Express y Path con require para utilizar __dirname
 const express = require("express");
 const path = require("path");
 
-const app = express(); // <- Iniciar el servidor HTTP
+const app = express(); //Inicializacion del servidor HTTP
 
-//Middleware para acceder a la carpeta public
+//Middleware para usar archivos estaticos
 app.use(express.static(path.join(__dirname, "public")));
 
 //Ruta para la raiz
 app.get("/", (req, res) => {
-  res.sendFile(path.join("index.html"));
+  res.sendFile(path.join());
 });
 
-//Inicia el servidor en localhost puerto 3000
+//Iniciar servidor en localhost:3000
 app.listen(3000, () => {
   console.log("http://localhost:3000");
 });

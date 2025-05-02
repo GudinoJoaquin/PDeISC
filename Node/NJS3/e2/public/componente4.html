@@ -1,17 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Componente4</title>
-</head>
-<body>
-  <h1>Componente 4</h1>
-  <p>Minimice la ventana para ver el tamaño de la misma dinamicamente</p>
-  <p id="info"></p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Componente 4</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    class="bg-gray-100 text-gray-800 font-sans flex flex-col items-center justify-center min-h-screen"
+  >
+    <div class="text-center p-6 bg-white rounded-lg shadow-lg max-w-md w-[90%]">
+      <h1 class="text-3xl font-semibold mb-4">Componente 4</h1>
+      <p class="text-lg mb-4">
+        Minimice la ventana para ver el tamaño de la misma dinámicamente
+      </p>
+      <p id="info" class="text-lg font-medium text-gray-700 mb-6">
+        Tamaño de la ventana: <span id="window-size"></span>
+      </p>
 
-  <button onclick="navegar('/')">Volver</button>
+      <button
+        onclick="navegar('/')"
+        class="px-6 py-2 bg-gray-400 text-white rounded-lg shadow-md hover:bg-gray-500 transition duration-300"
+      >
+        Volver
+      </button>
+    </div>
 
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
