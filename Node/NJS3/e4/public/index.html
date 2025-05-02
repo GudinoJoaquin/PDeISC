@@ -4,24 +4,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-gray-100 min-h-screen flex flex-col items-center justify-start py-10 px-4">
+  <body
+    class="bg-gray-100 min-h-screen flex flex-col items-center justify-start py-10 px-4"
+  >
     <h1 class="text-3xl font-bold mb-8 text-blue-600">Página</h1>
 
     <div class="flex flex-col gap-4 mb-6">
-      <button id="generateBtn" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+      <button
+        id="generateBtn"
+        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+      >
         Generar link
       </button>
-      <button id="modifyBtn" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition">
+      <button
+        id="modifyBtn"
+        class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition"
+      >
         Modificar link
       </button>
-      <button id="removeBtn" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
+      <button
+        id="removeBtn"
+        class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+      >
         Borrar último cambio
       </button>
     </div>
 
-    <div id="container" class="w-full max-w-xl bg-white shadow-md p-4 rounded mb-4 overflow-x-auto">
+    <div
+      id="container"
+      class="w-full max-w-xl bg-white shadow-md p-4 rounded mb-4 overflow-x-auto"
+    >
       <!-- Aquí se generarán las filas de la tabla -->
       <table class="min-w-full table-auto">
         <thead>
@@ -40,6 +53,7 @@
       <!-- Aquí se mostrarán los cambios -->
     </div>
 
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="script.js"></script>
   </body>
 </html>

@@ -4,16 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Componente 3</title>
-    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-gray-100 text-gray-800 font-sans flex flex-col items-center justify-center min-h-screen">
-
+  <body
+    class="bg-gray-100 text-gray-800 font-sans flex flex-col items-center justify-center min-h-screen"
+  >
     <div class="text-center p-6 bg-white rounded-lg shadow-lg max-w-md w-[90%]">
       <h1 class="text-3xl font-semibold mb-4">Componente 3</h1>
       <p class="text-lg mb-6">Cambiar el color de fondo de la página</p>
 
-      <select 
-        id="selector" 
+      <select
+        id="selector"
         onchange="componente3(value)"
         class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6"
       >
@@ -23,14 +23,15 @@
         <option value="green">Verde</option>
       </select>
 
-      <button 
-        onclick="navegar('/')" 
+      <button
+        onclick="navegar('/')"
         class="px-6 py-2 bg-gray-400 text-white rounded-lg shadow-md hover:bg-gray-500 transition duration-300"
       >
         Volver
       </button>
     </div>
 
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="script.js"></script>
   </body>
 </html>

@@ -1,0 +1,16 @@
+body {
+  height: 1000px;
+}
+#scroll-indicator {
+  position: fixed;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  z-index: 9999;
+  pointer-events: none;
+}
