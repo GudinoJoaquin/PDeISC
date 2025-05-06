@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 class="text-center font-bold text-2xl mb-[20px] mt-[40px]">
+      Formulario
+    </h1>
+    <form
+      action="/sendData"
+      method="POST"
+      id="form"
+      class="flex items-center justify-center gap-4"
+    >
+      <input
+        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+        type="text"
+        name="name"
+        id="jugador"
+        placeholder="Jugador"
+      />
+      <input
+        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+        type="text"
+        name="surname"
+        id="nacionalidad"
+        placeholder="Nacionalidad"
+      />
+      <input
+        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+        type="number"
+        name="surname"
+        id="precio"
+        placeholder="Precio"
+      />
+      <input
+        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+        type="text"
+        name="surname"
+        id="posicion"
+        placeholder="Posicion"
+      />
+      <button
+        class="bg-black/40 text-white outline-2 outline-black/40 font-semibold px-20 py-1 rounded-[5px] hover:scale-110 focus:bg-white focus:text-black/50 transition duration-300"
+        type="submit"
+      >
+        Enviar
+      </button>
+    </form>
+
+    <div id="usuarios">
+      <h2 class="text-center font-bold text-2xl mb-[20px] mt-[40px]">
+        Usuarios
+      </h2>
+      <ul id="lista"></ul>
+    </div>
+
+    <button id="btn">Fetch</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

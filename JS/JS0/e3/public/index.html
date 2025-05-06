@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 class="text-center font-bold text-2xl mb-[20px] mt-[40px]">
+      Formulario
+    </h1>
+    <form
+      action="/sendData"
+      method="POST"
+      id="form"
+      class="flex flex-col items-center justify-center gap-4"
+    >
+      <input
+        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+        type="text"
+        name="name"
+        id="nombre"
+        placeholder="Nombre"
+      />
+      <input
+        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+        type="text"
+        name="surname"
+        id="apellido"
+        placeholder="Apellido"
+      />
+      <input
+        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+        type="number"
+        name="surname"
+        id="edad"
+        placeholder="Edad"
+      />
+      <input
+        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+        type="date"
+        name="surname"
+        id="nacimiento"
+        placeholder="Fecha de nacimiento"
+      />
+      <div>
+        Hombre
+        <input
+          class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+          type="radio"
+          name="genero"
+          value="nombre"
+          placeholder="Posicion"
+        />
+        Mujer
+        <input
+          class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+          type="radio"
+          name="genero"
+          value="mujer"
+          placeholder="Posicion"
+        />
+      </div>
+      <input
+        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+        type="number"
+        name="genero"
+        id="documento"
+        placeholder="DNI"
+      />
+      <input
+        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+        type="text"
+        name="genero"
+        id="estado"
+        placeholder="Estado Civil"
+      />
+      <input
+        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+        type="text"
+        name="genero"
+        id="nacionalidad"
+        placeholder="Nacionalidad"
+      />
+      <input
+        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+        type="tel"
+        name="genero"
+        id="telefono"
+        placeholder="Telefono"
+      />
+      <input
+        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+        type="email"
+        name="genero"
+        id="email"
+        placeholder="Email"
+      />
+      <input
+        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+        type="checkbox"
+        name="hijos"
+        id="hijos"
+        placeholder="Hijos"
+      />
+      <input
+        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+        type="text"
+        name="genero"
+        id="estado"
+        placeholder="Estado Civil"
+      />
+      <button
+        class="bg-black/40 text-white outline-2 outline-black/40 font-semibold px-20 py-1 rounded-[5px] hover:scale-110 focus:bg-white focus:text-black/50 transition duration-300"
+        type="submit"
+      >
+        Enviar
+      </button>
+    </form>
+
+    <div id="usuarios">
+      <h2 class="text-center font-bold text-2xl mb-[20px] mt-[40px]">
+        Usuarios
+      </h2>
+      <ul id="lista"></ul>
+    </div>
+
+    <button id="btn">Fetch</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
