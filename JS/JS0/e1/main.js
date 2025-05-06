@@ -6,12 +6,13 @@ const PORT = 3000;
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.sendFile(path.join());
 });
 
-app.post("/sendData", (req, res) => {
+app.post("/enviar", (req, res) => {
   const { name, surname } = req.body;
   console.log(`Name: ${name}, Surname: ${surname}`);
   console.log(req.body.name);
