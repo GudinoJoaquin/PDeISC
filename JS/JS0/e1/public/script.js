@@ -7,7 +7,10 @@ async function fetchData() {
       const data = await response.json();
       console.log(data);
       $lista.innerHTML = data
-        .map((user) => `<li>${user.name}, ${user.surname}</li>`)
+        .map(
+          (user) =>
+            `<li class="border-b-2 border-violet-300 px-6 py-2 text-center w-full">${user.name}, ${user.surname}</li>`
+        )
         .join("");
     }
     console.log(response);
@@ -16,7 +19,7 @@ async function fetchData() {
   }
 }
 
-async function sendData(name, surname) {
+async function sendData(data) {
   try {
     const response = await fetch("/enviar", {
       method: "POST",
@@ -24,8 +27,8 @@ async function sendData(name, surname) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: name,
-        surname: surname,
+        name: data.name,
+        surname: data.surname,
       }),
     });
     if (response.ok) {
@@ -42,7 +45,9 @@ document.getElementById("form").addEventListener("submit", (e) => {
   const $name = document.getElementById("name").value;
   const $surname = document.getElementById("surname").value;
 
-  sendData($name, $surname);
+  const data = { name: $name, surname: $surname };
+
+  sendData(data);
 
   fetchData();
 });

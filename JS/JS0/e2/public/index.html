@@ -5,60 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body>
-    <h1 class="text-center font-bold text-2xl mb-[20px] mt-[40px]">
-      Formulario
-    </h1>
+  <body class="flex flex-col items-center px-4">
+    <h1 class="text-center font-bold text-2xl mb-5 mt-10">Formulario</h1>
+
     <form
       action="/sendData"
       method="POST"
       id="form"
-      class="flex items-center justify-center gap-4"
+      class="flex flex-col md:flex-row flex-wrap justify-center gap-4 bg-violet-100 w-full max-w-[700px] py-5 px-4 rounded-sm shadow-lg"
     >
       <input
-        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+        class="flex-1 min-w-[220px] bg-violet-200 pl-2 pr-4 py-1 rounded-sm border-2 border-violet-400 focus:outline-2 focus:outline-offset-2 focus:outline-violet-400 text-violet-500 placeholder:italic"
         type="text"
         name="name"
         id="jugador"
         placeholder="Jugador"
       />
       <input
-        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+        class="flex-1 min-w-[220px] bg-violet-200 pl-2 pr-4 py-1 rounded-sm border-2 border-violet-400 focus:outline-2 focus:outline-offset-2 focus:outline-violet-400 text-violet-500 placeholder:italic"
         type="text"
-        name="surname"
+        name="nationality"
         id="nacionalidad"
         placeholder="Nacionalidad"
       />
       <input
-        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+        class="flex-1 min-w-[220px] bg-violet-200 pl-2 pr-4 py-1 rounded-sm border-2 border-violet-400 focus:outline-2 focus:outline-offset-2 focus:outline-violet-400 text-violet-500 placeholder:italic"
         type="number"
-        name="surname"
+        name="price"
         id="precio"
         placeholder="Precio"
       />
       <input
-        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
+        class="flex-1 min-w-[220px] bg-violet-200 pl-2 pr-4 py-1 rounded-sm border-2 border-violet-400 focus:outline-2 focus:outline-offset-2 focus:outline-violet-400 text-violet-500 placeholder:italic"
         type="text"
-        name="surname"
+        name="position"
         id="posicion"
-        placeholder="Posicion"
+        placeholder="Posición"
       />
       <button
-        class="bg-black/40 text-white outline-2 outline-black/40 font-semibold px-20 py-1 rounded-[5px] hover:scale-110 focus:bg-white focus:text-black/50 transition duration-300"
+        class="bg-violet-500 text-white font-medium px-10 py-1 rounded-sm hover:scale-110 focus:outline-2 focus:outline-offset-2 focus:outline-violet-500 focus:bg-white focus:text-violet-600 transition duration-300"
         type="submit"
       >
         Enviar
       </button>
     </form>
 
-    <div id="usuarios">
-      <h2 class="text-center font-bold text-2xl mb-[20px] mt-[40px]">
-        Usuarios
-      </h2>
-      <ul id="lista"></ul>
+    <div
+      id="usuarios"
+      class="flex flex-col items-center w-full max-w-[700px] mt-10"
+    >
+      <h2 class="text-center font-bold text-2xl mb-5">Usuarios</h2>
+
+      <div class="overflow-x-auto w-full">
+        <table
+          class="table-auto w-full border-collapse border border-violet-300 bg-violet-100 rounded-sm shadow-md"
+        >
+          <thead>
+            <tr class="bg-violet-300 text-violet-800">
+              <th class="border border-violet-300 px-4 py-2">Jugador</th>
+              <th class="border border-violet-300 px-4 py-2">Nacionalidad</th>
+              <th class="border border-violet-300 px-4 py-2">Precio</th>
+              <th class="border border-violet-300 px-4 py-2">Posición</th>
+            </tr>
+          </thead>
+          <tbody id="lista">
+            <!-- Las filas se insertarán aquí con JS -->
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <button id="btn">Fetch</button>
+    <div
+      id="alerta"
+      class="fixed top-0 left-1/2 transform -translate-x-1/2 -translate-y-full transition-all duration-500 ease-in-out bg-green-500 text-white font-medium px-6 py-3 rounded-b shadow-lg z-50"
+    ></div>
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="script.js"></script>
