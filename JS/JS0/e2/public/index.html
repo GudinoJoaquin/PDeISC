@@ -56,16 +56,16 @@
     >
       <h2 class="text-center font-bold text-2xl mb-5">Usuarios</h2>
 
-      <div class="overflow-x-auto w-full">
+      <div class="overflow-x-auto w-full mb-6">
         <table
           class="table-auto w-full border-collapse border border-violet-300 bg-violet-100 rounded-sm shadow-md"
         >
           <thead>
             <tr class="bg-violet-300 text-violet-800">
-              <th class="border border-violet-300 px-4 py-2">Jugador</th>
-              <th class="border border-violet-300 px-4 py-2">Nacionalidad</th>
-              <th class="border border-violet-300 px-4 py-2">Precio</th>
-              <th class="border border-violet-300 px-4 py-2">Posición</th>
+              <th class="border border-violet-300 px-2 py-2">Jugador</th>
+              <th class="border border-violet-300 px-2 py-2">Nacionalidad</th>
+              <th class="border border-violet-300 px-2 py-2">Precio</th>
+              <th class="border border-violet-300 px-2 py-2">Posición</th>
             </tr>
           </thead>
           <tbody id="lista">
@@ -75,10 +75,9 @@
       </div>
     </div>
 
-    <div
-      id="alerta"
-      class="fixed top-0 left-1/2 transform -translate-x-1/2 -translate-y-full transition-all duration-500 ease-in-out bg-green-500 text-white font-medium px-6 py-3 rounded-b shadow-lg z-50"
-    ></div>
+    <div id="alerta" class="hidden rounded-sm px-24 py-2">
+      <p id="texto" class="">Mensaje</p>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="script.js"></script>

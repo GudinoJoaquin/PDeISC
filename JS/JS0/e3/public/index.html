@@ -3,131 +3,192 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Formulario</title>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <h1 class="text-center font-bold text-2xl mb-[20px] mt-[40px]">
+  <body class="flex flex-col items-center px-4 bg-white">
+    <h1 class="text-center font-bold text-2xl mb-5 mt-12 text-violet-600">
       Formulario
     </h1>
+
+    <div
+      id="alerta"
+      class="fixed top-0 left-2 translate-y-[-50px] transition duration-300 border-2 px-24 py-2 rounded-sm"
+    >
+      <p id="mensaje" class="font-semibold"></p>
+    </div>
+
     <form
       action="/sendData"
       method="POST"
       id="form"
-      class="flex flex-col items-center justify-center gap-4"
+      class="flex flex-col items-center justify-center gap-6 bg-violet-100 w-full max-w-[700px] py-5 px-4 rounded-sm shadow-lg"
     >
-      <input
-        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
-        type="text"
-        name="name"
-        id="nombre"
-        placeholder="Nombre"
-      />
-      <input
-        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
-        type="text"
-        name="surname"
-        id="apellido"
-        placeholder="Apellido"
-      />
-      <input
-        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
-        type="number"
-        name="surname"
-        id="edad"
-        placeholder="Edad"
-      />
-      <input
-        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
-        type="date"
-        name="surname"
-        id="nacimiento"
-        placeholder="Fecha de nacimiento"
-      />
-      <div>
-        Hombre
+      <!-- Grupo 1 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
         <input
-          class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
-          type="radio"
-          name="genero"
-          value="nombre"
-          placeholder="Posicion"
+          class="bg-violet-200 pl-2 pr-4 py-1 rounded-sm border-2 border-violet-400 text-violet-700 placeholder:italic focus:outline-2 focus:outline-offset-2 focus:outline-violet-400"
+          type="text"
+          name="nombre"
+          id="nombre"
+          placeholder="Nombre"
         />
-        Mujer
         <input
-          class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
-          type="radio"
-          name="genero"
-          value="mujer"
-          placeholder="Posicion"
+          class="bg-violet-200 pl-2 pr-4 py-1 rounded-sm border-2 border-violet-400 text-violet-700 placeholder:italic focus:outline-2 focus:outline-offset-2 focus:outline-violet-400"
+          type="text"
+          name="apellido"
+          id="apellido"
+          placeholder="Apellido"
         />
       </div>
-      <input
-        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
-        type="number"
-        name="genero"
-        id="documento"
-        placeholder="DNI"
-      />
-      <input
-        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
-        type="text"
-        name="genero"
-        id="estado"
-        placeholder="Estado Civil"
-      />
-      <input
-        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
-        type="text"
-        name="genero"
-        id="nacionalidad"
-        placeholder="Nacionalidad"
-      />
-      <input
-        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
-        type="tel"
-        name="genero"
-        id="telefono"
-        placeholder="Telefono"
-      />
-      <input
-        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
-        type="email"
-        name="genero"
-        id="email"
-        placeholder="Email"
-      />
-      <input
-        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
-        type="checkbox"
-        name="hijos"
-        id="hijos"
-        placeholder="Hijos"
-      />
-      <input
-        class="bg-black/20 pl-2 pr-4 py-1 rounded-[5px] outline-2 focus:outline-offset-2 outline-black/40 placeholder:italic"
-        type="text"
-        name="genero"
-        id="estado"
-        placeholder="Estado Civil"
-      />
+
+      <!-- Grupo 2 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+        <input
+          class="bg-violet-200 pl-2 pr-4 py-1 rounded-sm border-2 border-violet-400 text-violet-700 placeholder:italic focus:outline-2 focus:outline-offset-2 focus:outline-violet-400"
+          type="number"
+          name="edad"
+          id="edad"
+          placeholder="Edad"
+        />
+        <input
+          class="bg-violet-200 pl-2 pr-4 py-1 rounded-sm border-2 border-violet-400 text-violet-700 placeholder:italic focus:outline-2 focus:outline-offset-2 focus:outline-violet-400"
+          type="date"
+          name="nacimiento"
+          id="nacimiento"
+        />
+      </div>
+
+      <!-- Grupo 3: Radio y Select -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full items-center">
+        <div class="relative">
+          <input
+            type="radio"
+            name="sexo"
+            value="masculino"
+            id="sexo-masculino"
+            class="peer hidden"
+          />
+          <label
+            for="sexo-masculino"
+            class="block px-3 py-1 border border-violet-400 rounded-sm cursor-pointer text-violet-700 peer-checked:bg-violet-200 peer-checked:text-violet-900 transition"
+          >
+            Masculino
+          </label>
+        </div>
+
+        <div class="relative">
+          <input
+            type="radio"
+            name="sexo"
+            value="femenino"
+            id="sexo-femenino"
+            class="peer hidden"
+          />
+          <label
+            for="sexo-femenino"
+            class="block px-3 py-1 border border-violet-400 rounded-sm cursor-pointer text-violet-700 peer-checked:bg-violet-200 peer-checked:text-violet-900 transition"
+          >
+            Femenino
+          </label>
+        </div>
+
+        <select
+          name="estado-civil"
+          id="estado-civil"
+          class="bg-violet-200 text-violet-700 border-2 border-violet-400 pl-2 pr-4 py-1 rounded-sm focus:outline-2 focus:outline-offset-2 focus:outline-violet-400"
+        >
+          <option value="soltero">Soltero</option>
+          <option value="casado">Casado</option>
+        </select>
+      </div>
+
+      <!-- Grupo 4 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+        <input
+          class="bg-violet-200 pl-2 pr-4 py-1 rounded-sm border-2 border-violet-400 text-violet-700 placeholder:italic focus:outline-2 focus:outline-offset-2 focus:outline-violet-400"
+          type="number"
+          name="documento"
+          id="documento"
+          placeholder="Documento"
+        />
+        <input
+          class="bg-violet-200 pl-2 pr-4 py-1 rounded-sm border-2 border-violet-400 text-violet-700 placeholder:italic focus:outline-2 focus:outline-offset-2 focus:outline-violet-400"
+          type="text"
+          name="nacionalidad"
+          id="nacionalidad"
+          placeholder="Nacionalidad"
+        />
+      </div>
+
+      <!-- Grupo 5 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+        <input
+          class="bg-violet-200 pl-2 pr-4 py-1 rounded-sm border-2 border-violet-400 text-violet-700 placeholder:italic focus:outline-2 focus:outline-offset-2 focus:outline-violet-400"
+          type="tel"
+          name="telefono"
+          id="telefono"
+          placeholder="Teléfono"
+        />
+        <input
+          class="bg-violet-200 pl-2 pr-4 py-1 rounded-sm border-2 border-violet-400 text-violet-700 placeholder:italic focus:outline-2 focus:outline-offset-2 focus:outline-violet-400"
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Email"
+        />
+      </div>
+
+      <!-- Grupo 6: Checkbox -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full items-center">
+        <div class="flex items-center gap-2">
+          <label for="hijos" class="text-violet-700 font-medium"
+            >¿Tiene hijos?</label
+          >
+          <input
+            type="checkbox"
+            name="hijos"
+            id="hijos"
+            class="accent-violet-500 w-4 h-4"
+          />
+        </div>
+        <input
+          type="number"
+          name="cantidad-hijos"
+          id="cantidad-hijos"
+          placeholder="Cantidad de hijos"
+          disabled
+          class="bg-violet-200 pl-2 pr-4 py-1 rounded-sm border-2 border-violet-400 text-violet-500 placeholder:italic focus:outline-none disabled:opacity-50"
+        />
+      </div>
+
+      <!-- Botón -->
       <button
-        class="bg-black/40 text-white outline-2 outline-black/40 font-semibold px-20 py-1 rounded-[5px] hover:scale-110 focus:bg-white focus:text-black/50 transition duration-300"
+        class="bg-violet-500 text-white font-medium px-10 py-1 rounded-sm hover:scale-110 focus:outline-2 focus:outline-offset-2 focus:outline-violet-500 focus:bg-white focus:text-violet-600 transition duration-300"
         type="submit"
       >
         Enviar
       </button>
     </form>
 
-    <div id="usuarios">
-      <h2 class="text-center font-bold text-2xl mb-[20px] mt-[40px]">
+    <!-- Lista de usuarios -->
+    <div
+      id="usuarios"
+      class="flex flex-col items-center w-full max-w-[600px] mt-10 mb-20"
+    >
+      <h2 class="text-center font-bold text-2xl mb-5 text-violet-600">
         Usuarios
       </h2>
-      <ul id="lista"></ul>
+      <ul
+        id="lista"
+        class="bg-violet-200 border-2 border-b-0 border-violet-300 rounded-sm w-full"
+      ></ul>
     </div>
 
-    <button id="btn">Fetch</button>
+    <div id="alerta" class="hidden rounded-sm px-24 py-2">
+      <p id="texto">Mensaje</p>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="script.js"></script>
   </body>
 </html>

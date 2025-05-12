@@ -1,4 +1,5 @@
 const $lista = document.getElementById("lista");
+
 let data = null;
 
 async function fetchData() {
@@ -15,10 +16,10 @@ async function fetchData() {
       data.forEach((user) => {
         const fila = document.createElement("tr");
         fila.innerHTML = `
-          <td class="border border-violet-300 px-4 py-2 text-center">${user.jugador}</td>
-          <td class="border border-violet-300 px-4 py-2 text-center">${user.nacionalidad}</td>
-          <td class="border border-violet-300 px-4 py-2 text-center">${user.precio}</td>
-          <td class="border border-violet-300 px-4 py-2 text-center">${user.posicion}</td>
+          <td class="border border-violet-300 px-2 py-2 text-center">${user.jugador}</td>
+          <td class="border border-violet-300 px-2 py-2 text-center">${user.nacionalidad}</td>
+          <td class="border border-violet-300 px-2 py-2 text-center">${user.precio}</td>
+          <td class="border border-violet-300 px-2 py-2 text-center">${user.posicion}</td>
         `;
         $lista.appendChild(fila);
       });
@@ -43,12 +44,6 @@ async function sendData(data) {
         precio: data.precio,
       }),
     });
-
-    if (response.ok) {
-      mostrarAlerta("Datos enviados correctamente", "success");
-    } else {
-      mostrarAlerta("Error al enviar los datos", "error");
-    }
   } catch (err) {
     console.log(err);
   }
@@ -57,74 +52,116 @@ async function sendData(data) {
 document.getElementById("form").addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const $jugador = document.getElementById("jugador").value;
-  const $nacionalidad = document.getElementById("nacionalidad").value;
-  const $posicion = document.getElementById("posicion").value;
-  const $precio = document.getElementById("precio").value;
+  const $jugador = document.getElementById("jugador");
+  const $nacionalidad = document.getElementById("nacionalidad");
+  const $posicion = document.getElementById("posicion");
+  const $precio = document.getElementById("precio");
 
-  if ($jugador.trim().length < 4) {
-    alert("Debe tener al menos 4 caracteres");
-    $jugador.focus();
+  if ($jugador.value.trim().length < 4) {
+    invalidInput($jugador);
     return;
   }
 
-  if ($nacionalidad == "") {
-    alert("La nacionalidad es obligatoria");
-    $nacionalidad.focus();
+  if ($nacionalidad.value == "") {
+    invalidInput($nacionalidad);
     return;
   }
 
-  if ($posicion == "") {
-    alert("La posicion es obligatoria");
-    $posicion.focus();
+  if ($posicion.value == "") {
+    invalidInput($posicion);
     return;
   }
 
-  if ($precio === "" || isNaN($precio) || Number($precio) <= 0) {
-    alert("El precio debe ser un número positivo.");
-    $precio.focus();
+  if (
+    $precio.value === "" ||
+    isNaN($precio.value) ||
+    Number($precio.value) <= 0
+  ) {
+    invalidInput($precio);
     return;
   }
 
   const data = {
-    jugador: $jugador,
-    nacionalidad: $nacionalidad,
-    posicion: $posicion,
-    precio: $precio,
+    jugador: $jugador.value,
+    nacionalidad: $nacionalidad.value,
+    posicion: $posicion.value,
+    precio: $precio.value,
   };
 
   sendData(data);
 
+  showAlert("Registro almacenado con exito", "success");
+
   fetchData();
 
-  $jugador = "";
-  $nacionalidad = "";
-  $posicion = "";
-  $precio = "";
+  $jugador.value = "";
+  $nacionalidad.value = "";
+  $posicion.value = "";
+  $precio.value = "";
 });
 
 fetchData();
 
-function mostrarAlerta(mensaje, tipo = "success") {
-  const $alerta = document.getElementById("alerta");
-  $alerta.textContent = mensaje;
+function showAlert(msg, type) {
+  const $alert = document.getElementById("alerta");
+  const $text = document.getElementById("texto");
 
-  // Cambiar color según tipo
-  if (tipo === "success") {
-    $alerta.classList.remove("bg-red-500");
-    $alerta.classList.add("bg-green-500");
-  } else {
-    $alerta.classList.remove("bg-green-500");
-    $alerta.classList.add("bg-red-500");
+  // Limpiamos clases previas
+  $alert.className = "";
+  $text.className = "";
+
+  // Clases base + animación de entrada
+  $alert.classList.add(
+    "px-24",
+    "py-2",
+    "fixed-bottom",
+    "rounded-sm",
+    "opacity-0",
+    "translate-y-4",
+    "transition-all",
+    "duration-500"
+  );
+
+  // Forzamos reflow para que se aplique la animación
+  void $alert.offsetWidth;
+
+  $alert.classList.remove("opacity-0", "translate-y-4");
+  $alert.classList.add("opacity-100", "translate-y-0");
+
+  // Tipo de alerta
+  if (type === "error") {
+    $alert.classList.add("bg-red-500/40", "border-2", "border-red-500");
+    $text.classList.add("text-red-500", "font-semibold");
+  } else if (type === "success") {
+    $alert.classList.add("bg-green-500/40", "border-2", "border-green-500");
+    $text.classList.add("text-green-500", "font-semibold");
   }
 
-  // Mostrar alerta
-  $alerta.classList.remove("-translate-y-full");
-  $alerta.classList.add("translate-y-0");
+  $text.textContent = msg;
 
-  // Ocultar después de 3 segundos
+  // Ocultar después de 3 segundos con animación de salida
   setTimeout(() => {
-    $alerta.classList.remove("translate-y-0");
-    $alerta.classList.add("-translate-y-full");
+    $alert.classList.remove("opacity-100", "translate-y-0");
+    $alert.classList.add("opacity-0", "translate-y-4");
+
+    setTimeout(() => {
+      $alert.classList.add("hidden");
+    }, 500); // espera a que termine la animación
   }, 3000);
+}
+
+function invalidInput(input) {
+  input.focus();
+  input.classList.remove("bg-violet-200");
+  input.classList.remove("border-violet-400");
+  input.classList.remove("text-violet-500");
+  input.classList.remove("focus:outline-violet-400");
+
+  input.classList.add("bg-red-200");
+  input.classList.add("border-red-400");
+  input.classList.add("text-red-500");
+  input.classList.add("focus:outline-red-400");
+
+  showAlert("El nombre debe tener 4 caracteres", "error");
+  return;
 }
