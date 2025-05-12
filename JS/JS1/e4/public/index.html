@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div
+      id="alerta"
+      class="fixed top-0 left-4 translate-y-[-50px] transition duration-300 border-2 px-24 py-2 rounded-sm"
+    >
+      <p id="mensaje" class="font-semibold"></p>
+    </div>
+
+    <section class="flex flex-col items-center mt-8">
+      <h1 class="font-bold text-3xl">Eliminar un entero</h1>
+      <div
+        id="enteros"
+        class="flex gap-2 bg-teal-100 px-4 py-1 rounded-sm border-2 border-teal-500"
+      ></div>
+      <button
+        id="deleteEnteroBtn"
+        class="mt-2 bg-teal-600 px-6 rounded-sm border-2 border-teal-600 font-semibold text-white hover:scale-110 transition duration-300 focus:bg-teal-200 focus:text-teal-600"
+      >
+        Eliminar
+      </button>
+    </section>
+
+    <section class="flex flex-col items-center mt-8">
+      <h1 class="font-bold text-3xl">Eliminar un mensaje</h1>
+      <div
+        id="mensajes"
+        class="flex gap-2 bg-teal-100 px-4 py-1 rounded-sm border-2 border-teal-500"
+      ></div>
+      <button
+        id="deleteMensajeBtn"
+        class="mt-2 bg-teal-600 px-6 rounded-sm border-2 border-teal-600 font-semibold text-white hover:scale-110 transition duration-300 focus:bg-teal-200 focus:text-teal-600"
+      >
+        Eliminar
+      </button>
+    </section>
+
+    <section class="flex flex-col items-center mt-8">
+      <h1 class="font-bold text-3xl">Atender clientes</h1>
+      <div
+        id="clientes"
+        class="flex gap-2 bg-teal-100 px-4 py-1 rounded-sm border-2 border-teal-500"
+      ></div>
+      <button
+        id="deleteClienteBtn"
+        class="mt-2 bg-teal-600 px-6 rounded-sm border-2 border-teal-600 font-semibold text-white hover:scale-110 transition duration-300 focus:bg-teal-200 focus:text-teal-600"
+      >
+        Atender
+      </button>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

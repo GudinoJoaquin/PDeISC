@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body class="flex flex-col gap-10">
+    <section class="flex flex-col items-center mt-8">
+      <h1 class="font-bold text-3xl">Eliminar un animal</h1>
+      <div
+        id="animales"
+        class="flex gap-2 bg-teal-100 px-4 py-1 rounded-sm border-2 border-teal-500"
+      ></div>
+      <button
+        id="deleteAnimalBtn"
+        class="mt-2 bg-teal-600 px-6 rounded-sm border-2 border-teal-600 font-semibold text-white hover:scale-110 transition duration-300 focus:bg-teal-200 focus:text-teal-600"
+      >
+        Eliminar
+      </button>
+    </section>
+
+    <section class="flex flex-col items-center">
+      <h1 class="font-bold text-3xl">Eliminar un producto</h1>
+      <div
+        id="compras"
+        class="flex flex-wrap justify-center mx-10 gap-2 bg-rose-100 px-4 py-1 rounded-sm border-2 border-rose-500"
+      ></div>
+      <p id="eliminado"></p>
+      <button
+        id="deleteCompraBtn"
+        class="mt-2 bg-rose-600 px-6 rounded-sm border-2 border-rose-600 font-semibold text-white hover:scale-110 transition duration-300 focus:bg-rose-200 focus:text-rose-600"
+      >
+        Eliminar
+      </button>
+    </section>
+
+    <section class="flex flex-col items-center">
+      <h1 class="font-bold text-3xl">Eliminar el array</h1>
+      <div
+        id="arrays"
+        class="flex gap-2 bg-emerald-100 px-4 py-1 rounded-sm border-2 border-emerald-500"
+      ></div>
+      <button
+        id="deleteArrayBtn"
+        class="mt-2 bg-emerald-600 px-6 rounded-sm border-2 border-emerald-600 font-semibold text-white hover:scale-110 transition duration-300 focus:bg-emerald-200 focus:text-emerald-600"
+      >
+        Eliminar
+      </button>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

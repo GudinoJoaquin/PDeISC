@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div
+      id="alerta"
+      class="fixed top-0 left-4 translate-y-[-50px] transition duration-300 border-2 px-24 py-2 rounded-sm"
+    >
+      <p id="mensaje" class="font-semibold"></p>
+    </div>
+
+    <section class="flex flex-col justify-center items-center">
+      <h1 class="font-bold text-3xl my-6">Agregar una fruta</h1>
+      <form
+        id="form-frutas"
+        class="flex gap-6 bg-green-200 px-4 py-2 rounded-md shadow-lg shadow-green-300"
+      >
+        <input
+          type="text"
+          class="bg-green-300 pl-2 pr-4 py-1 placeholder:italic placeholder:text-green-600 border-2 border-green-500 rounded-sm focus:outline-2 focus:outline-offset-2 focus:outline-green-500"
+          id="fruta"
+          required
+          placeholder="Fruta"
+        />
+        <button
+          type="submit"
+          class="bg-green-600 px-6 rounded-sm border-2 border-green-600 font-semibold text-white hover:scale-110 transition duration-300 focus:bg-green-200 focus:text-green-600"
+        >
+          Agregar
+        </button>
+      </form>
+      <div
+        id="frutas"
+        class="flex flex-wrap justify-center gap-1 w-75 mt-6 bg-green-200 px-2 border-2 border-green-500 rounded-sm text-green-800"
+      ></div>
+    </section>
+
+    <section class="flex flex-col justify-center items-center">
+      <h1 class="font-bold text-3xl my-6">Agregar un amigo</h1>
+      <form
+        id="form-amigos"
+        class="flex gap-6 bg-green-200 px-4 py-2 rounded-md shadow-lg shadow-blue-300"
+      >
+        <input
+          type="text"
+          class="bg-blue-300 pl-2 pr-4 py-1 placeholder:italic placeholder:text-blue-600 border-2 border-blue-500 rounded-sm focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
+          id="amigo"
+          placeholder="Amigo"
+        />
+        <button
+          type="submit"
+          class="bg-blue-600 px-6 rounded-sm border-2 border-blue-600 font-semibold text-white hover:scale-110 transition duration-300 focus:bg-blue-200 focus:text-blue-600"
+        >
+          Agregar
+        </button>
+      </form>
+      <div
+        id="amigos"
+        class="flex flex-wrap justify-center gap-1 w-75 mt-6 bg-blue-200 px-2 border-2 border-blue-500 rounded-sm text-blue-800"
+      ></div>
+    </section>
+
+    <section class="flex flex-col justify-center items-center">
+      <h1 class="font-bold text-3xl my-6">Agregar un amigo</h1>
+      <form
+        id="form-numeros"
+        class="flex gap-6 bg-violet-200 px-4 py-2 rounded-md shadow-lg shadow-violet-300"
+      >
+        <input
+          type="number"
+          class="bg-violet-300 pl-2 pr-4 py-1 placeholder:italic placeholder:text-violet-600 border-2 border-violet-500 rounded-sm focus:outline-2 focus:outline-offset-2 focus:outline-violet-500"
+          id="numero"
+          placeholder="Amigo"
+        />
+        <button
+          type="submit"
+          class="bg-violet-600 px-6 rounded-sm border-2 border-violet-600 font-semibold text-white hover:scale-110 transition duration-300 focus:bg-violet-200 focus:text-violet-600"
+        >
+          Agregar
+        </button>
+      </form>
+      <div
+        id="numeros"
+        class="flex flex-wrap justify-center gap-1 w-75 mt-6 bg-violet-200 px-2 border-2 border-violet-500 rounded-sm text-violet-800"
+      ></div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
