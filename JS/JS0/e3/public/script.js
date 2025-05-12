@@ -1,7 +1,9 @@
+// Referencia al elemento UL donde se mostrarán los datos
 const $lista = document.getElementById("lista");
 
 let data = null;
 
+// Función asincrónica para obtener datos del servidor
 async function fetchData() {
   try {
     const response = await fetch("http://localhost:3000/obtener", {
@@ -9,12 +11,16 @@ async function fetchData() {
       headers: {
         "Content-Type": "application/json",
         "x-api-key":
-          "b9e5cdb7a9fc4e10b7c6b8a34ff5e2d8a4c9f18ed124eab5b02f4dd3e1cba7e1",
+          "b9e5cdb7a9fc4e10b7c6b8a34ff5e2d8a4c9f18ed124eab5b02f4dd3e1cba7e1", // Clave API para autenticación
       },
     });
+
+    // Si la respuesta es exitosa, procesar datos
     if (response.ok) {
-      data = await response.json();
+      data = await response.json(); // Convertir respuesta a JSON
       console.log(data);
+
+      // Renderizar datos como elementos <li> dentro de la lista
       $lista.innerHTML = data
         .map(
           (user) =>
@@ -22,12 +28,14 @@ async function fetchData() {
         )
         .join("");
     }
-    console.log(response);
+
+    console.log(response); // Mostrar objeto de respuesta en consola
   } catch (err) {
-    console.log(err);
+    console.log(err); // Mostrar errores de red o fetch
   }
 }
 
+// Función asincrónica para enviar datos al servidor
 async function sendData(data) {
   try {
     const response = await fetch("/sendData", {
@@ -52,15 +60,18 @@ async function sendData(data) {
         cantidadHijos: data.cantidadHijos,
       }),
     });
-    // Opcional: manejar la respuesta si es necesario
+
+    // Podrías manejar la respuesta aquí si fuera necesario
   } catch (err) {
-    console.log(err);
+    console.log(err); // Mostrar error si falla el envío
   }
 }
 
+// Evento al enviar el formulario
 document.getElementById("form").addEventListener("submit", (e) => {
-  e.preventDefault();
+  e.preventDefault(); // Prevenir recarga de página
 
+  // Obtener todos los campos del formulario
   const $nombre = document.getElementById("nombre");
   const $apellido = document.getElementById("apellido");
   const $edad = document.getElementById("edad");
@@ -75,6 +86,7 @@ document.getElementById("form").addEventListener("submit", (e) => {
   const $hijos = document.getElementById("hijos");
   const $cantidadHijos = document.getElementById("cantidad-hijos");
 
+  // Validaciones
   if ($nombre.value.trim().length < 4) {
     invalidInput($nombre);
     showAlert("Ingrese un nombre valido", "error");
@@ -136,6 +148,7 @@ document.getElementById("form").addEventListener("submit", (e) => {
     return;
   }
 
+  // Crear objeto con los datos del formulario
   const data = {
     nombre: $nombre.value,
     apellido: $apellido.value,
@@ -151,12 +164,13 @@ document.getElementById("form").addEventListener("submit", (e) => {
     cantidadHijos: $hijos.checked ? $cantidadHijos.value : 0,
   };
 
-  sendData(data);
+  sendData(data); // Enviar los datos al backend
 
-  showAlert("Datos ingresados con exito", "success");
+  showAlert("Datos ingresados con exito", "success"); // Mostrar alerta de éxito
 
-  fetchData();
-  // Limpiar campos
+  fetchData(); // Actualizar la lista con los nuevos datos
+
+  // Limpiar campos del formulario
   $nombre.value = "";
   $apellido.value = "";
   $edad.value = "";
@@ -171,36 +185,44 @@ document.getElementById("form").addEventListener("submit", (e) => {
   $cantidadHijos.value = "";
 });
 
+// Llamar a la función para obtener datos al cargar la página
 fetchData();
 
+// Función para marcar inputs como inválidos visualmente
 function invalidInput(input) {
   input.focus();
-  input.classList.remove("bg-violet-200");
-  input.classList.remove("border-violet-400");
-  input.classList.remove("text-violet-500");
-  input.classList.remove("focus:outline-violet-400");
-
-  input.classList.add("bg-red-200");
-  input.classList.add("border-red-400");
-  input.classList.add("text-red-500");
-  input.classList.add("focus:outline-red-400");
+  input.classList.remove(
+    "bg-violet-200",
+    "border-violet-400",
+    "text-violet-500",
+    "focus:outline-violet-400"
+  );
+  input.classList.add(
+    "bg-red-200",
+    "border-red-400",
+    "text-red-500",
+    "focus:outline-red-400"
+  );
   return;
 }
 
+// Mostrar alertas con distintos estilos dependiendo del tipo
 function showAlert(msg, type) {
   const $alerta = document.getElementById("alerta");
   const $mensaje = document.getElementById("mensaje");
 
-  // Setea el mensaje
   $mensaje.textContent = msg;
 
-  // Limpia clases anteriores (por si ya se mostró antes)
-  $alerta.classList.remove("bg-red-200", "border-red-500");
-  $mensaje.classList.remove("text-red-500");
+  // Limpiar estilos anteriores
+  $alerta.classList.remove(
+    "bg-red-200",
+    "border-red-500",
+    "bg-green-200",
+    "border-green-500"
+  );
+  $mensaje.classList.remove("text-red-500", "text-green-500");
 
-  $alerta.classList.remove("bg-green-200", "border-green-500");
-  $mensaje.classList.remove("text-green-500");
-
+  // Aplicar nuevos estilos según tipo
   if (type === "error") {
     $alerta.classList.add("bg-red-200", "border-red-500");
     $mensaje.classList.add("text-red-500");
@@ -211,17 +233,18 @@ function showAlert(msg, type) {
     $mensaje.classList.add("text-green-500");
   }
 
-  // Muestra la alerta (bajándola a visible)
+  // Mostrar la alerta
   $alerta.classList.remove("translate-y-[-50px]");
   $alerta.classList.add("translate-y-[10px]");
 
-  // Oculta la alerta después de 3 segundos
+  // Ocultar después de 3 segundos
   setTimeout(() => {
     $alerta.classList.remove("translate-y-[10px]");
     $alerta.classList.add("translate-y-[-50px]");
   }, 3000);
 }
 
+// Habilitar o deshabilitar el campo cantidad de hijos según el checkbox
 const checkbox = document.getElementById("hijos");
 const cantidadInput = document.getElementById("cantidad-hijos");
 
