@@ -4,7 +4,14 @@ let data = null;
 
 async function fetchData() {
   try {
-    const response = await fetch("http://localhost:3000/obtener");
+    const response = await fetch("http://localhost:3000/obtener", {
+      method: "GET",
+      headers: {
+        "Contenty-type": "application/json",
+        "x-api-key":
+          "b9e5cdb7a9fc4e10b7c6b8a34ff5e2d8a4c9f18ed124eab5b02f4dd3e1cba7e1",
+      },
+    });
     if (response.ok) {
       data = await response.json();
       console.log(data);
@@ -36,6 +43,8 @@ async function sendData(data) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "x-api-key":
+          "b9e5cdb7a9fc4e10b7c6b8a34ff5e2d8a4c9f18ed124eab5b02f4dd3e1cba7e1",
       },
       body: JSON.stringify({
         jugador: data.jugador,
@@ -103,50 +112,37 @@ document.getElementById("form").addEventListener("submit", (e) => {
 fetchData();
 
 function showAlert(msg, type) {
-  const $alert = document.getElementById("alerta");
-  const $text = document.getElementById("texto");
+  const $alerta = document.getElementById("alerta");
+  const $mensaje = document.getElementById("mensaje");
 
-  // Limpiamos clases previas
-  $alert.className = "";
-  $text.className = "";
+  // Setea el mensaje
+  $mensaje.textContent = msg;
 
-  // Clases base + animación de entrada
-  $alert.classList.add(
-    "px-24",
-    "py-2",
-    "fixed-bottom",
-    "rounded-sm",
-    "opacity-0",
-    "translate-y-4",
-    "transition-all",
-    "duration-500"
-  );
+  // Limpia clases anteriores (por si ya se mostró antes)
+  $alerta.classList.remove("bg-red-200", "border-red-500");
+  $mensaje.classList.remove("text-red-500");
 
-  // Forzamos reflow para que se aplique la animación
-  void $alert.offsetWidth;
+  $alerta.classList.remove("bg-green-200", "border-green-500");
+  $mensaje.classList.remove("text-green-500");
 
-  $alert.classList.remove("opacity-0", "translate-y-4");
-  $alert.classList.add("opacity-100", "translate-y-0");
-
-  // Tipo de alerta
   if (type === "error") {
-    $alert.classList.add("bg-red-500/40", "border-2", "border-red-500");
-    $text.classList.add("text-red-500", "font-semibold");
-  } else if (type === "success") {
-    $alert.classList.add("bg-green-500/40", "border-2", "border-green-500");
-    $text.classList.add("text-green-500", "font-semibold");
+    $alerta.classList.add("bg-red-200", "border-red-500");
+    $mensaje.classList.add("text-red-500");
   }
 
-  $text.textContent = msg;
+  if (type === "success") {
+    $alerta.classList.add("bg-green-200", "border-green-500");
+    $mensaje.classList.add("text-green-500");
+  }
 
-  // Ocultar después de 3 segundos con animación de salida
+  // Muestra la alerta (bajándola a visible)
+  $alerta.classList.remove("translate-y-[-50px]");
+  $alerta.classList.add("translate-y-[10px]");
+
+  // Oculta la alerta después de 3 segundos
   setTimeout(() => {
-    $alert.classList.remove("opacity-100", "translate-y-0");
-    $alert.classList.add("opacity-0", "translate-y-4");
-
-    setTimeout(() => {
-      $alert.classList.add("hidden");
-    }, 500); // espera a que termine la animación
+    $alerta.classList.remove("translate-y-[10px]");
+    $alerta.classList.add("translate-y-[-50px]");
   }, 3000);
 }
 
