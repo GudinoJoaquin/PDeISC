@@ -89,9 +89,15 @@ function showAlert(msg, type) {
     "bg-red-200",
     "border-red-500",
     "bg-green-200",
-    "border-green-500"
+    "border-green-500",
+    "bg-yellow-200",
+    "border-yellow-500"
   );
-  $mensaje.classList.remove("text-red-500", "text-green-500");
+  $mensaje.classList.remove(
+    "text-red-500",
+    "text-green-500",
+    "text-yellow-500"
+  );
 
   // Aplicar nuevos estilos según tipo
   if (type === "error") {
@@ -102,6 +108,11 @@ function showAlert(msg, type) {
   if (type === "success") {
     $alerta.classList.add("bg-green-200", "border-green-500");
     $mensaje.classList.add("text-green-500");
+  }
+
+  if (type === "warning") {
+    $alerta.classList.add("bg-yellow-200", "border-yellow-500");
+    $mensaje.classList.add("text-yellow-500");
   }
 
   // Mostrar la alerta
@@ -139,7 +150,7 @@ document.getElementById("form-color").addEventListener("submit", (e) => {
   const $color = document.getElementById("color");
 
   if ($color.value.trim() === "") {
-    showAlert("Ingrese una color valida", "error");
+    showAlert("Ingrese un color valida", "error");
     invalidInput($color);
     return;
   }

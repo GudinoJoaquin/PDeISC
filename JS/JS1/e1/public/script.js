@@ -9,10 +9,17 @@ async function sendData(data, endpoint) {
       body: JSON.stringify(data),
     });
 
-    if (response.ok) {
-      console.log(response);
-      return response;
-    }
+    const contentType = response.headers.get("content-type");
+    const body =
+      contentType && contentType.includes("application/json")
+        ? await response.json()
+        : await response.text();
+
+    return {
+      status: response.status,
+      ok: response.ok,
+      body: body,
+    };
   } catch (err) {
     console.log(err);
   }
@@ -34,7 +41,7 @@ async function fetchFrutas() {
 
       const $frutas = document.getElementById("frutas");
 
-      $frutas.innerHTML = data.map((fruta) => `<p>${fruta.fruta}</p>`);
+      $frutas.innerHTML = data.map((fruta) => `<p>${fruta}</p>`);
     }
   } catch (err) {
     console.log(err);
@@ -52,9 +59,15 @@ function showAlert(msg, type) {
     "bg-red-200",
     "border-red-500",
     "bg-green-200",
-    "border-green-500"
+    "border-green-500",
+    "bg-yellow-200",
+    "border-yellow-500"
   );
-  $mensaje.classList.remove("text-red-500", "text-green-500");
+  $mensaje.classList.remove(
+    "text-red-500",
+    "text-green-500",
+    "text-yellow-500"
+  );
 
   // Aplicar nuevos estilos según tipo
   if (type === "error") {
@@ -65,6 +78,11 @@ function showAlert(msg, type) {
   if (type === "success") {
     $alerta.classList.add("bg-green-200", "border-green-500");
     $mensaje.classList.add("text-green-500");
+  }
+
+  if (type === "warning") {
+    $alerta.classList.add("bg-yellow-200", "border-yellow-500");
+    $mensaje.classList.add("text-yellow-500");
   }
 
   // Mostrar la alerta
@@ -128,7 +146,7 @@ async function fetchAmigos() {
     if (response.ok) {
       const data = await response.json();
       const $amigos = document.getElementById("amigos");
-      $amigos.innerHTML = data.map((amigo) => `<p>${amigo.amigo}</p>`);
+      $amigos.innerHTML = data.map((amigo) => `<p>${amigo}</p>`);
     }
   } catch (err) {
     console.log(err);
@@ -165,31 +183,40 @@ async function fetchNumeros() {
       console.log(response);
       const data = await response.json();
       const $numeros = document.getElementById("numeros");
-      $numeros.innerHTML = data.map((numero) => `<p>${numero.numero}</p>`);
+      $numeros.innerHTML = data.map((numero) => `<p>${numero}</p>`);
     }
   } catch (err) {
     console.log(err);
   }
 }
 
-document.getElementById("form-numeros").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const $numero = document.getElementById("numero");
+document
+  .getElementById("form-numeros")
+  .addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const $numero = document.getElementById("numero");
 
-  if (isNaN($numero.value) || $numero.value === "") {
-    showAlert("Ingrese un numero valido", "error");
-    invalidInput($numero);
-    return;
-  }
+    if (isNaN($numero.value) || $numero.value === "") {
+      showAlert("Ingrese un numero valido", "error");
+      invalidInput($numero);
+      return;
+    }
 
-  const serverResponse = sendData(
-    { numero: $numero.value },
-    "http://localhost:3000/sendNumero"
-  );
+    const { status, body } = await sendData(
+      { numero: $numero.value },
+      "http://localhost:3000/sendNumero"
+    );
 
-  fetchNumeros();
+    if (status === 406) {
+      showAlert(body.message, "warning");
+      return;
+    }
 
-  $numero.value = "";
-});
+    showAlert(body.message, "success");
+
+    fetchNumeros();
+
+    $numero.value = "";
+  });
 
 fetchNumeros();

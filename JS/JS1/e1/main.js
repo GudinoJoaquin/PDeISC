@@ -30,22 +30,31 @@ app.get("/", (req, res) => {
 });
 
 app.post("/sendFruta", (req, res) => {
-  const fruta = req.body;
+  const { fruta } = req.body;
   console.log(fruta);
   FRUTAS.push(fruta);
 });
 
 app.post("/sendAmigo", (req, res) => {
-  const amigo = req.body;
+  const { amigo } = req.body;
   console.log(amigo);
   AMIGOS.push(amigo);
 });
 
 app.post("/sendNumero", (req, res) => {
-  const numero = req.body;
+  const { numero } = req.body;
   console.log(numero);
-  console.log(Math.max(NUMEROS));
-  NUMEROS.push(numero);
+  if (NUMEROS.length <= 0) {
+    NUMEROS.push(numero);
+    res.status(200).json({ message: "Numero ingresado" });
+    return;
+  }
+  if (numero > NUMEROS[NUMEROS.length - 1]) {
+    NUMEROS.push(numero);
+    res.status(200).json({ message: "Numero ingresado" });
+    return;
+  }
+  res.status(406).json({ message: "Numero no ingresado" });
 });
 
 app.get("/getFrutas", (req, res) => {

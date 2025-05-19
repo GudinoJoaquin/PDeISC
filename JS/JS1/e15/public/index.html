@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <main class="bg-white rounded-lg shadow-lg p-6 max-w-xl w-full">
+      <h1 class="text-3xl font-bold mb-6 text-center">
+        Decodificador de Mensajes Secretos
+      </h1>
+
+      <label for="input-texto" class="mb-2 font-semibold block"
+        >Mensaje Codificado (SECRETO.IN):</label
+      >
+      <textarea
+        id="input-texto"
+        rows="5"
+        class="w-full p-3 rounded border border-gray-300 mb-4 resize-none"
+        placeholder="Pega aquí el mensaje codificado..."
+      >
+Hoy (.sh 22 sal a) (ed asac ne sominuer son) Marcelo.</textarea
+      >
+
+      <button
+        id="btn-decodificar"
+        class="bg-teal-600 text-white px-6 py-2 rounded shadow hover:bg-teal-700 transition w-full"
+      >
+        Decodificar mensaje
+      </button>
+
+      <h2 class="text-xl font-semibold mt-8 mb-2 text-center">
+        Mensaje Decodificado (SECRETO.OUT):
+      </h2>
+      <div
+        id="output-texto"
+        class="w-full bg-teal-50 p-4 rounded border border-teal-500 min-h-[4rem] whitespace-pre-wrap shadow"
+      ></div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
