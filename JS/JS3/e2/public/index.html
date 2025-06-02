@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body class="bg-[#202020] text-white">
+    <form
+      id="form"
+      class="flex flex-col gap-4 items-center justify-center h-[80vh]"
+    >
+      <label for="file" class="text-2xl font-bold">Adjuntar archivo</label>
+      <input
+        type="file"
+        id="file"
+        accept=".txt"
+        class="border-2 border-white px-4 py-1 rounded-md hover:scale-105 transition placeholder:text-center"
+      />
+      <button
+        id="btn"
+        type="submit"
+        class="border-2 border-white px-4 py-1 font-semibold rounded-md hover:scale-105 transition"
+      >
+        Enviar archivo
+      </button>
+      <div id="display"></div>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

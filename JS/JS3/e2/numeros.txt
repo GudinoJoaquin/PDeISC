@@ -1,0 +1,4 @@
+Validos: [505,202,505,202,505,202] 
+Inivalidos: [200,134314,350,200,134314,350,200,134314,350]
+Cantidad validos: 6
+Cantidad invalidos: 9

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body class="bg-[#202020] text-white">
+    <div
+      id="alert"
+      class="mx-auto w-64 font-bold -translate-y-10 h-8 rounded-lg flex justify-center items-center transition"
+    >
+      adfadf
+    </div>
+
+    <form
+      id="form"
+      class="flex flex-col gap-4 items-center justify-center h-[80vh]"
+    >
+      <input
+        type="number"
+        placeholder="Ingrese un numero"
+        id="numero"
+        class="border-2 border-[#606060] text-[#606060] rounded-md py-1 pr-4 pl-2 placeholder:italic text-center font-medium focus:outline-none focus:border-white focus:text-white transition"
+      />
+      <button
+        id="btn"
+        type="submit"
+        class="border-2 border-[#606060] px-6 py-1 rounded-lg text-[#606060] font-medium italic hover:scale-110 hover:border-white hover:text-white transition"
+      >
+        Enviar
+      </button>
+
+      <section class="flex gap-1 items-center justify-center font-medium">
+        <p>[</p>
+        <div id="display" class="flex gap-1 items-center justify-center"></div>
+        <p>]</p>
+      </section>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
