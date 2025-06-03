@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <section class="flex flex-col items-center justify-center mt-8">
+      <h1 class="text-2xl font-bold mb-3">Buscar palabra</h1>
+      <input
+        type="text"
+        class="bg-green-300 pl-2 pr-4 py-1 mb-2 placeholder:italic placeholder:text-green-600 border-2 border-green-500 rounded-sm focus:outline-2 focus:outline-offset-2 focus:outline-green-500"
+        id="palabra"
+        required
+        placeholder="Palabra"
+      />
+      <button
+        id="palabraBtn"
+        type="submit"
+        class="bg-green-600 px-6 rounded-sm cursor-pointer border-2 border-green-600 font-semibold text-white hover:scale-110 transition duration-300 focus:bg-green-200 focus:text-green-600"
+      >
+        Agregar
+      </button>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

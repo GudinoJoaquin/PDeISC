@@ -6,11 +6,14 @@ const $alert = document.getElementById("alert");
 //Funcion para enviar data el servidor
 async function sendData(data, endpoint) {
   try {
+    //Fetch al endpoint
     const response = await fetch(endpoint, {
+      //Definicion de metodo POST y cabecera de la peticion
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      //Cuerpo de la peticion con el contenido
       body: JSON.stringify(data),
     });
 
@@ -35,7 +38,9 @@ async function sendData(data, endpoint) {
 //Obtenemos los datos del servidor
 async function fetchData(endpoint, display) {
   try {
+    //Fetch para obtener los datos
     const response = await fetch(endpoint);
+    //Si la respuesta es ok muestra los datos en display
     if (response.ok) {
       const data = await response.json();
       console.log(data);
