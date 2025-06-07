@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body class="bg-slate-800 text-white">
+    <h1 class="text-white font-bold text-center mt-4 mb-4 text-4xl">TaTeTi</h1>
+
+    <main
+      id="select-board"
+      class="flex flex-col justify-center items-center h-[75vh] gap-8"
+    >
+      <h1 class="font-bold text-3xl">Elegi tu modo de juego</h1>
+      <div class="flex gap-8">
+        <button
+          id="singleplayer"
+          class="border-2 border-white size-24 p-2 shadow-lg shadow-white font-bold rounded-lg text-center hover:text-slate-800 hover:bg-white transition duration-300 cursor-pointer"
+        >
+          CPU
+        </button>
+        <button
+          id="multiplayer"
+          class="border-2 border-white size-24 p-2 shadow-lg shadow-white font-bold rounded-lg text-center hover:text-slate-800 hover:bg-white transition duration-300 cursor-pointer"
+        >
+          1v1
+        </button>
+      </div>
+    </main>
+
+    <form
+      id="form"
+      class="hidden flex-col items-center justify-center h-[70vh] gap-2"
+    >
+      <div
+        id="inputs-container"
+        class="flex flex-col gap-2 w-full items-center"
+      ></div>
+      <button
+        type="submit"
+        class="bg-sky-500 shadow-lg shadow-sky-500 px-4 py-1 rounded-md text-white font-bold hover:scale-110 transition duration-300 cursor-pointer"
+      >
+        Ingresar
+      </button>
+    </form>
+
+    <section class="hidden flex-col items-center gap-1">
+      <div class="flex gap-1">
+        <button
+          class="board bg-radial from-violet-500 to-violet-700 border-4 border-slate-950 w-[100px] h-[100px] text-white font-bold text-3xl"
+        ></button
+        ><button
+          class="board bg-radial from-violet-500 to-violet-700 border-4 border-slate-950 w-[100px] h-[100px] text-white font-bold text-3xl"
+        ></button
+        ><button
+          class="board bg-radial from-violet-500 to-violet-700 border-4 border-slate-950 w-[100px] h-[100px] text-white font-bold text-3xl"
+        ></button>
+      </div>
+      <div class="flex gap-1">
+        <button
+          class="board bg-radial from-violet-500 to-violet-700 border-4 border-slate-950 w-[100px] h-[100px] text-white font-bold text-3xl"
+        ></button
+        ><button
+          class="board bg-radial from-violet-500 to-violet-700 border-4 border-slate-950 w-[100px] h-[100px] text-white font-bold text-3xl"
+        ></button
+        ><button
+          class="board bg-radial from-violet-500 to-violet-700 border-4 border-slate-950 w-[100px] h-[100px] text-white font-bold text-3xl"
+        ></button>
+      </div>
+      <div class="flex gap-1">
+        <button
+          class="board bg-radial from-violet-500 to-violet-700 border-4 border-slate-950 w-[100px] h-[100px] text-white font-bold text-3xl"
+        ></button
+        ><button
+          class="board bg-radial from-violet-500 to-violet-700 border-4 border-slate-950 w-[100px] h-[100px] text-white font-bold text-3xl"
+        ></button
+        ><button
+          class="board bg-radial from-violet-500 to-violet-700 border-4 border-slate-950 w-[100px] h-[100px] text-white font-bold text-3xl"
+        ></button>
+      </div>
+      <button
+        class="mt-4 text-white font-semibold border-4 border-slate-950 px-4 py-1 rounded-sm hover:scale-110 transition duration-300"
+        id="reiniciar"
+      >
+        Reiniciar
+      </button>
+    </section>
+
+    <p
+      id="winnerDisplay"
+      class="text-white text-center font-semibold text-2xl mt-4"
+    ></p>
+
+    <div id="tablaPuntajes" class="w-full flex justify-center mb-8"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body class="bg-slate-800">
+    <form
+      id="form"
+      class="flex flex-col items-center justify-center h-[70vh] gap-2"
+    >
+      <input
+        type="text"
+        id="name"
+        placeholder="Nombre"
+        class="border-4 font-semibold border-sky-500 bg-sky-300 text-sky-950 rounded-md text-xl placeholder:italic pl-2 pr-8 py-1 focus:outline-none focus:shadow-lg shadow-sky-500"
+      />
+      <button
+        type="submit"
+        class="bg-sky-500 shadow-lg shadow-sky-500 px-4 py-1 rounded-md text-white font-bold hover:scale-110 transition duration-300 cursor-pointer"
+      >
+        Ingresar
+      </button>
+    </form>
+
+    <main
+      id="board"
+      class="hidden flex-col items-center justify-center h-[80vh]"
+    >
+      <section
+        class="relative grid grid-cols-2 grid-rows-2 size-[350px] lg:size-[500px] gap-4 bg-slate-950 rounded-full p-[18px] mt-8 rotate-45"
+      >
+        <button
+          id="green"
+          color="green"
+          class="colorBtn cursor-pointer bg-radial-[50%_75%] from-green-500 hover:from-green-600 to-green-800 hover:to-green-500 rounded-tl-full transition duration-300"
+        ></button>
+        <button
+          id="red"
+          color="red"
+          class="colorBtn cursor-pointer bg-radial-[50%_75%] from-red-500 hover:from-red-800 to-red-800 hover:to-red-500 rounded-tr-full transition duration-300"
+        ></button>
+        <button
+          id="yellow"
+          color="yellow"
+          class="colorBtn cursor-pointer bg-radial-[50%_75%] from-yellow-500 hover:from-yellow-600 to-yellow-800 hover:to-yellow-500 rounded-bl-full transition duration-300"
+        ></button>
+        <button
+          id="blue"
+          color="blue"
+          class="colorBtn cursor-pointer bg-radial-[50%_75%] from-sky-500 hover:from-sky-600 to-sky-800 hover:to-sky-500 rounded-br-full transition duration-300"
+        ></button>
+
+        <div
+          class="absolute flex items-center justify-center -rotate-45 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-950 rounded-full size-[190px] lg:size-[254px]"
+        >
+          <button
+            id="start"
+            class="text-white cursor-pointer font-semibold text-2xl lg:text-3xl bg-radial-[at_25%_25%] from-slate-700 hover:from-slate-900 to-slate-900 hover:to-slate-700 size-[160px] lg:size-[230px] rounded-full transition duration-300"
+          >
+            Iniciar
+          </button>
+        </div>
+      </section>
+    </main>
+    <div id="tablaPuntajes" class="w-full flex justify-center mb-8"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
