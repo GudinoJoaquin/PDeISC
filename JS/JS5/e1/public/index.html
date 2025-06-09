@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body class="bg-neutral-800 text-neutral-200">
+    <h1 class="font-bold text-4xl text-center mt-24 lg:mt-12">Zoo</h1>
+
+    <main class="grid grid-cols-1 lg:grid-cols-3 mb-20">
+      <section>
+        <h1 class="font-bold text-center text-3xl mb-10">Animales</h1>
+        <table id="table" class="flex flex-col items-center"></table>
+      </section>
+      <section>
+        <form
+          id="form"
+          class="flex flex-col gap-2 items-center justify-center h-[50vh]"
+        >
+          <input
+            type="text"
+            id="animal-name"
+            placeholder="Nombre del animal"
+            class="border-2 border-neutral-200 pl-2 pr-4 py-1 rounded-md focus:border-green-400 outline-none placeholder:italic transition"
+          />
+          <input
+            type="number"
+            id="jail-number"
+            placeholder="Numero de jaula"
+            class="border-2 border-neutral-200 pl-2 pr-4 py-1 rounded-md focus:border-green-400 outline-none placeholder:italic transition"
+          />
+          <select
+            id="animal-type"
+            class="border-2 border-neutral-200 w-52 py-1 text-center rounded-md focus:border-green-400 outline-none placeholder:italic transition"
+          >
+            <option value="1" class="bg-neutral-800">Felino</option>
+            <option value="2" class="bg-neutral-800">Ave</option>
+            <option value="3" class="bg-neutral-800">Reptil</option>
+          </select>
+          <input
+            type="number"
+            id="animal-weigth"
+            placeholder="Peso del animal"
+            class="border-2 border-neutral-200 pl-2 pr-4 py-1 rounded-md focus:border-green-400 outline-none placeholder:italic transition"
+          />
+          <button
+            type="submit"
+            class="bg-green-400 text-neutral-800 px-4 py-2 rounded-lg font-bold hover:scale-110 transition"
+          >
+            Guardar animales
+          </button>
+        </form>
+      </section>
+      <section>
+        <h1 class="font-bold text-center text-3xl mb-10">Info</h1>
+        <table id="info" class="flex flex-col items-center"></table>
+      </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
