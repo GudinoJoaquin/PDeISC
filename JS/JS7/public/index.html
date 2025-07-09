@@ -1,15 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mini Wordle Tailwind</title>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
+  <body
+    class="bg-gray-900 text-white flex flex-col items-center justify-center p-4"
+  >
+    <section id="register">
+      <h1 class="text-3xl font-bold mb-6">Ingresar</h1>
+      <form id="user-form" class="mb-6">
+        <input
+          id="player-name"
+          type="text"
+          autocomplete="off"
+          class="text-black text-center text-xl font-mono rounded px-3 py-1 w-40"
+          placeholder="Ingresa su nombre"
+          required
+          autofocus
+        />
+        <button
+          type="submit"
+          class="ml-4 bg-blue-600 hover:bg-blue-700 rounded px-4 py-2 font-semibold"
+        >
+          Probar
+        </button>
+      </form>
+    </section>
 
+    <section id="game" class="hidden flex-col items-center justify-center">
+      <h1 class="text-3xl font-bold mb-6">Mini Wordle</h1>
 
-    
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="./script.js" type="module"></script>
+      <form id="game-form" class="mb-6">
+        <input
+          id="word"
+          type="text"
+          maxlength="5"
+          autocomplete="off"
+          class="text-black text-center text-xl font-mono rounded px-3 py-1 w-40"
+          placeholder="Ingresa 5 letras"
+          required
+          autofocus
+        />
+        <!-- <button
+          type="submit"
+          class="ml-4 bg-blue-600 hover:bg-blue-700 rounded px-4 py-2 font-semibold"
+        >
+          Probar
+        </button> -->
+      </form>
+
+      <section
+        id="palabra"
+        class="flex flex-col items-center w-full max-w-md"
+      ></section>
+    </section>
+
+    <script type="module" src="./script.js"></script>
+    <script type="module" src="./utils/game.js"></script>
+    <script type="module" src="./utils/register.js"></script>
   </body>
 </html>
