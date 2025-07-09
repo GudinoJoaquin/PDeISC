@@ -32,9 +32,9 @@ export function checkWin(intento, palabra, display, input) {
   const lose = intentos >= 6;
   const win = intento === palabra;
   DOM.create("p")
-    .text(lose ? "Perdiste" : win ? "Ganaste" : "")
+    .text(win ? "Ganaste" : lose ? "Perdiste" : "")
     .style([
-      `${lose ? `text-red-500` : win ? "text-green-400" : "text-red-500"}`,
+      `${win ? `text-green-400` : lose ? "text-red-500" : "text-red-500"}`,
       "font-bold",
       "mt-2",
     ])

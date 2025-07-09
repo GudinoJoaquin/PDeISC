@@ -14,13 +14,13 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "nombre": "Gudi",
+  "nombre": "Felipe",
   "puntos": "134",
   "tiempo": "05:43"
 }
 
 ###
-DELETE http://localhost:3000/users/5
+DELETE http://localhost:3000/users/8
 
 ###
-GET http://localhost:3000/users/3
+GET http://localhost:3000/users/8
