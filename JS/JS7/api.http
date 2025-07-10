@@ -20,7 +20,15 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3000/users/8
+DELETE http://localhost:3000/users/5
 
 ###
 GET http://localhost:3000/users/8
+
+###
+PUT http://localhost:3000/users/6
+Content-Type: application/json
+
+{
+  "nombre": "Gudi"
+}

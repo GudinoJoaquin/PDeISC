@@ -7,8 +7,29 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body
-    class="bg-gray-900 text-white flex flex-col items-center justify-center p-4"
+    class="bg-slate-200 text-slate-800 flex flex-col items-center justify-center p-4"
   >
+    <section
+      id="alert"
+      class="hidden text-slate-800 w-64 h-64 bg-slate-200 absolute z-10 top-24 flex flex-col items-center justify-center gap-16 opacity-0 rounded-lg"
+    >
+      <p id="sign"></p>
+      <div class="flex flex-col items-center gap-6">
+        <button
+          id="restart"
+          class="shadow-lg shadow-slate-400 hover:scale-110 font-bold rounded-md px-4 py-1 transition"
+        >
+          Volver a jugar
+        </button>
+        <button
+          id="save"
+          class="shadow-lg shadow-slate-400 hover:scale-110 font-bold rounded-md px-4 py-1 transition"
+        >
+          Guardar
+        </button>
+      </div>
+    </section>
+
     <section id="register">
       <h1 class="text-3xl font-bold mb-6">Ingresar</h1>
       <form id="user-form" class="mb-6">
@@ -30,36 +51,287 @@
       </form>
     </section>
 
-    <section id="game" class="hidden flex-col items-center justify-center">
-      <h1 class="text-3xl font-bold mb-6">Mini Wordle</h1>
-
-      <form id="game-form" class="mb-6">
-        <input
-          id="word"
-          type="text"
-          maxlength="5"
-          autocomplete="off"
-          class="text-black text-center text-xl font-mono rounded px-3 py-1 w-40"
-          placeholder="Ingresa 5 letras"
-          required
-          autofocus
-        />
-        <!-- <button
-          type="submit"
-          class="ml-4 bg-blue-600 hover:bg-blue-700 rounded px-4 py-2 font-semibold"
+    <main id="board" class="z-0">
+      <section
+        id="game"
+        class="hidden flex-col items-center justify-center mt-12"
+      >
+        <section
+          id="grid"
+          class="mb-6 flex gap-4 flex-col items-center justify-center"
         >
-          Probar
-        </button> -->
-      </form>
+          <div class="row flex gap-2">
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+          </div>
+          <div class="row flex gap-2">
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+          </div>
+          <div class="row flex gap-2">
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+          </div>
+          <div class="row flex gap-2">
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+          </div>
+          <div class="row flex gap-2">
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+          </div>
+          <div class="row flex gap-2">
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+            <div
+              class="cell size-14 md:size-16 bg-slate-300 rounded-lg md:text-3xl flex items-center justify-center font-bold"
+            ></div>
+          </div>
+        </section>
+      </section>
 
       <section
-        id="palabra"
-        class="flex flex-col items-center w-full max-w-md"
-      ></section>
-    </section>
+        id="keyboard"
+        class="grid gap-1 max-w-96 w-96 px-4 mt-4 md:hidden"
+      >
+        <!-- Fila 1 -->
+        <div class="grid grid-cols-10 gap-1">
+          <button
+            class="key h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            Q
+          </button>
+          <button
+            class="key h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            W
+          </button>
+          <button
+            class="key h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            E
+          </button>
+          <button
+            class="key h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            R
+          </button>
+          <button
+            class="key h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            T
+          </button>
+          <button
+            class="key h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            Y
+          </button>
+          <button
+            class="key h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            U
+          </button>
+          <button
+            class="key h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            I
+          </button>
+          <button
+            class="key h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            O
+          </button>
+          <button
+            class="key h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            P
+          </button>
+        </div>
+
+        <!-- Fila 2 -->
+        <div class="grid grid-cols-10 gap-1">
+          <button
+            class="key h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            A
+          </button>
+          <button
+            class="key h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            S
+          </button>
+          <button
+            class="key h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            D
+          </button>
+          <button
+            class="key h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            F
+          </button>
+          <button
+            class="key h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            G
+          </button>
+          <button
+            class="key h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            H
+          </button>
+          <button
+            class="key h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            J
+          </button>
+          <button
+            class="key h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            K
+          </button>
+          <button
+            class="key h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            L
+          </button>
+          <button
+            class="key h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            Ñ
+          </button>
+        </div>
+
+        <!-- Fila 3 -->
+        <div class="grid grid-cols-11 gap-1">
+          <button
+            class="key col-span-2 h-12 text-center rounded-sm bg-slate-300 text-black font-bold"
+          >
+            Borrar
+          </button>
+          <button
+            class="key col-span-1 h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            Z
+          </button>
+          <button
+            class="key col-span-1 h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            X
+          </button>
+          <button
+            class="key col-span-1 h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            C
+          </button>
+          <button
+            class="key col-span-1 h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            V
+          </button>
+          <button
+            class="key col-span-1 h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            B
+          </button>
+          <button
+            class="key col-span-1 h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            N
+          </button>
+          <button
+            class="key col-span-1 h-12 text-center rounded-sm bg-slate-200 text-black font-bold"
+          >
+            M
+          </button>
+          <button
+            class="key col-span-2 h-12 text-center rounded-sm bg-slate-300 text-black font-bold"
+          >
+            Enter
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 
     <script type="module" src="./script.js"></script>
-    <script type="module" src="./utils/game.js"></script>
     <script type="module" src="./utils/register.js"></script>
+    <script type="module" src="./utils/game.js"></script>
   </body>
 </html>

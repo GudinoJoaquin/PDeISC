@@ -1,6 +1,6 @@
 // Aca importación de modulos
 import express from "express";
-import { PORT } from "./config.js";
+import { PORT } from "./config/config.js";
 import routes from "./routes.js";
 import os from "node:os";
 

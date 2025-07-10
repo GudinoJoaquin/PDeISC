@@ -4,9 +4,19 @@ export class DOM {
     return new DOMWrapper(el);
   }
 
+  static wrap(el) {
+    return new DOMWrapper(el);
+  }
+
   static get(selector) {
     const el = document.querySelector(selector);
     if (!el) throw new Error(`No se encontró el elemento: ${selector}`);
+    return new DOMWrapper(el);
+  }
+
+  static getAll(selector) {
+    const el = document.querySelectorAll(selector);
+    if (!el) throw new Error(`No se encontro el elemento: ${selector}`);
     return new DOMWrapper(el);
   }
 }
@@ -21,6 +31,11 @@ class DOMWrapper {
     return this;
   }
 
+  rmStyle(classes) {
+    this.el.classList.remove(...classes);
+    return this;
+  }
+
   getEl() {
     return this.el;
   }
@@ -28,6 +43,10 @@ class DOMWrapper {
   text(content) {
     this.el.textContent = content;
     return this;
+  }
+
+  getText() {
+    return this.el.textContent;
   }
 
   appendTo(parent) {
@@ -54,6 +73,13 @@ class DOMWrapper {
 
   setValue(newValue) {
     this.el.value = newValue;
+    return this;
+  }
+
+  setAttribute(attributes) {
+    Object.entries(attributes).forEach(([attr, value]) => {
+      this.el.setAttribute(attr, value);
+    });
     return this;
   }
 

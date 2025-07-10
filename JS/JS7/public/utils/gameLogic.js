@@ -1,5 +1,6 @@
-import { DOM } from "./dom.js";
-export async function validate(palabra, intento) {
+const palabra = "perro";
+
+export async function validate(intento) {
   try {
     const response = await fetch("http://192.168.1.37:3000/checkWord", {
       method: "POST",
@@ -15,32 +16,28 @@ export async function validate(palabra, intento) {
   }
 }
 
-export function checkValue(item, el) {
-  if (item.startsWith("1")) {
-    el.text(item.slice(1)).style(["bg-green-600"]);
-  } else if (item.startsWith("2")) {
-    el.text(item.slice(1)).style(["bg-yellow-500"]);
-  } else if (item.startsWith("3")) {
-    el.text(item.slice(1)).style(["bg-gray-800"]);
-  }
+export function checkValue(item, el, i) {
+  const element = el.getEl();
+  const letra = item.slice(1).toUpperCase();
+  let bgColor = "#a4aec4"; 
+
+  if (item.startsWith("1")) bgColor = "#79b851"; 
+  else if (item.startsWith("2")) bgColor = "#f3c237"; 
+  el.text(letra).style(["text-black"]);
+
+  gsap.to(element, {
+    backgroundColor: bgColor,
+    color: "#e2e8f0", // text-slate-200
+    delay: i * 0.2,
+    duration: 0.3,
+    onStart: () => {
+      el.text(letra);
+    },
+  });
 }
 
-let intentos = 0;
-
-export function checkWin(intento, palabra, display, input) {
-  intentos++;
-  const lose = intentos >= 6;
-  const win = intento === palabra;
-  DOM.create("p")
-    .text(win ? "Ganaste" : lose ? "Perdiste" : "")
-    .style([
-      `${win ? `text-green-400` : lose ? "text-red-500" : "text-red-500"}`,
-      "font-bold",
-      "mt-2",
-    ])
-    .appendTo(display);
-
-  input.setValue("");
-
-  (win || lose) && input.disable();
+export function checkWin(intento, filaActual) {
+  if (intento === palabra) return "Ganaste";
+  if (filaActual >= 5) return "Perdiste";
+  return null;
 }
