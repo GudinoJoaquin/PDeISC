@@ -1,12 +1,15 @@
 //Definir la palabra que se tiene que adivinar
+import { palabras } from "./palabras.js"
 
-//TODO: hacer que sea un array la palabra se genere aleatoriamente
-const palabra = "perro";
+export function getPalabraAleatoria() {
+  const index = Math.floor(Math.random() * palabras.length);
+  return palabras[index];
+}
 
 //Funcion que envia el intento al servidor para obtener el resultado
-export async function validate(intento) {
+export async function validate(intento, palabra) {
   try {
-    const response = await fetch("http://192.168.1.37:3000/checkWord", {
+    const response = await fetch("http://localhost:3000/checkWord", {
       //Envia una peticion al endpoint /checkWord
       method: "POST", //Metodo POST para enviar datos
       headers: {
@@ -43,7 +46,7 @@ export function checkValue(item, el, i) {
 }
 
 //Detecta si gana o pierde el jugador
-export function checkWin(intento, filaActual) {
+export function checkWin(intento, filaActual, palabra) {
   if (intento === palabra) return "Ganaste";
   if (filaActual >= 5) return "Perdiste";
   return null;

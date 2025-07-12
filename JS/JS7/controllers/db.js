@@ -4,7 +4,7 @@ import { conn } from "../config/connection.js";
 //Controlador para obtener a todos los usuarios
 export function getUsers(req, res) {
   try {
-    const sql = "SELECT * FROM score;"; //Definir consulta sql
+    const sql = "SELECT * FROM score ORDER BY puntos DESC;"; //Definir consulta sql
     //Realizar la consulta y caputar el error y el resultaod
     conn.query(sql, (err, results) => {
       if (err) return res.status(500).json({ error: err });
@@ -36,7 +36,7 @@ export function saveUserData(req, res) {
   try {
     //Definir consulta sql, si hay una key duplicada (En este caso nombre) en vez de guardar actualiza los datos
     const sql =
-      "INSERT INTO score (nombre, puntos) VALUES (?, ?) AS new ON DUPLICATE KEY UPDATE puntos = score.puntos + new.puntos";
+      "INSERT INTO score (nombre, puntos) VALUES (?, ?) AS new ON DUPLICATE KEY UPDATE puntos = score.puntos + new.puntos, fecha = CURRENT_TIMESTAMP";
     //Enviar la consulta y esperar los resultados
     conn.query(sql, [username, puntaje], (error, results) => {
       if (error) {

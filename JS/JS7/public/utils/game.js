@@ -1,14 +1,22 @@
 //Importar funciones para mostrar la alerta de victoria
 import { hiddenAlert, showAlert } from "./winAlert.js";
 import { $ } from "./dom.js"; //Importar la clase dom
-import { checkValue, checkWin, validate } from "./gameLogic.js"; //Importar la logica del juego
+import {
+  checkValue,
+  checkWin,
+  getPalabraAleatoria,
+  validate,
+} from "./gameLogic.js"; //Importar la logica del juego
+import { saveData } from "./register.js";
 
 //Obtener elementos del dom con la clase DOM
 const $filas = $.getAll(".row").getEl();
 const $keys = $.getAll(".key").getEl();
-const $restartBtn = $.get("#restart");
+const $restartBtn = $.getAll(".restartBtn").getEl();
 const $saveBtn = $.get("#save");
 const $game = $.get("#game").getEl();
+
+let palabra = getPalabraAleatoria();
 
 const regex = /^[a-zA-Z]$/; //Regex para validar que las entradas sean letras de a-z y mayusculas
 let intento = ""; //Definir el intento que hace el jugador
@@ -68,7 +76,7 @@ async function handleEnter() {
 
   //Obtener la fila actual y las celdas que esten en esa fila
 
-  const result = await validate(intento.toLowerCase()); //Esperar un resultado enviando el intento del jugador
+  const result = await validate(intento.toLowerCase(), palabra.toLowerCase()); //Esperar un resultado enviando el intento del jugador
 
   //Para cada posicion del resultado lo valida con la funcion checkValue
   result.forEach((res, i) => {
@@ -76,7 +84,11 @@ async function handleEnter() {
   });
 
   //Define si gano o perdio
-  const estado = checkWin(intento.toLowerCase(), filaActual);
+  const estado = checkWin(
+    intento.toLowerCase(),
+    filaActual,
+    palabra.toLowerCase()
+  );
 
   //Si gano detiene el juego y muestra la alerta de victoria o derrota
   if (estado) {
@@ -174,23 +186,41 @@ $keys.forEach((k) => {
   });
 });
 
-$restartBtn.on("click", () => {
-  $.get("#board").rmStyle(["opacity-25"]);
-  hiddenAlert();
-  clearBoard();
-  intento = "";
-  filaActual = 0;
-  finished = false;
-  puntaje = 6;
+$restartBtn.forEach((b) => {
+  const btn = $.wrap(b);
+  btn.on("click", () => {
+    $.get("#board").rmStyle(["opacity-25"]);
+    hiddenAlert();
+    clearBoard();
+    intento = "";
+    palabra = getPalabraAleatoria();
+    filaActual = 0;
+    finished = false;
+    puntaje = 6;
+    $saveBtn.getEl().removeAttribute("disabled");
+  });
 });
 
-$saveBtn.on("click", () => {
-  const username = localStorage.getItem("username");
-  fetch('http://localhost:3000/users', {
-    method: "POST",
-    headers: {
-      "Content-Type": 'application/json'
-    },
-    body: JSON.stringify({ username, puntaje })
-  }).then(res => res.json()).then(data => console.log(data))
+$saveBtn.on("click", async () => {
+  $saveBtn.text("Guardando..."); // Mostrar "Guardando..."
+  const { status } = await saveData(puntaje);
+
+  // Esperar 1.5 segundos, luego mostrar resultado
+  setTimeout(() => {
+    if (status === 200) {
+      $saveBtn.text("✔ Guardado");
+    } else if (status === 400) {
+      $saveBtn.text("❌ Datos inválidos");
+    } else {
+      $saveBtn.text("❌ Error al guardar");
+    }
+
+    // Luego de mostrar el mensaje final, esperar otros 1.5s y cerrar
+    setTimeout(() => {
+      $saveBtn.text("Guardar");
+      $saveBtn.setAttribute({ disabled: true });
+      hiddenAlert();
+      $.get("#board").rmStyle(["opacity-25"]);
+    }, 1500); // Tiempo visible del mensaje final
+  }, 1500); // Tiempo de espera de "Guardando..."
 });

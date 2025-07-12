@@ -17,3 +17,24 @@ $userForm.on("submit", (e) => {
 
   showGame();
 });
+
+export async function saveData(puntaje) {
+  const username = localStorage.getItem("username");
+
+  try {
+    const res = await fetch("http://localhost:3000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, puntaje }),
+    });
+
+    const data = await res.json();
+
+    return { status: res.status, data };
+  } catch (err) {
+    console.error("Error al guardar:", err);
+    return { status: 500, data: { message: "Error de red" } };
+  }
+}

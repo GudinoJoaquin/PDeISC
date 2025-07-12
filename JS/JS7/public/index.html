@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mini Wordle Tailwind</title>
+    <title>Ahorcado</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body
@@ -17,7 +17,7 @@
       <div class="flex flex-col items-center gap-6">
         <button
           id="restart"
-          class="shadow-lg shadow-slate-400 hover:scale-110 font-bold rounded-md px-4 py-1 transition"
+          class="restartBtn shadow-lg shadow-slate-400 hover:scale-110 font-bold rounded-md px-4 py-1 transition"
         >
           Volver a jugar
         </button>
@@ -52,9 +52,42 @@
     </section>
 
     <main id="board" class="z-0">
+      <div id="leaderboardMenu" class="hidden justify-end gap-2 mr-8 lg:mr-0">
+        <button
+          class="restartBtn font-bold px-4 py-1 rounded-md shadow-lg shadow-slate-400"
+        >
+          Reiniciar
+        </button>
+        <button
+          id="leaderboardBtn"
+          class="font-bold px-4 py-1 rounded-md shadow-lg shadow-slate-400"
+        >
+          Tabla
+        </button>
+      </div>
+
+      <section
+        id="leaderboard"
+        class="hidden opacity-0 mt-8 w-[352px] mx-auto flex flex-col items-center justify-center gap-4"
+      >
+        <h2 class="text-2xl font-bold text-center">Tabla de posiciones</h2>
+        <table
+          class="table-fixed shadow-lg shadow-slate-400 rounded-md overflow-hidden font-bold"
+        >
+          <tbody id="table" class="bg-slate-200">
+            <tr class="">
+              <td class="px-4 py-2">1</td>
+              <td class="px-4 py-2">Sofía</td>
+              <td class="px-4 py-2">42</td>
+              <td class="px-4 py-2">2025-07-08 17:30</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
       <section
         id="game"
-        class="hidden flex-col items-center justify-center mt-12"
+        class="hidden flex-col items-center justify-center mt-6"
       >
         <section
           id="grid"
@@ -333,5 +366,6 @@
     <script type="module" src="./script.js"></script>
     <script type="module" src="./utils/register.js"></script>
     <script type="module" src="./utils/game.js"></script>
+    <script type="module" src="./utils/leaderboard.js"></script>
   </body>
 </html>
