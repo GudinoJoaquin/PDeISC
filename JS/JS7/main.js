@@ -3,6 +3,7 @@ import express from "express";
 import { PORT } from "./config/config.js";
 import routes from "./routes.js";
 import os from "node:os";
+import cors from "cors";
 
 //Inicializar app de express
 const app = express();
@@ -10,6 +11,7 @@ const app = express();
 //Middleware para manejar json y archivos estaticos
 app.use(express.json());
 app.use(express.static("public"));
+app.use(cors());
 
 //Middleware para usar las rutas
 app.use(routes);

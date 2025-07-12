@@ -32,13 +32,13 @@ export function searchUser(req, res) {
 }
 //Controlador para guardar y actualizar los usuarios
 export function saveUserData(req, res) {
-  const { tiempo, puntos, nombre } = req.body; // Obtener el tiempo, los puntos y el nombre del usuario
+  const { username, puntaje } = req.body; // Obtener el tiempo, los puntos y el nombre del usuario
   try {
     //Definir consulta sql, si hay una key duplicada (En este caso nombre) en vez de guardar actualiza los datos
     const sql =
-      "INSERT INTO score (tiempo, puntos, nombre) VALUES (?, ?, ?) AS new ON DUPLICATE KEY UPDATE tiempo = new.tiempo, puntos = new.puntos;";
+      "INSERT INTO score (nombre, puntos) VALUES (?, ?) AS new ON DUPLICATE KEY UPDATE puntos = score.puntos + new.puntos";
     //Enviar la consulta y esperar los resultados
-    conn.query(sql, [tiempo, puntos, nombre], (error, results) => {
+    conn.query(sql, [username, puntaje], (error, results) => {
       if (error) {
         return res
           .status(500)
@@ -75,7 +75,7 @@ export function deleteFromDatabase(req, res) {
   }
 }
 
-//Controlador para actualizar el nombre de los usuarios 
+//Controlador para actualizar el nombre de los usuarios
 export function updateUser(req, res) {
   //Obteneoms id por query params y el nombre por el body de la peticion
   const { id } = req.params;

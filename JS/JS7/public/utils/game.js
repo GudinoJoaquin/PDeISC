@@ -7,12 +7,14 @@ import { checkValue, checkWin, validate } from "./gameLogic.js"; //Importar la l
 const $filas = $.getAll(".row").getEl();
 const $keys = $.getAll(".key").getEl();
 const $restartBtn = $.get("#restart");
+const $saveBtn = $.get("#save");
 const $game = $.get("#game").getEl();
 
 const regex = /^[a-zA-Z]$/; //Regex para validar que las entradas sean letras de a-z y mayusculas
 let intento = ""; //Definir el intento que hace el jugador
 let filaActual = 0; //Fila en la que se encuentra actualmente
 let finished = false; //Si termino o no el juego
+let puntaje = 6;
 
 //Funcion para cambiar la fila actual hasta la 6ta fila
 function updateRow(animateIndex = -1) {
@@ -84,10 +86,12 @@ async function handleEnter() {
       showAlert(estado);
       $.get("#board").style(["opacity-25"]);
     }, totalDelay);
+    if (estado === "Perdiste") puntaje = 0;
   } else {
     //Si no gano continua el juego, reincia el intento y aumenta la fila actual
     intento = "";
     filaActual++;
+    puntaje--;
   }
 }
 
@@ -170,7 +174,6 @@ $keys.forEach((k) => {
   });
 });
 
-//Escucha del evento para reiniciar el juego, reinicia todos los valores, limpia el tablero y oculta la alerta
 $restartBtn.on("click", () => {
   $.get("#board").rmStyle(["opacity-25"]);
   hiddenAlert();
@@ -178,4 +181,16 @@ $restartBtn.on("click", () => {
   intento = "";
   filaActual = 0;
   finished = false;
+  puntaje = 6;
+});
+
+$saveBtn.on("click", () => {
+  const username = localStorage.getItem("username");
+  fetch('http://localhost:3000/users', {
+    method: "POST",
+    headers: {
+      "Content-Type": 'application/json'
+    },
+    body: JSON.stringify({ username, puntaje })
+  }).then(res => res.json()).then(data => console.log(data))
 });
