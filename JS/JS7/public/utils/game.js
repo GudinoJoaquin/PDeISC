@@ -8,6 +8,7 @@ import {
   validate,
 } from "./gameLogic.js"; //Importar la logica del juego
 import { saveData } from "./register.js";
+import { playSound } from "./sound.js";
 
 //Obtener elementos del dom con la clase DOM
 const $filas = $.getAll(".row").getEl();
@@ -23,18 +24,6 @@ let intento = ""; //Definir el intento que hace el jugador
 let filaActual = 0; //Fila en la que se encuentra actualmente
 let finished = false; //Si termino o no el juego
 let puntaje = 6;
-
-function playSound() {
-  const sound = new Audio("../sound/E.mp3");
-  sound.currentTime = 0;
-  const delay = 100;
-
-  if (delay > 0) {
-    setTimeout(() => sound.play(), delay);
-  } else {
-    sound.play();
-  }
-}
 
 //Funcion para cambiar la fila actual hasta la 6ta fila
 function updateRow(animateIndex = -1) {
@@ -147,7 +136,7 @@ export async function handleTry(e) {
   } else if (regex.test(tecla)) {
     handleKey(tecla);
   }
-  playSound();
+  playSound(tecla.toUpperCase());
 }
 
 //Funcion para limpiar el tablero si se desea volver a jugar
@@ -196,7 +185,7 @@ $keys.forEach((k) => {
     } else {
       handleKey(tecla);
     }
-    playSound();
+    playSound(tecla.toUpperCase());
   });
 });
 
