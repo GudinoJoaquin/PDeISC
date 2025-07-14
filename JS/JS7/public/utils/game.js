@@ -127,6 +127,7 @@ export async function handleTry(e) {
   if ($game.classList.contains("hidden")) return;
 
   const tecla = e.key; //Toma la tecla presionada
+  playSound(tecla.toUpperCase());
 
   //Si es el backspace borra, si es enter envia el intento y si es otra tecla la guarda en el intento
   if (tecla === "Backspace") {
@@ -136,7 +137,6 @@ export async function handleTry(e) {
   } else if (regex.test(tecla)) {
     handleKey(tecla);
   }
-  playSound(tecla.toUpperCase());
 }
 
 //Funcion para limpiar el tablero si se desea volver a jugar
@@ -177,6 +177,7 @@ $keys.forEach((k) => {
     if (finished) return;
 
     const tecla = key.getText().trim();
+    playSound(tecla.toUpperCase());
 
     if (tecla === "Borrar") {
       handleDelete();
@@ -185,7 +186,6 @@ $keys.forEach((k) => {
     } else {
       handleKey(tecla);
     }
-    playSound(tecla.toUpperCase());
   });
 });
 
