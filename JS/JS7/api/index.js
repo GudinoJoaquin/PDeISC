@@ -10,6 +10,7 @@ const app = express();
 //Middleware para manejar json y archivos estaticos
 app.use(express.json());
 app.use(express.static("public"));
+app.use(express.text({ type: "text/html" }));
 app.use(cors());
 
 //Middleware para usar las rutas

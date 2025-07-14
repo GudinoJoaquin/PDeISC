@@ -3,6 +3,7 @@ import { $ as DOM } from "./dom.js";
 const $leaderboardBtn = DOM.get("#leaderboardBtn");
 
 const $leaderboard = DOM.get("#leaderboard").getEl();
+const $saveBtn = DOM.get("#saveTable");
 const $leaderboardMenu = DOM.get("#leaderboardMenu").getEl();
 const $keyboard = DOM.get("#keyboard").getEl();
 const $game = DOM.get("#game").getEl();
@@ -86,3 +87,37 @@ function formatDate(fecha) {
 
   return `${dia}-${mes}-${año} ${horas}:${minutos}`;
 }
+
+$saveBtn.on("click", async () => {
+  try {
+    // Clonar leaderboard para eliminar botón y no enviarlo
+    const clone = $leaderboard.cloneNode(true);
+    const btnEnClone = clone.querySelector("#saveTable");
+    if (btnEnClone) btnEnClone.remove();
+
+    const response = await fetch("http://localhost:3000/download", {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/html",
+      },
+      body: clone.outerHTML,
+    });
+
+    if (!response.ok) throw new Error("Error al descargar el PDF");
+
+    const blob = await response.blob();
+
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "tabla.pdf";
+    document.body.appendChild(a);
+    a.click();
+
+    a.remove();
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error(error);
+    alert("Error al descargar el PDF");
+  }
+});
