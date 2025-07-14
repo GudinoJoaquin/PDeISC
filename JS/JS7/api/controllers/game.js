@@ -23,7 +23,6 @@ export function checkWord(req, res) {
     }
   }
 
-
   for (let i = 0; i < intentoArray.length; i++) {
     if (resultado[i]) continue; //Si el resultado no es nulo pasa a la siguiente iteración
 

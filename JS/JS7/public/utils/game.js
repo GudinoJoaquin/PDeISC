@@ -24,6 +24,8 @@ let filaActual = 0; //Fila en la que se encuentra actualmente
 let finished = false; //Si termino o no el juego
 let puntaje = 6;
 
+const sound = new Audio("../sound/E.mp3");
+
 //Funcion para cambiar la fila actual hasta la 6ta fila
 function updateRow(animateIndex = -1) {
   const fila = $filas[filaActual];
@@ -135,6 +137,7 @@ export async function handleTry(e) {
   } else if (regex.test(tecla)) {
     handleKey(tecla);
   }
+  sound.play();
 }
 
 //Funcion para limpiar el tablero si se desea volver a jugar
@@ -183,6 +186,7 @@ $keys.forEach((k) => {
     } else {
       handleKey(tecla);
     }
+    sound.play();
   });
 });
 
