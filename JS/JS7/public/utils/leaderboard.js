@@ -68,7 +68,7 @@ $leaderboardBtn.on("click", () => {
 
 async function getUser(callback) {
   try {
-    const response = await fetch("http://localhost:3000/users");
+    const response = await fetch("https://ahorcado-jet.vercel.app/users");
     const data = await response.json();
     callback(data, response);
   } catch (error) {
