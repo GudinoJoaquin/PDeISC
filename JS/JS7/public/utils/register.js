@@ -18,9 +18,12 @@ $userForm.on("submit", (e) => {
   showGame();
 });
 
+//Funcion para guardar las partidas del usuario
 export async function saveData(puntaje) {
+  //Conseguir el nombre de localstorage
   const username = localStorage.getItem("username");
 
+  //Enviar el nombre y el puntaje que consiguio en la ultima partida
   try {
     const res = await fetch("https://ahorcado-api.vercel.app/users", {
       method: "POST",
