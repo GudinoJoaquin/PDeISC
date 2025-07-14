@@ -27,7 +27,13 @@ let puntaje = 6;
 function playSound() {
   const sound = new Audio("../sound/E.mp3");
   sound.currentTime = 0;
-  sound.play();
+  const delay = 500;
+
+  if (delay > 0) {
+    setTimeout(() => sound.play(), delay);
+  } else {
+    sound.play();
+  }
 }
 
 //Funcion para cambiar la fila actual hasta la 6ta fila
@@ -141,7 +147,7 @@ export async function handleTry(e) {
   } else if (regex.test(tecla)) {
     handleKey(tecla);
   }
-  playSound()
+  playSound();
 }
 
 //Funcion para limpiar el tablero si se desea volver a jugar
@@ -190,7 +196,7 @@ $keys.forEach((k) => {
     } else {
       handleKey(tecla);
     }
-    playSound()
+    playSound();
   });
 });
 
