@@ -22,7 +22,7 @@ export async function saveData(puntaje) {
   const username = localStorage.getItem("username");
 
   try {
-    const res = await fetch("https://ahorcado-jet.vercel.app/users", {
+    const res = await fetch("https://ahorcado-api.vercel.app/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -1,5 +1,5 @@
 //Definir la palabra que se tiene que adivinar
-import { palabras } from "./palabras.js"
+import { palabras } from "./palabras.js";
 
 export function getPalabraAleatoria() {
   const index = Math.floor(Math.random() * palabras.length);
@@ -9,7 +9,7 @@ export function getPalabraAleatoria() {
 //Funcion que envia el intento al servidor para obtener el resultado
 export async function validate(intento, palabra) {
   try {
-    const response = await fetch("http://localhost:3000/checkWord", {
+    const response = await fetch("https://ahorcado-api.vercel.app/checkWord", {
       //Envia una peticion al endpoint /checkWord
       method: "POST", //Metodo POST para enviar datos
       headers: {
