@@ -27,7 +27,7 @@ let puntaje = 6;
 function playSound() {
   const sound = new Audio("../sound/E.mp3");
   sound.currentTime = 0;
-  const delay = 500;
+  const delay = 100;
 
   if (delay > 0) {
     setTimeout(() => sound.play(), delay);
