@@ -127,7 +127,9 @@ export async function handleTry(e) {
   if ($game.classList.contains("hidden")) return;
 
   const tecla = e.key; //Toma la tecla presionada
-  playSound(tecla.toUpperCase());
+  if (intento.length < 5) {
+    playSound(tecla.toUpperCase());
+  }
 
   //Si es el backspace borra, si es enter envia el intento y si es otra tecla la guarda en el intento
   if (tecla === "Backspace") {
