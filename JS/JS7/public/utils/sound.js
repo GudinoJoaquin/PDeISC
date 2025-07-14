@@ -1,5 +1,5 @@
 export function playSound(key) {
-  const sound = new Audio(`../sound/${key}.mp3`);
+  const sound = new Audio(`../sounds/${key}.mp3`);
   sound.currentTime = 0;
   const delay = 100;
 
