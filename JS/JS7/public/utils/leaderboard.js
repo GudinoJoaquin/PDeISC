@@ -95,7 +95,7 @@ $saveBtn.on("click", async () => {
     const btnEnClone = clone.querySelector("#saveTable");
     if (btnEnClone) btnEnClone.remove();
 
-    const response = await fetch("http://localhost:3000/download", {
+    const response = await fetch("https://ahorcado-api.vercel.app/download", {
       method: "POST",
       headers: {
         "Content-Type": "text/html",
