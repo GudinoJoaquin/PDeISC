@@ -1,5 +1,7 @@
 import { $ as DOM } from "./dom.js";
 
+window.addEventListener("load", () => {
+  
 const $leaderboardBtn = DOM.get("#leaderboardBtn");
 
 const $leaderboard = DOM.get("#leaderboard").getEl();
@@ -136,4 +138,5 @@ $saveBtn.on("click", async () => {
     alert("Error al generar el PDF");
   }
 });
+})
 
