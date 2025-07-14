@@ -45,57 +45,57 @@ export function checkWord(req, res) {
   //Resultado -> ['1p', '2r', '2r', '2o', '3a']
 }
 
-export async function download(req, res) {
-  const section = req.body; // HTML parcial (tabla)
+// export async function download(req, res) {
+//   const section = req.body; // HTML parcial (tabla)
 
-  const html = `
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-      <meta charset="UTF-8" />
-      <title>PDF tabla</title>
-      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
-      <style>
-        /* Opcional: estilo para que no se imprima el botón si lo mandás en el HTML */
-        @media print {
-          #saveTable {
-            display: none;
-          }
-        }
-      </style>
-    </head>
-    <body>
-      ${section}
-    </body>
-    </html>
-  `;
+//   const html = `
+//     <!DOCTYPE html>
+//     <html lang="es">
+//     <head>
+//       <meta charset="UTF-8" />
+//       <title>PDF tabla</title>
+//       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
+//       <style>
+//         /* Opcional: estilo para que no se imprima el botón si lo mandás en el HTML */
+//         @media print {
+//           #saveTable {
+//             display: none;
+//           }
+//         }
+//       </style>
+//     </head>
+//     <body>
+//       ${section}
+//     </body>
+//     </html>
+//   `;
 
-  try {
-    const browser = await puppeteer.launch({
-      args: ["--no-sandbox", "--disable-setuid-sandbox"], // recomendado para Vercel
-    });
-    const page = await browser.newPage();
+//   try {
+//     const browser = await puppeteer.launch({
+//       args: ["--no-sandbox", "--disable-setuid-sandbox"], // recomendado para Vercel
+//     });
+//     const page = await browser.newPage();
 
-    await page.setContent(html, { waitUntil: "load" });
+//     await page.setContent(html, { waitUntil: "load" });
 
-    // Esperar un poco para asegurarse que CSS cargue bien
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+//     // Esperar un poco para asegurarse que CSS cargue bien
+//     await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    const pdfBuffer = await page.pdf({
-      format: "A4",
-      printBackground: true,
-    });
+//     const pdfBuffer = await page.pdf({
+//       format: "A4",
+//       printBackground: true,
+//     });
 
-    await browser.close();
+//     await browser.close();
 
-    // Guardar PDF local (opcional, puede quitarse)
-    // fs.writeFileSync("tabla.pdf", pdfBuffer);
+//     // Guardar PDF local (opcional, puede quitarse)
+//     // fs.writeFileSync("tabla.pdf", pdfBuffer);
 
-    res.setHeader("Content-Type", "application/pdf");
-    res.setHeader("Content-Disposition", "attachment; filename=tabla.pdf");
-    res.send(pdfBuffer);
-  } catch (error) {
-    console.error("Error generando PDF:", error);
-    res.status(500).send("Error generando PDF");
-  }
-}
+//     res.setHeader("Content-Type", "application/pdf");
+//     res.setHeader("Content-Disposition", "attachment; filename=tabla.pdf");
+//     res.send(pdfBuffer);
+//   } catch (error) {
+//     console.error("Error generando PDF:", error);
+//     res.status(500).send("Error generando PDF");
+//   }
+// }

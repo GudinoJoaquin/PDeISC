@@ -2,7 +2,7 @@
 import express from "express";
 
 //Importar todos los controladores que se utilicen
-import { page, checkWord, download } from "./controllers/game.js";
+import { page, checkWord } from "./controllers/game.js";
 import {
   deleteFromDatabase,
   getUsers,
@@ -17,7 +17,6 @@ const router = express.Router();
 //Endpoints para ciente
 router.get("/", page); //Se define tipo de endpoint (GET, POST, etc) y controlador a utilizar en ese endpoint
 router.post("/checkWord", checkWord);
-router.post("/download", download);
 
 //Endpoints para db
 router.get("/users", getUsers);
