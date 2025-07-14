@@ -90,34 +90,50 @@ function formatDate(fecha) {
 
 $saveBtn.on("click", async () => {
   try {
-    // Clonar leaderboard para eliminar botón y no enviarlo
+    // Clonar leaderboard para eliminar botón y no enviarlo en PDF
     const clone = $leaderboard.cloneNode(true);
     const btnEnClone = clone.querySelector("#saveTable");
     if (btnEnClone) btnEnClone.remove();
 
-    const response = await fetch("https://ahorcado-api.vercel.app/download", {
-      method: "POST",
-      headers: {
-        "Content-Type": "text/html",
-      },
-      body: clone.outerHTML,
+    // Añadir el clon a un contenedor oculto para html2canvas pueda leerlo bien
+    const container = document.createElement("div");
+    container.style.position = "fixed";
+    container.style.left = "-9999px";
+    container.appendChild(clone);
+    document.body.appendChild(container);
+
+    // Esperar a que se agregue y renderice el DOM
+    await new Promise((r) => setTimeout(r, 100));
+
+    // Usamos html2canvas para capturar la tabla
+    const canvas = await html2canvas(clone, {
+      scale: 2, // mejor resolución
+      useCORS: true,
     });
 
-    if (!response.ok) throw new Error("Error al descargar el PDF");
+    const imgData = canvas.toDataURL("image/png");
 
-    const blob = await response.blob();
+    // Usamos jsPDF para generar PDF
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({
+      orientation: "portrait",
+      unit: "pt",
+      format: "a4",
+    });
 
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "tabla.pdf";
-    document.body.appendChild(a);
-    a.click();
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
-    a.remove();
-    window.URL.revokeObjectURL(url);
+    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+
+    // Descargar PDF
+    pdf.save("tabla.pdf");
+
+    // Limpiar DOM
+    document.body.removeChild(container);
   } catch (error) {
     console.error(error);
-    alert("Error al descargar el PDF");
+    alert("Error al generar el PDF");
   }
 });
+
