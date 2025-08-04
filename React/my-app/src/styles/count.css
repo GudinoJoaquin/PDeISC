@@ -1,0 +1,16 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 24px
+}
+
+.contador {
+  font-weight: 800;
+  font-size: 24px;
+}
+
+.btns {
+  border-radius: 50%;
+}
