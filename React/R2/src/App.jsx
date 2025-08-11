@@ -5,18 +5,7 @@ import CreateTask from "./pages/CreateTask.jsx";
 import { useState } from "react";
 
 export default function App() {
-  const [task, setTask] = useState([
-    {
-      id: 1,
-      title: "adfadf",
-      description: "adfadf",
-    },
-    {
-      id: 2,
-      title: "adfadf",
-      description: "adfadf",
-    },
-  ]);
+  const [task, setTask] = useState([]);
 
   return (
     <Routes>

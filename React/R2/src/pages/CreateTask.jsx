@@ -8,31 +8,47 @@ export default function CreateTask({ setTask }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(`Titulo: ${title}, Descripción: ${description}`);
+    if (!title || title.length <= 3) return;
+    if (!description || description.length <= 10) return;
 
+    console.log(`Titulo: ${title}, Descripción: ${description}`);
     setTask((prev) => [...prev, { id: prev.length + 1, title, description }]);
   };
 
   return (
     <div>
-      <Link to={"/"}>Volver</Link>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Titulo
+      <Link className="bg-sky-700 px-3 py-1 text-white font-semibold" to={"/"}>
+        Volver
+      </Link>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col items-center gap-4"
+      >
+        <label className="flex flex-col">
+          <p className="font-semibold text-xl">Titulo</p>
           <input
             type="text"
+            className="pl-2 pr-4 py-1 border-2 border-sky-600 rounded-lg w-48"
             placeholder="Comprar"
+            value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
         </label>
-        <label>
-          Descripción
+        <label className="flex flex-col">
+          <p className="font-semibold text-xl">Descripción</p>
           <textarea
+            value={description}
+            className="pl-2 pr-4 py-1 border-2 border-sky-600 rounded-lg w-48"
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Comprar en la tienda x"
           ></textarea>
         </label>
-        <button type="submit">Guardar tarea</button>
+        <button
+          className="bg-sky-600 px-2 py-1 rounded-lg font-semibold text-white"
+          type="submit"
+        >
+          Guardar tarea
+        </button>
       </form>
     </div>
   );
