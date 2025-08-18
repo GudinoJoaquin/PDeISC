@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function CreateTask({ setTask }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,6 +14,7 @@ export default function CreateTask({ setTask }) {
 
     console.log(`Titulo: ${title}, Descripción: ${description}`);
     setTask((prev) => [...prev, { id: prev.length + 1, title, description }]);
+    navigate("/");
   };
 
   return (
@@ -32,6 +34,7 @@ export default function CreateTask({ setTask }) {
             placeholder="Comprar"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            minLength={3}
           />
         </label>
         <label className="flex flex-col">
@@ -40,7 +43,8 @@ export default function CreateTask({ setTask }) {
             value={description}
             className="pl-2 pr-4 py-1 border-2 border-sky-600 rounded-lg w-48"
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Comprar en la tienda x"
+            placeholder="Minimo 10 caracteres"
+            minLength={10}
           ></textarea>
         </label>
         <button

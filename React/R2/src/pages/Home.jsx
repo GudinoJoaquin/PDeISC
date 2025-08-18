@@ -43,18 +43,20 @@ export default function Home({ task, setTask }) {
                   </p>
                 </div>
               </Link>
-              <button
-                className="bg-red-500 px-2 py-1 rounded-lg text-white font-semibold"
-                onClick={() => toggleComplete(t.id)}
-              >
-                Marcar
-              </button>
-              <button
-                className="bg-red-500 px-2 py-1 rounded-lg text-white font-semibold"
-                onClick={() => handleDelete(t.id)}
-              >
-                Borrar
-              </button>
+              <div className="flex gap-4">
+                <button
+                  className="bg-orange-400 px-2 py-1 rounded-lg text-white font-semibold"
+                  onClick={() => toggleComplete(t.id)}
+                >
+                  Marcar
+                </button>
+                <button
+                  className="bg-red-500 px-2 py-1 rounded-lg text-white font-semibold"
+                  onClick={() => handleDelete(t.id)}
+                >
+                  Borrar
+                </button>
+              </div>
             </div>
           ))}
       </div>

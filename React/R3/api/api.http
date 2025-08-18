@@ -1,0 +1,37 @@
+GET http://localhost:3000/users
+
+###
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "dni": 47641929,
+  "nombre": "Joaquin",
+  "apellido": "Gudiño",
+  "email": "joackomdp2006@gmail.com",
+  "direccion": "Mateotti 2426",
+  "telefono": "",
+  "celular": "2235503070",
+  "fecha_de_nacimiento": "18/09/2006"      
+}
+
+###
+
+PATCH http://localhost:3000/users/47641929
+
+###
+
+PUT http://localhost:3000/users/47641929
+Content-Type: application/json
+
+{
+  "nombre": "Nataniel",
+  "apellido": "Escudero",
+  "email": "nata@gmail.com",
+  "direccion": "Juan. B. Justo 4287",
+  "telefono": "",
+  "celular": "2235503071",
+  "fecha_de_nacimiento": "25/12/2025"      
+}
+
