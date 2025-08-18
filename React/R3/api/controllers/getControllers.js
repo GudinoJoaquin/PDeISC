@@ -6,7 +6,7 @@ export function getUsers(req, res) {
   //Intentar hacer peticion
   try {
     //Definir consulta sql y realizar la consulta
-    const SQL = "SELECT * FROM registro_usuarios";
+    const SQL = "SELECT * FROM registro_usuarios WHERE shown = true";
     conn.query(SQL, (err, result) => {
       //Mostrar el error y terminar la ejecucion si hay error
       if (err) {
@@ -24,7 +24,7 @@ export function getUsers(req, res) {
   }
 }
 
-export function getUsersById(req, res) {
+export function getUserByDNI(req, res) {
   try {
     const { dni } = req.params;
     const SQL = "SELECT * FROM registro_usuarios WHERE dni = ?";
