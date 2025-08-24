@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Modal from "../components/Modal";
+import { FaTrash, FaEdit } from "react-icons/fa";
 
 export default function Home() {
   const [usuarios, setUsuarios] = useState();
@@ -80,75 +81,76 @@ export default function Home() {
               <th className="px-2 md:px-4 py-2 border-b text-left bg-gray-100">
                 Apellido
               </th>
-              <th className="px-2 md:px-4 py-2 border-b text-left bg-gray-100">
+              <th className="px-2 md:px-4 py-2 border-b text-left bg-gray-100 hidden md:table-cell">
                 Email
               </th>
-              <th className="px-2 md:px-4 py-2 border-b text-left bg-gray-100">
+              <th className="px-2 md:px-4 py-2 border-b text-left bg-gray-100 hidden lg:table-cell">
                 Dirección
               </th>
-              <th className="px-2 md:px-4 py-2 border-b text-left bg-gray-100">
+              <th className="px-2 md:px-4 py-2 border-b text-left bg-gray-100 hidden lg:table-cell">
                 Teléfono
               </th>
-              <th className="px-2 md:px-4 py-2 border-b text-left bg-gray-100">
+              <th className="px-2 md:px-4 py-2 border-b text-left bg-gray-100 hidden xl:table-cell">
                 Celular
               </th>
-              <th className="px-2 md:px-4 py-2 border-b text-left bg-gray-100">
+              <th className="px-2 md:px-4 py-2 border-b text-left bg-gray-100 hidden xl:table-cell">
                 Fecha de Nacimiento
               </th>
-              <th className="px-2 md:px-4 py-2 border-b text-left bg-gray-100">
+              <th className="px-2 md:px-4 py-2 border-b text-cebter bg-gray-100">
                 Acciones
               </th>
             </tr>
           </thead>
           <tbody>
             {filteredUsuarios?.map((user) => (
-              <tr key={user.dni} className="hover:bg-gray-50">
-                <td className="px-2 md:px-4 py-2 border-b">
+              <tr key={user.dni} className="hover:bg-gray-50 border-b">
+                <td className="px-2 md:px-4 py-2">
                   <Link to={`/${user.dni}`} className="block w-full h-full">
                     {user.dni}
                   </Link>
                 </td>
-                <td className="px-2 md:px-4 py-2 border-b">
+                <td className="px-2 md:px-4 py-2">
                   <Link to={`/${user.dni}`} className="block w-full h-full">
                     {user.nombre}
                   </Link>
                 </td>
-                <td className="px-2 md:px-4 py-2 border-b">
+                <td className="px-2 md:px-4 py-2">
                   <Link to={`/${user.dni}`} className="block w-full h-full">
                     {user.apellido}
                   </Link>
                 </td>
-                <td className="px-2 md:px-4 py-2 border-b">
+                <td className="px-2 md:px-4 py-2 hidden md:table-cell">
                   <Link to={`/${user.dni}`} className="block w-full h-full">
                     {user.email}
                   </Link>
                 </td>
-                <td className="px-2 md:px-4 py-2 border-b">
+                <td className="px-2 md:px-4 py-2 hidden lg:table-cell">
                   <Link to={`/${user.dni}`} className="block w-full h-full">
                     {user.direccion}
                   </Link>
                 </td>
-                <td className="px-2 md:px-4 py-2 border-b">
+                <td className="px-2 md:px-4 py-2 hidden lg:table-cell">
                   <Link to={`/${user.dni}`} className="block w-full h-full">
                     {user.telefono}
                   </Link>
                 </td>
-                <td className="px-2 md:px-4 py-2 border-b">
+                <td className="px-2 md:px-4 py-2 hidden xl:table-cell">
                   <Link to={`/${user.dni}`} className="block w-full h-full">
                     {user.celular}
                   </Link>
                 </td>
-                <td className="px-2 md:px-4 py-2 border-b">
+                <td className="px-2 md:px-4 py-2 hidden xl:table-cell">
                   <Link to={`/${user.dni}`} className="block w-full h-full">
                     {user.fecha_de_nacimiento}
                   </Link>
                 </td>
-                <td className="px-2 md:px-4 py-2 border-b">
+                <td className="px-2 md:px-4 py-2 flex gap-2 items-center justify-center">
                   <button
                     onClick={() => setModal({ view: true, dni: user.dni })}
-                    className="font-semibold text-white bg-red-500 px-4 py-1 rounded-md hover:cursor"
+                    className="text-white bg-red-500 p-2 rounded-md hover:bg-red-600"
+                    title="Borrar"
                   >
-                    Borrar
+                    <FaTrash />
                   </button>
                 </td>
               </tr>

@@ -1,34 +1,49 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Alert from "../components/Alert";
 
 export default function Create() {
   const [data, setData] = useState({});
+  const [alert, setAlert] = useState({
+    msg: "",
+    type: "success",
+    visible: false,
+  });
   const navigate = useNavigate();
+
+  const showAlert = (msg, type = "error") => {
+    setAlert({ msg, type, visible: true });
+    setTimeout(() => setAlert((prev) => ({ ...prev, visible: false })), 3000);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const textRegex = /^[a-zA-Z]+$/;
+    const textRegex = /^[a-zA-ZñÑ]+$/;  
     const numberRegex = /^[0-9]+$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!textRegex.test(data.nombre) || !textRegex.test(data.apellido)) {
-      alert("El nombre o apellido son invalidos.");
+    if (
+      !textRegex.test(data.nombre) ||
+      !textRegex.test(data.apellido) ||
+      !data.nombre
+    ) {
+      showAlert("El nombre o apellido son inválidos.");
       return;
     }
     if (!numberRegex.test(data.dni) || String(data.dni).length < 8) {
-      alert("DNI invalido.");
+      showAlert("DNI inválido.");
       return;
     }
     if (!emailRegex.test(data.email)) {
-      alert("El email no es válido.");
+      showAlert("El email no es válido.");
       return;
     }
-    if (data.telefono_fijo && !numberRegex.test(data.telefono_fijo)) {
-      alert("El telefono fijo invalido.");
+    if (data.fijo && !numberRegex.test(data.fijo)) {
+      showAlert("El teléfono fijo es inválido.");
       return;
     }
     if (!numberRegex.test(data.celular)) {
-      alert("El telefono celular invalido.");
+      showAlert("El teléfono celular es inválido.");
       return;
     }
 
@@ -41,10 +56,25 @@ export default function Create() {
         body: JSON.stringify(data),
       });
       const data2 = await res.json();
+      console.log(data2)
 
-      console.log(data2);
-      navigate("/");
+      if (!data2) {
+        setAlert({
+          msg: "Error al crear el usuario.",
+          type: "error",
+          visible: true,
+        });
+        return;
+      }
+
+      setAlert({
+        msg: "Usuario creado exitosamente.",
+        type: "success",
+        visible: true,
+      });
+      setTimeout(() => navigate("/"), 1500);
     } catch (error) {
+      showAlert("Error al crear el usuario.");
       console.log(error);
     }
   };
@@ -134,6 +164,13 @@ export default function Create() {
           Enviar
         </button>
       </form>
+      {alert.visible && (
+        <Alert
+          msg={alert.msg}
+          type={alert.type}
+          setVisible={(v) => setAlert((prev) => ({ ...prev, visible: v }))}
+        />
+      )}
     </div>
   );
 }
