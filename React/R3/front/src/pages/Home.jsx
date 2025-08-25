@@ -2,11 +2,22 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Modal from "../components/Modal";
 import { FaTrash, FaEdit } from "react-icons/fa";
+import Alert from "../components/Alert";
 
 export default function Home() {
   const [usuarios, setUsuarios] = useState();
   const [search, setSearch] = useState("");
   const [modal, setModal] = useState({ view: false, dni: null });
+  const [alert, setAlert] = useState({
+    msg: "",
+    type: "success",
+    visible: false,
+  });
+
+  const showAlert = (msg, type = "error") => {
+    setAlert({ msg, type, visible: true });
+    setTimeout(() => setAlert((prev) => ({ ...prev, visible: false })), 3000);
+  };
 
   const fetchUsers = async () => {
     try {
@@ -34,6 +45,7 @@ export default function Home() {
       const data = await res.json();
       console.log(data.data);
       fetchUsers();
+      showAlert("Usuario eliminado exitosamente", "success");
       setModal(false);
     } catch (error) {
       console.log(error);
@@ -162,6 +174,13 @@ export default function Home() {
         <Modal
           handleClick={() => handleDelete(modal.dni)}
           setModal={setModal}
+        />
+      )}
+      {alert.visible && (
+        <Alert
+          msg={alert.msg}
+          type={alert.type}
+          setVisible={(v) => setAlert((prev) => ({ ...prev, visible: v }))}
         />
       )}
     </div>

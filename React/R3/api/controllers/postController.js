@@ -36,7 +36,7 @@ export function createUser(req, res) {
         //Mostrar y terminar ejecucion si hay error
         if (err) {
           console.log(err);
-          return;
+          return res.status(500).json({ error: err });
         }
         //Mostrar y enviar los datos en formato json
         console.log(result);
