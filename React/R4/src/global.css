@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+@theme {
+  --color-petroleoum: #07191a;
+  --color-grass: #3c7068;
+  --color-forest: #132320;
+
+  --font-montserrat: "Montserrat", sans-serif;
+}
