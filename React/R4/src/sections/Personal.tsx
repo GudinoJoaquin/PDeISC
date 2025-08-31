@@ -141,7 +141,7 @@ export default function Personal() {
   ];
 
   return (
-    <section id="personal" className="h-[90vh] bg-forest flex items-center justify-center px-4">
+    <section id="personal" className="h-[120vh] bg-forest flex items-center justify-center px-4">
       <div
         ref={cardRef}
         className="relative lg:h-88 mb-24 w-full max-w-5xl bg-grass/10 backdrop-blur-sm border border-grass/30 rounded-3xl p-6 shadow-2xl flex flex-col lg:flex-row lg:items-start gap-6"
