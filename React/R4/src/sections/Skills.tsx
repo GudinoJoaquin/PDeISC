@@ -126,7 +126,7 @@ export default function Skills() {
     <section
       id="skills"
       ref={sectionRef}
-      className="relative h-[300vh] lg:h-[80vh] bg-forest flex flex-col items-center justify-center px-6 overflow-hidden"
+      className="relative h-[220vh] lg:h-[80vh] bg-forest flex flex-col items-center justify-center px-6 overflow-hidden"
     >
       {/* Partículas flotantes */}
       {[...Array(12)].map((_, i) => (
