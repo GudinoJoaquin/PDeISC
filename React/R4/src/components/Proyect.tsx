@@ -1,90 +1,125 @@
-import { IoLogoReact } from "react-icons/io5";
-import eestn5 from "../assets/img/eestn5.jpg"
-import { SiTailwindcss } from "react-icons/si";
+import { BiLogoCPlusPlus } from "react-icons/bi";
+import { FaJava } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import {
+  IoLogoReact,
+  IoLogoGithub,
+  IoLogoJavascript,
+  IoLogoPython,
+  IoLogoNodejs,
+} from "react-icons/io5";
+import {
+  SiAstro,
+  SiExpress,
+  SiMysql,
+  SiPhp,
+  SiRust,
+  SiTailwindcss,
+  SiTypescript,
+} from "react-icons/si";
+import { RiNextjsFill } from "react-icons/ri";
 
-export default function Proyect({ cardRef, orbsRef, linesRef, descriptionRef }) {
+interface ProyectProps {
+  img: string;
+  title: string;
+  type: string;
+  description: string;
+  languajes: string[];
+  link: string;
+}
+
+export default function Proyect({
+  img,
+  title,
+  type,
+  description,
+  languajes,
+  link,
+}: ProyectProps) {
+  const icons = [
+    <IoLogoJavascript color="#3c7068" size={38} />,
+    <IoLogoReact color="#3c7068" size={38} />,
+    <IoLogoPython color="#3c7068" size={38} />,
+    <SiPhp color="#3c7068" size={38} />,
+    <SiTailwindcss color="#3c7068" size={38} />,
+    <IoLogoGithub color="#3c7068" size={38} />,
+    <IoLogoNodejs color="#3c7068" size={38} />,
+    <FaJava color="#3c7068" size={38} />,
+    <SiAstro color="#3c7068" size={38} />,
+    <SiExpress color="#3c7068" size={38} />,
+    <BiLogoCPlusPlus color="#3c7068" size={38} />,
+    <SiTypescript color="#3c7068" size={33} />,
+    <SiMysql color="#3c7068" size={33} />,
+    <SiRust color="#3c7068" size={33} />,
+    <RiNextjsFill color="#3c7068" size={33} />,
+  ];
+
   return (
     <div
-        ref={cardRef}
-        className="relative mb-24 w-full max-w-sm bg-grass/10 backdrop-blur-sm border border-grass/30 rounded-3xl p-6 shadow-2xl"
-        style={{
-          boxShadow:
-            "0 0 40px rgba(74, 222, 128, 0.2), inset 0 0 40px rgba(74, 222, 128, 0.05)",
-        }}
-      >
-        {/* Orbes decorativos */}
-        <div className="absolute inset-0 pointer-events-none">
-          {[...Array(6)].map((_, i) => (
-            <div
-              key={i}
-              ref={(el) => (orbsRef.current[i] = el)}
-              className={`absolute ${
-                i % 3 === 0
-                  ? "w-2 h-2 bg-grass/70 rounded-full"
-                  : i % 3 === 1
-                  ? "w-1.5 h-1.5 bg-grass/50 rounded-full"
-                  : "w-1 h-1 bg-grass/80 rounded-full"
-              }`}
-              style={{
-                top: `${20 + i * 12}%`,
-                right: i % 2 === 0 ? "10px" : "auto",
-                left: i % 2 === 1 ? "10px" : "auto",
-                boxShadow: "0 0 8px rgba(74, 222, 128, 0.6)",
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Líneas de conexión */}
-        {[...Array(4)].map((_, i) => (
-          <div
-            key={i}
-            ref={(el) => (linesRef.current[i] = el)}
-            className="absolute bg-grass/40 origin-left"
-            style={{
-              width: "30px",
-              height: "1px",
-              top: `${25 + i * 20}%`,
-              right: "15px",
-              transform: `rotate(${i * 20}deg)`,
-            }}
-          />
-        ))}
-
-        {/* Descripción con estilo call to action */}
-        <div ref={descriptionRef} className="relative hover:scale-110">
-          <div className="flex justify-center mb-2">
-            {[...Array(3)].map((_, i) => (
-              <div
-                key={i}
-                className="w-1.5 h-1.5 bg-grass rounded-full mx-1"
-                style={{
-                  animation: `bounce 1.5s ease-in-out infinite`,
-                  animationDelay: `${i * 0.2}s`,
-                }}
-              />
-            ))}
-          </div>
-          <div className="px-4 py-3 rounded-2xl bg-grass/10 backdrop-blur-sm border border-grass/30 hover:bg-grass/20 transition-all duration-300 cursor-pointer group">
-            <img src={eestn5} alt="" />
-          </div>
-          <h1 className="text-white font-bold text-xl text-center font-montserrat mt-4">
-            EESTN5
-          </h1>
-          <h2 className="text-center text-white mt-2">Landing page</h2>
-          <div className="flex gap-4 justify-center items-center my-4">
-            <IoLogoReact color="#3c7068" size={32}/>
-            <SiTailwindcss color="#3c7068" size={32}/>
-          </div>
-          <div className="flex justify-center mt-3">
-            <div className="w-4 h-4 border border-grass/70 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-              <div className="w-1.5 h-1.5 bg-grass rounded-full animate-pulse"></div>
-            </div>
-          </div>
-        </div>
-
-        {/* Efecto de brillo en los bordes */}
-        <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-transparent via-grass/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+      className="relative mb-24 w-full max-w-sm bg-grass/10 backdrop-blur-sm border border-grass/30 rounded-3xl p-6 shadow-2xl hover:scale-110 transition hover:cursor-pointer"
+      style={{
+        boxShadow:
+          "0 0 40px rgba(74, 222, 128, 0.2), inset 0 0 40px rgba(74, 222, 128, 0.05)",
+      }}
+      onClick={() => window.open(link)}
+    >
+      {/* Imagen */}
+      <div className="relative">
+        <img src={img} alt={title} className="rounded-2xl w-full" />
       </div>
+
+      {/* Nombre y tipo */}
+      <h1 className="text-white font-bold text-xl text-center font-montserrat mt-4">
+        {title}
+      </h1>
+      <h2 className="text-center text-white mt-2">{type}</h2>
+
+      {/* Tecnologías */}
+      <div className="flex gap-4 justify-center items-center my-4">
+        {languajes.includes("javascript") && (
+          <IoLogoJavascript color="#3c7068" size={38} />
+        )}
+        {languajes.includes("react") && (
+          <IoLogoReact color="#3c7068" size={38} />
+        )}
+        {languajes.includes("python") && (
+          <IoLogoPython color="#3c7068" size={38} />
+        )}
+        {languajes.includes("php") && <SiPhp color="#3c7068" size={38} />}
+        {languajes.includes("tailwindcss") && (
+          <SiTailwindcss color="#3c7068" size={38} />
+        )}
+        {languajes.includes("github") && (
+          <IoLogoGithub color="#3c7068" size={38} />
+        )}
+        {languajes.includes("nodejs") && (
+          <IoLogoNodejs color="#3c7068" size={38} />
+        )}
+        {languajes.includes("java") && <FaJava color="#3c7068" size={38} />}
+        {languajes.includes("astro") && <SiAstro color="#3c7068" size={38} />}
+        {languajes.includes("express") && (
+          <SiExpress color="#3c7068" size={38} />
+        )}
+        {languajes.includes("c++") && (
+          <BiLogoCPlusPlus color="#3c7068" size={38} />
+        )}
+        {languajes.includes("typescript") && (
+          <SiTypescript color="#3c7068" size={33} />
+        )}
+        {languajes.includes("mysql") && <SiMysql color="#3c7068" size={33} />}
+        {languajes.includes("rust") && <SiRust color="#3c7068" size={33} />}
+        {languajes.includes("nextjs") && (
+          <RiNextjsFill color="#3c7068" size={33} />
+        )}
+      </div>
+
+      {/* Descripción y GitHub solo en escritorio */}
+      <div className="hidden lg:block mt-4">
+        <p className="text-white/80 text-sm mb-2">{description}</p>
+      </div>
+
+      {/* Efecto de brillo */}
+      <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-transparent via-grass/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+    </div>
   );
 }

@@ -217,12 +217,6 @@ export default function CallToAction({
     <div
       ref={containerRef}
       className="relative h-72 translate-y-[-60px] bg-gradient-to-b from-forest via-grass/50 to-forest overflow-hidden cursor-pointer group"
-      onClick={() => {
-        window.scrollTo({
-          top: window.innerHeight * 1,
-          behavior: "smooth",
-        });
-      }}
     >
       {/* Fondo dinámico con ondas */}
       <div className="absolute inset-0">

@@ -6,18 +6,27 @@ import {
   IoDocumentOutline,
   IoTerminal,
   IoTerminalOutline,
+  IoLogInOutline,
+  IoLogIn,
 } from "react-icons/io5";
 import { RiHome6Fill, RiHome6Line } from "react-icons/ri";
-import { MdOutlineContacts, MdContacts } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
+import { SiTailwindcss } from "react-icons/si";
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const handleClick = () => setOpen((prev) => !prev);
+
+  const handleScroll = (id: string) => {
+    const section = document.getElementById(id);
+    section?.scrollIntoView({ behavior: "smooth" });
+  };
 
   // Detectar si es móvil
   useEffect(() => {
@@ -66,7 +75,6 @@ export default function Nav() {
     }
   };
 
-
   const iconSize = isMobile ? 24 : 30;
   const buttonSize = isMobile ? 36 : 48;
 
@@ -87,6 +95,7 @@ export default function Nav() {
                 onMouseLeave={() => handleHover("home", false)}
                 onTouchStart={() => handleHover("home", true)}
                 onTouchEnd={() => handleHover("home", false)}
+                onClick={() => handleScroll("hero")}
               >
                 <RiHome6Fill
                   id="home-fill"
@@ -110,6 +119,7 @@ export default function Nav() {
                 onMouseLeave={() => handleHover("doc", false)}
                 onTouchStart={() => handleHover("doc", true)}
                 onTouchEnd={() => handleHover("doc", false)}
+                onClick={() => handleScroll("personal")}
               >
                 <IoDocument
                   id="doc-fill"
@@ -133,6 +143,7 @@ export default function Nav() {
                 onMouseLeave={() => handleHover("term", false)}
                 onTouchStart={() => handleHover("term", true)}
                 onTouchEnd={() => handleHover("term", false)}
+                onClick={() => handleScroll("proyects")}
               >
                 <IoTerminal
                   id="term-fill"
@@ -148,25 +159,46 @@ export default function Nav() {
                 />
               </button>
             </div>
-
-            {/* Contacts */}
             <div className="relative">
               <button
-                onMouseEnter={() => handleHover("contacts", true)}
-                onMouseLeave={() => handleHover("contacts", false)}
-                onTouchStart={() => handleHover("contacts", true)}
-                onTouchEnd={() => handleHover("contacts", false)}
+                onMouseEnter={() => handleHover("skills", true)}
+                onMouseLeave={() => handleHover("skills", false)}
+                onTouchStart={() => handleHover("skills", true)}
+                onTouchEnd={() => handleHover("skills", false)}
+                onClick={() => handleScroll("skills")}
               >
-                <MdContacts
-                  id="contacts-fill"
-                  color="#3c7068"
+                <SiTailwindcss
+                  id="skills-fill"
                   className="text-white"
+                  color="#3c7068"
                   size={iconSize}
                 />
-                <MdOutlineContacts
-                  id="contacts-line"
-                  color="#3c7068"
+                <SiTailwindcss
+                  id="skills-line"
                   className="text-white opacity-0 absolute top-0"
+                  color="#3c7068"
+                  size={iconSize}
+                />
+              </button>
+            </div>
+            <div className="relative">
+              <button
+                onMouseEnter={() => handleHover("login", true)}
+                onMouseLeave={() => handleHover("login", false)}
+                onTouchStart={() => handleHover("login", true)}
+                onTouchEnd={() => handleHover("login", false)}
+                onClick={() => navigate("/login")}
+              >
+                <IoLogIn
+                  id="login-fill"
+                  className="text-white"
+                  color="#3c7068"
+                  size={iconSize}
+                />
+                <IoLogInOutline
+                  id="login-line"
+                  className="text-white opacity-0 absolute top-0"
+                  color="#3c7068"
                   size={iconSize}
                 />
               </button>

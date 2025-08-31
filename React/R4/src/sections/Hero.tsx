@@ -18,24 +18,28 @@ const words = [
 
 export default function Hero() {
   return (
-    <section className="flex flex-col items-center h-screen justify-center">
-      <Title
-        words={words}
-        className={`font-bold text-center text-grass font-montserrat text-5xl`}
-      />
-      <h1 className="font-bold text-center text-white font-montserrat mt-4 text-5xl">
-        Gudiño Joaquin
-      </h1>
-      <p className="font-semibold text-white mt-12 text-2xl">
-        Diseño y desarrollo web
-      </p>
-      <p className="font-semibold text-white mt-2 text-2xl">
-        Fullstack developer
-      </p>
-      <section className="mt-8">
+    <section id="hero" className="flex flex-col lg:flex-row items-center justify-center h-screen lg:px-20 gap-12">
+      {/* Columna izquierda */}
+      <div className="flex flex-col items-center lg:items-start text-center lg:text-left max-w-2xl">
+        <Title
+          words={words}
+          className="font-bold text-grass font-montserrat text-5xl lg:text-6xl"
+        />
+        <h1 className="font-bold text-white font-montserrat mt-4 text-5xl lg:text-7xl">
+          Gudiño Joaquin
+        </h1>
+        <p className="font-semibold text-white mt-12 text-2xl lg:text-3xl">
+          Diseño y desarrollo web
+        </p>
+        <p className="font-semibold text-white mt-2 text-2xl lg:text-3xl">
+          Fullstack developer
+        </p>
+      </div>
+
+      {/* Columna derecha */}
+      <div className="w-full lg:w-1/2">
         <Languajes />
-      </section>
-      
+      </div>
     </section>
   );
 }

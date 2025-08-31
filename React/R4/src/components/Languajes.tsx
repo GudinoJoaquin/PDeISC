@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import {
   IoLogoJavascript,
@@ -21,6 +21,7 @@ import { FaJava } from "react-icons/fa";
 
 export default function Languajes() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   const icons = [
     <IoLogoJavascript color="#3c7068" size={38} />,
@@ -39,32 +40,86 @@ export default function Languajes() {
     <SiRust color="#3c7068" size={33} />,
   ];
 
-  // duplicamos varias veces la lista para que siempre haya íconos entrando
+  // duplicamos varias veces la lista para el carrusel horizontal
   const repeatedIcons = [...icons, ...icons, ...icons, ...icons];
 
   useEffect(() => {
-    if (!trackRef.current) return;
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
 
-    const track = trackRef.current;
-
-    const items = Array.from(track.children) as HTMLElement[];
-    const totalWidth = items.reduce((acc, el) => acc + el.offsetWidth + 24, 0); // gap-6 = 24px
-
-    gsap.to(track, {
-      x: `-=${totalWidth / 4}`, // animamos un bloque
-      duration: 10, // velocidad del carrusel
-      ease: "linear",
-      repeat: -1,
-    });
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    if (!trackRef.current) return;
+    const track = trackRef.current;
+
+    gsap.killTweensOf(track.children);
+    gsap.killTweensOf(track);
+
+    if (isDesktop) {
+      // ---- animación circular ----
+      const items = Array.from(track.children) as HTMLElement[];
+      const radius = 120; // radio del círculo
+      const angleStep = (2 * Math.PI) / items.length;
+
+      items.forEach((item, i) => {
+        const angle = i * angleStep;
+        gsap.set(item, {
+          position: "absolute",
+          left: `${Math.cos(angle) * radius + radius}px`,
+          top: `${Math.sin(angle) * radius + radius}px`,
+        });
+      });
+
+      // rotar el contenedor completo
+      gsap.to(track, {
+        rotate: 360,
+        duration: 30,
+        ease: "linear",
+        repeat: -1,
+        transformOrigin: "center center",
+        onUpdate: () => {
+          const rotation = gsap.getProperty(track, "rotate") as number;
+          items.forEach((item) => {
+            gsap.set(item, { rotate: -rotation });
+          });
+        },
+      });
+    } else {
+      // ---- animación horizontal ----
+      const items = Array.from(track.children) as HTMLElement[];
+      const totalWidth = items.reduce(
+        (acc, el) => acc + el.offsetWidth + 24,
+        0
+      );
+
+      gsap.to(track, {
+        x: `-=${totalWidth / 4}`,
+        duration: 10,
+        ease: "linear",
+        repeat: -1,
+      });
+    }
+  }, [isDesktop]);
+
   return (
-    <div className="overflow-hidden w-full">
-      <div ref={trackRef} className="flex gap-6 whitespace-nowrap w-max">
-        {repeatedIcons.map((icon, i) => (
+    <div className="overflow-hidden w-full flex justify-center">
+      <div
+        ref={trackRef}
+        className={`${
+          isDesktop
+            ? "relative w-[300px] h-[300px]" // círculo
+            : "flex gap-6 whitespace-nowrap w-max" // carrusel
+        }`}
+      >
+        {(isDesktop ? icons : repeatedIcons).map((icon, i) => (
           <div
             key={i}
-            className="flex-shrink-0 flex flex-col items-center justify-center"
+            className="flex-shrink-0 flex items-center justify-center"
           >
             {icon}
           </div>
