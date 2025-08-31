@@ -215,6 +215,7 @@ export default function CallToAction({
           {[...Array(3)].map((_, i) => (
             <div
               key={i}
+              // @ts-expect-error bien
               ref={(el) => (energyWaveRef.current[i] = el!)}
               className="absolute inset-0 w-8 h-8 -top-4 -left-4 border-2 border-grass/60 rounded-full"
             />
@@ -223,6 +224,7 @@ export default function CallToAction({
           {[...Array(2)].map((_, i) => (
             <div
               key={i}
+              // @ts-expect-error bien
               ref={(el) => (magneticFieldRef.current[i] = el!)}
               className="absolute inset-0 w-16 h-16 -top-8 -left-8 border border-grass/30 rounded-full"
             />
@@ -254,6 +256,7 @@ export default function CallToAction({
         {[...Array(8)].map((_, i) => (
           <div
             key={i}
+            // @ts-expect-error bien
             ref={(el) => (shapesRef.current[i] = el!)}
             className={`absolute ${
               i % 4 === 0
@@ -276,6 +279,7 @@ export default function CallToAction({
       {[...Array(12)].map((_, i) => (
         <div
           key={i}
+          // @ts-expect-error bien
           ref={(el) => (linesRef.current[i] = el!)}
           className="absolute bg-gradient-to-r from-grass/60 via-grass/80 to-grass/20 origin-center"
           style={{

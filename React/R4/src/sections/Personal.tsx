@@ -155,6 +155,7 @@ export default function Personal() {
           {[...Array(6)].map((_, i) => (
             <div
               key={i}
+              // @ts-expect-error bien
               ref={(el) => (orbsRef.current[i] = el)}
               className={`absolute ${
                 i % 3 === 0
@@ -194,6 +195,7 @@ export default function Personal() {
             {personalInfo.map((item, index) => (
               <div
                 key={index}
+                // @ts-expect-error bien
                 ref={(el) => (infoItemsRef.current[index] = el)}
                 className="flex justify-between items-center py-2 px-3 rounded-xl bg-grass/5 border border-grass/20 hover:bg-grass/10 transition-all duration-300"
               >

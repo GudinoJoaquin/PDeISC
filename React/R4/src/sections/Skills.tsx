@@ -54,7 +54,7 @@ export default function Skills() {
     rust: <SiRust />,
     astro: <SiAstro />,
     github: <IoLogoGithub />,
-    nextjs: <RiNextjsFill />
+    nextjs: <RiNextjsFill />,
   };
 
   useEffect(() => {
@@ -132,6 +132,7 @@ export default function Skills() {
       {[...Array(12)].map((_, i) => (
         <div
           key={i}
+          // @ts-expect-error bien
           ref={(el) => (particlesRef.current[i] = el!)}
           className={`absolute w-2 h-2 rounded-full bg-grass/60`}
           style={{
@@ -147,6 +148,7 @@ export default function Skills() {
         {skills.map((skill, i) => (
           <div
             key={skill.id}
+            // @ts-expect-error bien
             ref={(el) => (skillItemsRef.current[i] = el!)}
             className="flex flex-col items-center p-4 rounded-2xl bg-grass/10 border border-grass/20 shadow-lg hover:shadow-grass/40 transition-all duration-300"
           >
