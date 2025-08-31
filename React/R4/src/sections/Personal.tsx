@@ -6,10 +6,10 @@ import { supabase } from "../config/supabase";
 gsap.registerPlugin(ScrollTrigger);
 
 interface InfoProps {
-  name: string
-  country: string
-  phone: string
-  email: string
+  name: string;
+  country: string;
+  phone: string;
+  email: string;
 }
 
 export default function Personal() {
@@ -19,25 +19,28 @@ export default function Personal() {
   const linesRef = useRef([]);
   const infoItemsRef = useRef([]);
   const descriptionRef = useRef(null);
-  const [data, setData] = useState<InfoProps | null>(null)
+  const [data, setData] = useState<InfoProps | null>(null);
 
   useEffect(() => {
     const getPersonalInfo = async () => {
-      const { data: info, error} = await supabase.from("info").select("*").single()
-      if(error) {
-        console.log(error)
-        setData(null)
+      const { data: info, error } = await supabase
+        .from("info")
+        .select("*")
+        .single();
+      if (error) {
+        console.log(error);
+        setData(null);
       }
 
-      if(!info){
-        console.log("No hay info")
-        setData(null)
+      if (!info) {
+        console.log("No hay info");
+        setData(null);
       }
 
-      setData(info)
-    }
-    getPersonalInfo()
-  }, [])
+      setData(info);
+    };
+    getPersonalInfo();
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -141,7 +144,10 @@ export default function Personal() {
   ];
 
   return (
-    <section id="personal" className="h-[120vh] bg-forest flex items-center justify-center px-4">
+    <section
+      id="personal"
+      className="h-[200vh] bg-forest flex items-center justify-center px-4"
+    >
       <div
         ref={cardRef}
         className="relative lg:h-88 mb-24 w-full max-w-5xl bg-grass/10 backdrop-blur-sm border border-grass/30 rounded-3xl p-6 shadow-2xl flex flex-col lg:flex-row lg:items-start gap-6"
@@ -234,11 +240,10 @@ export default function Personal() {
               únicas y funcionales. Apasionado por el diseño UI/UX, tecnologías
               modernas y siempre buscando innovar en cada proyecto. Me gusta
               crear interfaces limpias y experiencias interactivas que
-              sorprendan al usuario. Enfocado en optimizar el
-              rendimiento y la accesibilidad de las apps web, asegurando
-              la escalabilidad. Disfruto colaborar
-              con equipos y aprender constantemente nuevas
-              herramientas y frameworks 
+              sorprendan al usuario. Enfocado en optimizar el rendimiento y la
+              accesibilidad de las apps web, asegurando la escalabilidad.
+              Disfruto colaborar con equipos y aprender constantemente nuevas
+              herramientas y frameworks
             </p>
 
             <div className="flex justify-center lg:justify-end mt-3">
