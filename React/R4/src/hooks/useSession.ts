@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../config/supabase";
-import type {Session} from "@supabase/supabase-js"
+import type { Session } from "@supabase/supabase-js"
 
 
 export default function useSession(){
@@ -16,7 +16,7 @@ export default function useSession(){
       }
 
       if (data) {
-        setSession(data.session)
+        setSession(data.session!)
       }
     };
     getSession();
