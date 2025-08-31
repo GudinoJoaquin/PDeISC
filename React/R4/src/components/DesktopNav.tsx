@@ -8,7 +8,6 @@ import {
   IoLogInOutline
 } from "react-icons/io5";
 import { RiHome6Fill, RiHome6Line } from "react-icons/ri";
-import { MdOutlineContacts, MdContacts } from "react-icons/md";
 import { SiTailwindcss } from "react-icons/si"; // Icono de Skills
 import gsap from "gsap";
 import { useNavigate } from "react-router-dom";

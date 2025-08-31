@@ -4,7 +4,6 @@ import ScrollBridge from "../components/ScrollBridge";
 import Personal from "../sections/Personal";
 import CallToAction from "../components/CallToAction";
 import Proyectos from "../sections/Proyectos";
-import Contact from "../sections/Contact";
 import Skills from "../sections/Skills";
 import Footer from "../sections/Footer";
 import DesktopNav from "../components/DesktopNav";

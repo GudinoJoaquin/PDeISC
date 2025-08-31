@@ -3,21 +3,18 @@ import gsap from "gsap";
 import { IoLogoGithub, IoLogoLinkedin, IoLogoInstagram } from "react-icons/io5";
 
 export default function Footer() {
-  const footerRef = useRef(null);
-  const particlesRef = useRef([]);
+  const footerRef = useRef<HTMLDivElement | null>(null);
+  const particlesRef = useRef<HTMLDivElement[]>([]); // <- ya no permitimos null
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      if (!footerRef.current) return;
+
       // Animación de entrada del footer
       gsap.fromTo(
         footerRef.current,
         { y: 100, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1.2,
-          ease: "power3.out",
-        }
+        { y: 0, opacity: 1, duration: 1.2, ease: "power3.out" }
       );
 
       // Animación partículas flotantes
@@ -46,7 +43,9 @@ export default function Footer() {
       {[...Array(8)].map((_, i) => (
         <div
           key={i}
-          ref={(el) => (particlesRef.current[i] = el)}
+          ref={(el) => {
+            if (el) particlesRef.current[i] = el; // <- solo asignamos si existe
+          }}
           className="absolute w-2 h-2 rounded-full bg-grass/60"
           style={{
             top: `${Math.random() * 90}%`,

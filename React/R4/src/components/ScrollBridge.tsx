@@ -4,23 +4,27 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+interface CallToActionProps {
+  title?: string;
+}
+
 export default function CallToAction({
   title = "Actua ahora",
-}: {
-  title?: string;
-}) {
-  const containerRef = useRef(null);
-  const shapesRef = useRef([]);
-  const linesRef = useRef([]);
-  const coreRef = useRef(null);
-  const arrowRef = useRef(null);
-  const magneticFieldRef = useRef([]);
-  const energyWaveRef = useRef([]);
-  const callToActionRef = useRef(null);
-  const titleRef = useRef(null); // <- referencia para el título
+}: CallToActionProps) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const shapesRef = useRef<HTMLDivElement[]>([]);
+  const linesRef = useRef<HTMLDivElement[]>([]);
+  const coreRef = useRef<HTMLDivElement | null>(null);
+  const arrowRef = useRef<HTMLDivElement | null>(null);
+  const magneticFieldRef = useRef<HTMLDivElement[]>([]);
+  const energyWaveRef = useRef<HTMLDivElement[]>([]);
+  const callToActionRef = useRef<HTMLDivElement | null>(null);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      if (!containerRef.current) return;
+
       const mainTl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
@@ -29,40 +33,34 @@ export default function CallToAction({
         },
       });
 
-      // 1. Animación del core central con explosión inicial
+      if (
+        !coreRef.current ||
+        !arrowRef.current ||
+        !callToActionRef.current ||
+        !titleRef.current
+      )
+        return;
+
+      // Animación core central
       mainTl
         .fromTo(
           coreRef.current,
           { scale: 0, rotation: 0 },
-          {
-            scale: 1.2,
-            rotation: 180,
-            duration: 0.8,
-            ease: "back.out(2)",
-          }
+          { scale: 1.2, rotation: 180, duration: 0.8, ease: "back.out(2)" }
         )
-        .to(coreRef.current, {
-          scale: 1,
-          duration: 0.3,
-          ease: "power2.out",
-        });
+        .to(coreRef.current, { scale: 1, duration: 0.3, ease: "power2.out" });
 
-      // 2. Ondas de energía expansivas
+      // Ondas de energía
       energyWaveRef.current.forEach((wave, index) => {
         mainTl.fromTo(
           wave,
           { scale: 0, opacity: 0.8 },
-          {
-            scale: 3,
-            opacity: 0,
-            duration: 1.5,
-            ease: "power2.out",
-          },
+          { scale: 3, opacity: 0, duration: 1.5, ease: "power2.out" },
           0.3 + index * 0.2
         );
       });
 
-      // 3. Formas geométricas con entrada dramática
+      // Formas geométricas
       shapesRef.current.forEach((shape, index) => {
         const angle = (360 / shapesRef.current.length) * index;
         const radius = 60;
@@ -75,8 +73,8 @@ export default function CallToAction({
           {
             scale: 1,
             rotation: index % 2 === 0 ? 360 : -360,
-            x: x,
-            y: y,
+            x,
+            y,
             duration: 1.2,
             ease: "elastic.out(1, 0.4)",
           },
@@ -84,63 +82,41 @@ export default function CallToAction({
         );
       });
 
-      // 4. Líneas de conexión con efecto magnético
+      // Líneas de conexión
       linesRef.current.forEach((line, index) => {
         mainTl.fromTo(
           line,
           { scaleX: 0, opacity: 0 },
-          {
-            scaleX: 1,
-            opacity: 1,
-            duration: 0.8,
-            ease: "power2.out",
-          },
+          { scaleX: 1, opacity: 1, duration: 0.8, ease: "power2.out" },
           1.5 + index * 0.05
         );
       });
 
-      // 5. Flecha direccional con bounce
+      // Flecha direccional
       mainTl.fromTo(
         arrowRef.current,
         { y: -30, opacity: 0, scale: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 0.6,
-          ease: "bounce.out",
-        },
+        { y: 0, opacity: 1, scale: 1, duration: 0.6, ease: "bounce.out" },
         2
       );
 
-      // 6. Call to action con fade elegante
+      // Call to action
       mainTl.fromTo(
         callToActionRef.current,
         { y: 20, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: "power2.out",
-        },
+        { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
         2.3
       );
 
-      // 7. Título animado
+      // Título animado
       mainTl.fromTo(
         titleRef.current,
         { y: 20, opacity: 0, scale: 0.8 },
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 1,
-          ease: "back.out(1.5)",
-        },
+        { y: 0, opacity: 1, scale: 1, duration: 1, ease: "back.out(1.5)" },
         1.5
       );
 
-      // ANIMACIONES CONTINUAS
+      // Animaciones continuas
       gsap.to(coreRef.current, {
         scale: 1.3,
         duration: 2,
@@ -156,7 +132,6 @@ export default function CallToAction({
           repeat: -1,
           ease: "none",
         });
-
         gsap.to(shape, {
           motionPath: {
             path: "M0,0 Q30,30 0,60 Q-30,30 0,0",
@@ -169,7 +144,7 @@ export default function CallToAction({
         });
       });
 
-      linesRef.current.forEach((line, index) => {
+      linesRef.current.forEach((line) => {
         gsap.to(line, {
           opacity: 0.2,
           duration: 0.1 + Math.random() * 0.3,
@@ -234,13 +209,13 @@ export default function CallToAction({
         ))}
       </div>
 
-      {/* Core central con múltiples capas */}
+      {/* Core central */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="relative">
           {[...Array(3)].map((_, i) => (
             <div
               key={i}
-              ref={(el) => (energyWaveRef.current[i] = el)}
+              ref={(el) => (energyWaveRef.current[i] = el!)}
               className="absolute inset-0 w-8 h-8 -top-4 -left-4 border-2 border-grass/60 rounded-full"
             />
           ))}
@@ -248,7 +223,7 @@ export default function CallToAction({
           {[...Array(2)].map((_, i) => (
             <div
               key={i}
-              ref={(el) => (magneticFieldRef.current[i] = el)}
+              ref={(el) => (magneticFieldRef.current[i] = el!)}
               className="absolute inset-0 w-16 h-16 -top-8 -left-8 border border-grass/30 rounded-full"
             />
           ))}
@@ -274,12 +249,12 @@ export default function CallToAction({
         {title}
       </h2>
 
-      {/* Formas geométricas orbitales */}
+      {/* Formas geométricas */}
       <div className="absolute inset-0 flex items-center justify-center">
         {[...Array(8)].map((_, i) => (
           <div
             key={i}
-            ref={(el) => (shapesRef.current[i] = el)}
+            ref={(el) => (shapesRef.current[i] = el!)}
             className={`absolute ${
               i % 4 === 0
                 ? "w-3 h-3 bg-grass/80 rounded-full"
@@ -297,11 +272,11 @@ export default function CallToAction({
         ))}
       </div>
 
-      {/* Red de conexiones energéticas */}
+      {/* Red de líneas */}
       {[...Array(12)].map((_, i) => (
         <div
           key={i}
-          ref={(el) => (linesRef.current[i] = el)}
+          ref={(el) => (linesRef.current[i] = el!)}
           className="absolute bg-gradient-to-r from-grass/60 via-grass/80 to-grass/20 origin-center"
           style={{
             width: `${40 + i * 8}px`,
@@ -313,7 +288,7 @@ export default function CallToAction({
         />
       ))}
 
-      {/* Flecha direccional llamativa */}
+      {/* Flecha direccional */}
       <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2">
         <div
           ref={arrowRef}
@@ -329,14 +304,8 @@ export default function CallToAction({
 
       <style>{`
         @keyframes pulse {
-          0%, 100% {
-            opacity: 0.3;
-            transform: scale(0.8);
-          }
-          50% {
-            opacity: 0.1;
-            transform: scale(1.2);
-          }
+          0%, 100% { opacity: 0.3; transform: scale(0.8); }
+          50% { opacity: 0.1; transform: scale(1.2); }
         }
       `}</style>
     </div>

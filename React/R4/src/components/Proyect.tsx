@@ -1,6 +1,5 @@
 import { BiLogoCPlusPlus } from "react-icons/bi";
 import { FaJava } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import {
   IoLogoReact,
   IoLogoGithub,
@@ -36,23 +35,6 @@ export default function Proyect({
   languajes,
   link,
 }: ProyectProps) {
-  const icons = [
-    <IoLogoJavascript color="#3c7068" size={38} />,
-    <IoLogoReact color="#3c7068" size={38} />,
-    <IoLogoPython color="#3c7068" size={38} />,
-    <SiPhp color="#3c7068" size={38} />,
-    <SiTailwindcss color="#3c7068" size={38} />,
-    <IoLogoGithub color="#3c7068" size={38} />,
-    <IoLogoNodejs color="#3c7068" size={38} />,
-    <FaJava color="#3c7068" size={38} />,
-    <SiAstro color="#3c7068" size={38} />,
-    <SiExpress color="#3c7068" size={38} />,
-    <BiLogoCPlusPlus color="#3c7068" size={38} />,
-    <SiTypescript color="#3c7068" size={33} />,
-    <SiMysql color="#3c7068" size={33} />,
-    <SiRust color="#3c7068" size={33} />,
-    <RiNextjsFill color="#3c7068" size={33} />,
-  ];
 
   return (
     <div
