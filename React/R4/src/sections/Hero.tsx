@@ -1,6 +1,7 @@
 import Languajes from "../components/Languajes";
 import Title from "../components/Title";
 
+// Array de saludos en distintos idiomas
 const words = [
   "Hi!, I'm", // Inglés
   "Hola!, Soy", // Español
@@ -18,16 +19,22 @@ const words = [
 
 export default function Hero() {
   return (
-    <section id="hero" className="flex flex-col lg:flex-row items-center justify-center h-screen lg:px-20 gap-12">
-      {/* Columna izquierda */}
+    <section
+      id="hero"
+      className="flex flex-col lg:flex-row items-center justify-center h-screen lg:px-20 gap-12"
+    >
+      {/* Columna izquierda: texto principal */}
       <div className="flex flex-col items-center lg:items-start text-center lg:text-left max-w-2xl">
+        {/* Componente Title que rota entre las palabras del array */}
         <Title
           words={words}
           className="font-bold text-grass font-montserrat text-5xl lg:text-6xl"
         />
+        {/* Nombre principal */}
         <h1 className="font-bold text-white font-montserrat mt-4 text-5xl lg:text-7xl">
           Gudiño Joaquin
         </h1>
+        {/* Descripción corta */}
         <p className="font-semibold text-white mt-12 text-2xl lg:text-3xl">
           Diseño y desarrollo web
         </p>
@@ -36,7 +43,7 @@ export default function Hero() {
         </p>
       </div>
 
-      {/* Columna derecha */}
+      {/* Columna derecha: animación/visualización de lenguajes */}
       <div className="w-full lg:w-1/2">
         <Languajes />
       </div>

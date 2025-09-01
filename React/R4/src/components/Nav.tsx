@@ -14,21 +14,29 @@ import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { SiTailwindcss } from "react-icons/si";
 
+// Componente de navegación principal
 export default function Nav() {
+  // Estado para controlar si el menú está abierto o cerrado
   const [open, setOpen] = useState(false);
+  // Estado para detectar si la vista es móvil
   const [isMobile, setIsMobile] = useState(false);
+  // Referencia al contenedor del nav
   const navRef = useRef<HTMLDivElement>(null);
+  // Referencia al botón del menú
   const menuRef = useRef<HTMLDivElement>(null);
+  // Hook para navegación programática
   const navigate = useNavigate();
 
+  // Alterna el estado del menú (abierto/cerrado)
   const handleClick = () => setOpen((prev) => !prev);
 
+  // Hace scroll suave a la sección indicada por id
   const handleScroll = (id: string) => {
     const section = document.getElementById(id);
     section?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Detectar si es móvil
+  // Detecta si la pantalla es móvil y actualiza el estado
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -39,7 +47,7 @@ export default function Nav() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Animación del nav y del botón
+  // Anima la altura del nav y la posición del botón del menú según el estado
   useEffect(() => {
     if (!navRef.current || !menuRef.current) return;
 
@@ -59,7 +67,7 @@ export default function Nav() {
     });
   }, [open, isMobile]);
 
-  // Hover de íconos y tooltips con soporte mejorado para móvil
+  // Maneja el hover/cambio visual de los íconos (relleno y línea)
   const handleHover = (id: string, state: boolean) => {
     const fill = document.getElementById(`${id}-fill`);
     const line = document.getElementById(`${id}-line`);
@@ -75,20 +83,22 @@ export default function Nav() {
     }
   };
 
+  // Tamaños de íconos y botón según si es móvil o no
   const iconSize = isMobile ? 24 : 30;
   const buttonSize = isMobile ? 36 : 48;
 
   return (
     <main className="fixed z-50">
+      {/* Barra de navegación principal */}
       <nav
         ref={navRef}
         className="w-14 md:w-18 bg-petroleoum rounded-b-full overflow-hidden relative shadow-xl md:shadow-2xl shadow-grass"
         style={{ height: isMobile ? "3.5rem" : "4.5rem" }}
       >
-        {/* Iconos centrados cuando el menú está abierto */}
+        {/* Menú de íconos centrados, visible solo cuando el menú está abierto */}
         {open && (
           <div className="absolute top-4 md:top-6 left-1/2 -translate-x-1/2 flex flex-col gap-4 md:gap-6 items-center">
-            {/* Home */}
+            {/* Botón Home */}
             <div className="relative">
               <button
                 onMouseEnter={() => handleHover("home", true)}
@@ -97,12 +107,14 @@ export default function Nav() {
                 onTouchEnd={() => handleHover("home", false)}
                 onClick={() => handleScroll("hero")}
               >
+                {/* Ícono relleno */}
                 <RiHome6Fill
                   id="home-fill"
                   className="text-white"
                   color="#3c7068"
                   size={iconSize}
                 />
+                {/* Ícono línea */}
                 <RiHome6Line
                   id="home-line"
                   color="#3c7068"
@@ -112,7 +124,7 @@ export default function Nav() {
               </button>
             </div>
 
-            {/* Documents */}
+            {/* Botón Documentos */}
             <div className="relative">
               <button
                 onMouseEnter={() => handleHover("doc", true)}
@@ -136,7 +148,7 @@ export default function Nav() {
               </button>
             </div>
 
-            {/* Terminal */}
+            {/* Botón Terminal */}
             <div className="relative">
               <button
                 onMouseEnter={() => handleHover("term", true)}
@@ -159,6 +171,7 @@ export default function Nav() {
                 />
               </button>
             </div>
+            {/* Botón Skills */}
             <div className="relative">
               <button
                 onMouseEnter={() => handleHover("skills", true)}
@@ -181,6 +194,7 @@ export default function Nav() {
                 />
               </button>
             </div>
+            {/* Botón Login */}
             <div className="relative">
               <button
                 onMouseEnter={() => handleHover("login", true)}
@@ -206,7 +220,7 @@ export default function Nav() {
           </div>
         )}
 
-        {/* Botón del menú */}
+        {/* Botón para abrir/cerrar el menú */}
         <div
           ref={menuRef}
           className="absolute top-1/2 left-1/2 -translate-x-1/2"
@@ -215,6 +229,7 @@ export default function Nav() {
             onClick={handleClick}
             className="-translate-y-1/2 rounded-full p-1 md:p-2"
           >
+            {/* Ícono de menú hamburguesa o de cerrar según el estado */}
             {open ? (
               <IoClose
                 className="text-white"

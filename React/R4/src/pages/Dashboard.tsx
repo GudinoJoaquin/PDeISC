@@ -3,6 +3,7 @@ import { supabase } from "../config/supabase";
 import { useNavigate } from "react-router-dom";
 import useSession from "../hooks/useSession";
 
+// Interfaces para los datos personales, proyectos y skills
 interface Personal {
   id: number;
   name: string;
@@ -28,27 +29,32 @@ interface Skill {
 }
 
 export default function Dashboard() {
+  // Obtiene la sesión actual y el método para navegar entre rutas
   const { session } = useSession();
   const navigate = useNavigate();
 
+  // Si no hay sesión, redirige al login
   if (!session) {
     navigate("/login");
   }
 
+  // Estado para la pestaña activa
   const [tab, setTab] = useState<"personal" | "projects" | "skills">(
     "personal"
   );
 
+  // Estados para los datos principales
   const [personal, setPersonal] = useState<Personal | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
   const [skills, setSkills] = useState<Skill[]>([]);
 
-  // Modales
+  // Estados para los modales de skills
   const [editingSkill, setEditingSkill] = useState<Skill | null>(null);
   const [creatingSkill, setCreatingSkill] = useState(false);
   const [modalLanguaje, setModalLanguaje] = useState("");
   const [modalLevel, setModalLevel] = useState("");
 
+  // Estados para los modales de proyectos
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [creatingProject, setCreatingProject] = useState(false);
   const [modalProjectTitle, setModalProjectTitle] = useState("");
@@ -58,59 +64,69 @@ export default function Dashboard() {
   const [modalProjectLenguajes, setModalProjectLenguajes] = useState("");
   const [modalProjectType, setModalProjectType] = useState("");
 
+  // Estados para confirmaciones y notificaciones
   const [confirmAction, setConfirmAction] = useState<(() => void) | null>(null);
   const [confirmMessage, setConfirmMessage] = useState("");
-
   const [notification, setNotification] = useState("");
 
-  // Cargar datos
+  // Función para cargar los datos desde la base de datos
   const loadData = async () => {
     try {
+      // Carga información personal
       const { data: personalData } = await supabase
         .from("info")
         .select("*")
         .single();
       setPersonal(personalData || null);
 
+      // Carga proyectos
       const { data: projectsData } = await supabase
         .from("proyects")
         .select("*");
       setProjects(projectsData || []);
 
+      // Carga skills
       const { data: skillsData } = await supabase.from("skills").select("*");
       setSkills(skillsData || []);
     } catch (err) {
       console.error("Error cargando datos:", err);
     }
   };
+
+  // Carga los datos al montar el componente
   useEffect(() => {
     loadData();
   }, []);
 
+  // Colores para los estilos de los botones y fondos
   const colors = {
     forest: "bg-forest",
     grass: "bg-grass",
     petroleoum: "bg-petroleoum",
   };
 
-  // Personal
+  // Actualiza la información personal en la base de datos
   const updatePersonal = async () => {
     if (!personal) return;
     await supabase.from("info").update(personal).eq("id", personal.id);
     setNotification("Información personal actualizada");
   };
 
-  // Skills
+  // Abre el modal para editar una skill
   const openEditSkillModal = (skill: Skill) => {
     setEditingSkill(skill);
     setModalLanguaje(skill.languaje);
     setModalLevel(skill.level);
   };
+
+  // Abre el modal para crear una nueva skill
   const openCreateSkillModal = () => {
     setCreatingSkill(true);
     setModalLanguaje("");
     setModalLevel("");
   };
+
+  // Guarda una skill (nueva o editada)
   const saveSkill = async () => {
     if (editingSkill) {
       await supabase
@@ -135,7 +151,7 @@ export default function Dashboard() {
     loadData()
   };
 
-  // Proyectos
+  // Abre el modal para editar un proyecto
   const openEditProjectModal = (project: Project) => {
     setEditingProject(project);
     setModalProjectTitle(project.title);
@@ -148,6 +164,7 @@ export default function Dashboard() {
     );
   };
 
+  // Abre el modal para crear un nuevo proyecto
   const openCreateProjectModal = () => {
     setCreatingProject(true);
     setModalProjectTitle("");
@@ -156,6 +173,7 @@ export default function Dashboard() {
     setModalProjectImage("");
   };
 
+  // Convierte el string de lenguajes a un array
   const parseLenguajes = (input: string): string[] => {
     return input
       .split(",") // separa por coma
@@ -163,8 +181,9 @@ export default function Dashboard() {
       .filter((lang) => lang.length > 0); // elimina vacíos
   };
 
+  // Guarda un proyecto (nuevo o editado)
   const saveProject = async () => {
-    const lenguajesArray = parseLenguajes(modalProjectLenguajes); // 👈 acá parseás
+    const lenguajesArray = parseLenguajes(modalProjectLenguajes); // Convierte los lenguajes a array
 
     if (editingProject) {
       await supabase
@@ -210,6 +229,7 @@ export default function Dashboard() {
     loadData()
   };
 
+  // Elimina una skill con confirmación
   const deleteSkill = (skill: Skill) => {
     setConfirmMessage("¿Seguro que quieres eliminar esta skill?");
     setConfirmAction(() => async () => {
@@ -218,6 +238,8 @@ export default function Dashboard() {
     });
     loadData()
   };
+
+  // Elimina un proyecto con confirmación
   const deleteProject = (project: Project) => {
     setConfirmMessage("¿Seguro que quieres eliminar este proyecto?");
     setConfirmAction(() => async () => {
@@ -227,6 +249,7 @@ export default function Dashboard() {
     loadData()
   };
 
+  // Cancela y cierra cualquier modal abierto
   const cancelModal = () => {
     setEditingSkill(null);
     setCreatingSkill(false);
@@ -237,6 +260,7 @@ export default function Dashboard() {
 
   return (
     <main className={`${colors.forest} p-6 min-h-screen text-white`}>
+      {/* Botón para volver al inicio */}
       <button
         onClick={() => navigate("/")}
         className="bg-grass text-white font-bold px-4 py-1 mb-2 rounded-lg hover:bg-petroleoum hover:ring-2 hover:ring-grass hover:text-grass transition-colors hover:cursor-pointer mt-4"
@@ -245,7 +269,7 @@ export default function Dashboard() {
       </button>
       <h1 className="text-3xl font-bold mb-6">Dashboard Portfolio</h1>
 
-      {/* Tabs */}
+      {/* Tabs de navegación */}
       <div className="flex gap-4 mb-6">
         <button
           className={`hover:cursor-pointer px-4 py-2 rounded ${
@@ -277,7 +301,7 @@ export default function Dashboard() {
         </button>
       </div>
 
-      {/* Personal */}
+      {/* Sección de datos personales */}
       {tab === "personal" && personal && (
         <div className="flex flex-col gap-4">
           <input
@@ -317,7 +341,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* Proyectos */}
+      {/* Sección de proyectos */}
       {tab === "projects" && (
         <div className="flex flex-col gap-4">
           <button
@@ -362,7 +386,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* Skills */}
+      {/* Sección de skills */}
       {tab === "skills" && (
         <div className="flex flex-col gap-4">
           <button
@@ -398,7 +422,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* Modales Skills */}
+      {/* Modal para agregar/editar skills */}
       {(editingSkill || creatingSkill) && (
         <div className="fixed inset-0 flex justify-center items-center bg-black/50 z-50">
           <div
@@ -437,7 +461,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* Modales Proyectos */}
+      {/* Modal para agregar/editar proyectos */}
       {(editingProject || creatingProject) && (
         <div className="fixed inset-0 flex justify-center items-center bg-black/50 z-50">
           <div
@@ -500,7 +524,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* Modal Confirmación */}
+      {/* Modal de confirmación para eliminar */}
       {confirmAction && (
         <div className="fixed inset-0 flex justify-center items-center bg-black/50 z-50">
           <div
@@ -528,7 +552,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* Modal Notificación */}
+      {/* Modal de notificación */}
       {notification && (
         <div className="fixed inset-0 flex justify-center items-center bg-black/50 z-50">
           <div

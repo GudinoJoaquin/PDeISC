@@ -2,15 +2,18 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+// Registro del plugin ScrollTrigger de GSAP
 gsap.registerPlugin(ScrollTrigger);
 
 interface CallToActionProps {
   title?: string;
 }
 
+// Componente principal CallToAction
 export default function CallToAction({
   title = "Actua ahora",
 }: CallToActionProps) {
+  // Referencias a los distintos elementos animados
   const containerRef = useRef<HTMLDivElement | null>(null);
   const shapesRef = useRef<HTMLDivElement[]>([]);
   const linesRef = useRef<HTMLDivElement[]>([]);
@@ -21,10 +24,12 @@ export default function CallToAction({
   const callToActionRef = useRef<HTMLDivElement | null>(null);
   const titleRef = useRef<HTMLHeadingElement | null>(null);
 
+  // Efecto para inicializar animaciones con GSAP al montar el componente
   useEffect(() => {
     const ctx = gsap.context(() => {
       if (!containerRef.current) return;
 
+      // Timeline principal con ScrollTrigger
       const mainTl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
@@ -33,6 +38,7 @@ export default function CallToAction({
         },
       });
 
+      // Validación de referencias necesarias
       if (
         !coreRef.current ||
         !arrowRef.current ||
@@ -41,7 +47,7 @@ export default function CallToAction({
       )
         return;
 
-      // Animación core central
+      // Animación del núcleo central
       mainTl
         .fromTo(
           coreRef.current,
@@ -50,7 +56,7 @@ export default function CallToAction({
         )
         .to(coreRef.current, { scale: 1, duration: 0.3, ease: "power2.out" });
 
-      // Ondas de energía
+      // Animación de ondas de energía
       energyWaveRef.current.forEach((wave, index) => {
         mainTl.fromTo(
           wave,
@@ -60,7 +66,7 @@ export default function CallToAction({
         );
       });
 
-      // Formas geométricas
+      // Animación de formas geométricas alrededor del núcleo
       shapesRef.current.forEach((shape, index) => {
         const angle = (360 / shapesRef.current.length) * index;
         const radius = 60;
@@ -82,7 +88,7 @@ export default function CallToAction({
         );
       });
 
-      // Líneas de conexión
+      // Animación de líneas de conexión
       linesRef.current.forEach((line, index) => {
         mainTl.fromTo(
           line,
@@ -92,7 +98,7 @@ export default function CallToAction({
         );
       });
 
-      // Flecha direccional
+      // Animación de la flecha direccional
       mainTl.fromTo(
         arrowRef.current,
         { y: -30, opacity: 0, scale: 0 },
@@ -100,7 +106,7 @@ export default function CallToAction({
         2
       );
 
-      // Call to action
+      // Animación del call to action (botón o mensaje)
       mainTl.fromTo(
         callToActionRef.current,
         { y: 20, opacity: 0 },
@@ -108,7 +114,7 @@ export default function CallToAction({
         2.3
       );
 
-      // Título animado
+      // Animación del título
       mainTl.fromTo(
         titleRef.current,
         { y: 20, opacity: 0, scale: 0.8 },
@@ -116,7 +122,7 @@ export default function CallToAction({
         1.5
       );
 
-      // Animaciones continuas
+      // Animaciones continuas (loop infinito)
       gsap.to(coreRef.current, {
         scale: 1.3,
         duration: 2,
@@ -125,6 +131,7 @@ export default function CallToAction({
         ease: "sine.inOut",
       });
 
+      // Rotación y movimiento de las formas geométricas
       shapesRef.current.forEach((shape, index) => {
         gsap.to(shape, {
           rotation: "+=360",
@@ -144,6 +151,7 @@ export default function CallToAction({
         });
       });
 
+      // Parpadeo de las líneas de conexión
       linesRef.current.forEach((line) => {
         gsap.to(line, {
           opacity: 0.2,
@@ -155,6 +163,7 @@ export default function CallToAction({
         });
       });
 
+      // Animación de rebote de la flecha
       gsap.to(arrowRef.current, {
         y: 10,
         scale: 1.1,
@@ -164,6 +173,7 @@ export default function CallToAction({
         ease: "power2.inOut",
       });
 
+      // Expansión y desvanecimiento de los campos magnéticos
       magneticFieldRef.current.forEach((field, index) => {
         gsap.to(field, {
           scale: 1.5,
@@ -176,6 +186,7 @@ export default function CallToAction({
         });
       });
 
+      // Pulso del call to action
       gsap.to(callToActionRef.current, {
         scale: 1.05,
         duration: 2,
@@ -185,6 +196,7 @@ export default function CallToAction({
       });
     }, containerRef);
 
+    // Limpieza de animaciones al desmontar el componente
     return () => ctx.revert();
   }, []);
 
@@ -193,7 +205,7 @@ export default function CallToAction({
       ref={containerRef}
       className="relative h-72 translate-y-[-60px] bg-gradient-to-b from-forest via-grass/50 to-forest overflow-hidden cursor-pointer group"
     >
-      {/* Fondo dinámico con ondas */}
+      {/* Fondo dinámico con ondas animadas */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-radial from-grass/30 via-grass/10 to-transparent"></div>
         {[...Array(4)].map((_, i) => (
@@ -209,9 +221,10 @@ export default function CallToAction({
         ))}
       </div>
 
-      {/* Core central */}
+      {/* Núcleo central con ondas y campos magnéticos */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="relative">
+          {/* Ondas de energía */}
           {[...Array(3)].map((_, i) => (
             <div
               key={i}
@@ -221,6 +234,7 @@ export default function CallToAction({
             />
           ))}
 
+          {/* Campos magnéticos */}
           {[...Array(2)].map((_, i) => (
             <div
               key={i}
@@ -230,6 +244,7 @@ export default function CallToAction({
             />
           ))}
 
+          {/* Núcleo */}
           <div
             ref={coreRef}
             className="w-6 h-6 bg-grass rounded-full relative z-10"
@@ -238,6 +253,7 @@ export default function CallToAction({
                 "0 0 30px rgba(74, 222, 128, 0.8), 0 0 60px rgba(74, 222, 128, 0.4)",
             }}
           >
+            {/* Efecto de ping en el núcleo */}
             <div className="absolute inset-0 bg-white rounded-full animate-ping opacity-30"></div>
           </div>
         </div>
@@ -251,7 +267,7 @@ export default function CallToAction({
         {title}
       </h2>
 
-      {/* Formas geométricas */}
+      {/* Formas geométricas animadas */}
       <div className="absolute inset-0 flex items-center justify-center">
         {[...Array(8)].map((_, i) => (
           <div
@@ -275,7 +291,7 @@ export default function CallToAction({
         ))}
       </div>
 
-      {/* Red de líneas */}
+      {/* Red de líneas de conexión */}
       {[...Array(12)].map((_, i) => (
         <div
           key={i}
@@ -292,7 +308,7 @@ export default function CallToAction({
         />
       ))}
 
-      {/* Flecha direccional */}
+      {/* Flecha direccional animada */}
       <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2">
         <div
           ref={arrowRef}
@@ -306,6 +322,7 @@ export default function CallToAction({
         </div>
       </div>
 
+      {/* Definición de la animación pulse para las ondas de fondo */}
       <style>{`
         @keyframes pulse {
           0%, 100% { opacity: 0.3; transform: scale(0.8); }

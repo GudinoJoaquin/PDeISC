@@ -13,43 +13,54 @@ interface ProyectProps {
 
 export default function Proyectos() {
   const [proyects, setProyects] = useState<ProyectProps[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getProyects = async () => {
+      setLoading(true);
       const { data, error } = await supabase.from("proyects").select("*");
 
       if (error) {
-        console.log("Error obteniendo proyectos:", error);
+        console.error("Error obteniendo proyectos:", error);
         setProyects([]);
-        return;
+      } else {
+        setProyects(data ?? []);
       }
 
-      if (!data || data.length === 0) {
-        console.log("No hay proyectos");
-        setProyects([]);
-        return;
-      }
-
-      setProyects(data);
+      setLoading(false);
     };
 
     getProyects();
   }, []);
 
   return (
-    <section id="proyects" className="bg-forest px-4 py-12">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 justify-items-center">
-        {proyects.map((p, i) => (
-          <Proyect
-            key={i}
-            img={p.img}
-            title={p.title}
-            type={p.type}
-            description={p.description}
-            languajes={p.languajes}
-            link={p.link}
-          />
-        ))}
+    <section id="proyects" className="bg-forest px-4 py-16">
+      <div className="max-w-6xl mx-auto">
+        {/* Título de la sección */}
+        <h2 className="text-4xl font-bold text-center text-white font-montserrat mb-12">
+          Proyectos
+        </h2>
+
+        {/* Estado de carga */}
+        {loading ? (
+          <p className="text-center text-gray-300 text-lg">Cargando proyectos...</p>
+        ) : proyects.length === 0 ? (
+          <p className="text-center text-gray-300 text-lg">No hay proyectos disponibles.</p>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 justify-items-center">
+            {proyects.map((p, i) => (
+              <Proyect
+                key={i}
+                img={p.img}
+                title={p.title}
+                type={p.type}
+                description={p.description}
+                languajes={p.languajes}
+                link={p.link}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

@@ -13,11 +13,12 @@ import gsap from "gsap";
 import { useNavigate } from "react-router-dom";
 
 export default function DesktopNav() {
+  // Estado para detectar si es móvil
   const [isMobile, setIsMobile] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate()
 
-  // Detectar si es móvil
+  // Detectar si la pantalla es móvil y actualizar el estado
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -28,7 +29,7 @@ export default function DesktopNav() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Hover de íconos y tooltips con soporte mejorado para móvil
+  // Maneja el hover de los íconos cambiando la opacidad con GSAP
   const handleHover = (id: string, state: boolean) => {
     const fill = document.getElementById(`${id}-fill`);
     const line = document.getElementById(`${id}-line`);
@@ -38,21 +39,24 @@ export default function DesktopNav() {
     }
   };
 
+  // Hace scroll suave a la sección correspondiente
   const handleScroll = (id: string) => {
     const section = document.getElementById(id);
     section?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Tamaño de los íconos según si es móvil o no
   const iconSize = isMobile ? 24 : 30;
 
   return (
+    // Contenedor principal fijo en la pantalla
     <main className="fixed z-50 top-1/2 -translate-y-1/2 left-4">
       <nav
         ref={navRef}
         className="w-18 bg-petroleoum rounded-full overflow-hidden shadow-xl md:shadow-2xl shadow-grass flex flex-col justify-center items-center py-8"
       >
         <div className="flex flex-col gap-6 items-center">
-          {/* Home */}
+          {/* Botón Home */}
           <div className="relative">
             <button
               onMouseEnter={() => handleHover("home", true)}
@@ -76,7 +80,7 @@ export default function DesktopNav() {
             </button>
           </div>
 
-          {/* Documents */}
+          {/* Botón Documentos */}
           <div className="relative">
             <button
               onMouseEnter={() => handleHover("doc", true)}
@@ -100,7 +104,7 @@ export default function DesktopNav() {
             </button>
           </div>
 
-          {/* Terminal */}
+          {/* Botón Terminal */}
           <div className="relative">
             <button
               onMouseEnter={() => handleHover("term", true)}
@@ -124,6 +128,7 @@ export default function DesktopNav() {
             </button>
           </div>
 
+          {/* Botón Skills */}
           <div className="relative">
             <button
               onMouseEnter={() => handleHover("skills", true)}
@@ -147,6 +152,7 @@ export default function DesktopNav() {
             </button>
           </div>
 
+          {/* Botón Login */}
           <div className="relative">
             <button
               onMouseEnter={() => handleHover("login", true)}
@@ -170,7 +176,7 @@ export default function DesktopNav() {
             </button>
           </div>
 
-          {/* Skills */}
+          {/* Fin de botones */}
         </div>
       </nav>
     </main>

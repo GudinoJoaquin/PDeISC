@@ -5,6 +5,7 @@ import { supabase } from "../config/supabase";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Definimos la forma de los datos personales
 interface InfoProps {
   name: string;
   country: string;
@@ -13,20 +14,25 @@ interface InfoProps {
 }
 
 export default function Personal() {
+  // Refs para distintos elementos que vamos a animar
   const cardRef = useRef(null);
   const imageRef = useRef(null);
-  const orbsRef = useRef([]);
-  const linesRef = useRef([]);
-  const infoItemsRef = useRef([]);
-  const descriptionRef = useRef(null);
+  const orbsRef = useRef([]);          // Orbes decorativos
+  const linesRef = useRef([]);         // Líneas (aunque no veo renderizadas en JSX)
+  const infoItemsRef = useRef([]);     // Ítems de información personal
+  const descriptionRef = useRef(null); // Caja de descripción
+
+  // Estado para guardar la info personal desde Supabase
   const [data, setData] = useState<InfoProps | null>(null);
 
+  // Carga la información personal desde la base de datos
   useEffect(() => {
     const getPersonalInfo = async () => {
       const { data: info, error } = await supabase
         .from("info")
         .select("*")
         .single();
+
       if (error) {
         console.log(error);
         setData(null);
@@ -42,21 +48,25 @@ export default function Personal() {
     getPersonalInfo();
   }, []);
 
+  // Animaciones con GSAP y ScrollTrigger
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Timeline principal
       const mainTl = gsap.timeline({
         scrollTrigger: {
           trigger: cardRef.current,
-          start: "top 80%",
+          start: "top 80%", // Se activa cuando el card entra en viewport
         },
       });
 
+      // Animación de la tarjeta principal
       mainTl.fromTo(
         cardRef.current,
         { scale: 0, rotation: -5, opacity: 0 },
         { scale: 1, rotation: 0, opacity: 1, duration: 1.2 }
       );
 
+      // Animación de la imagen/avatar
       mainTl.fromTo(
         imageRef.current,
         { scale: 0, rotation: 180 },
@@ -64,6 +74,7 @@ export default function Personal() {
         0.3
       );
 
+      // Animación de los orbes decorativos
       orbsRef.current.forEach((orb, index) => {
         mainTl.fromTo(
           orb,
@@ -80,6 +91,7 @@ export default function Personal() {
         );
       });
 
+      // Animación de líneas decorativas (si existieran)
       linesRef.current.forEach((line, index) => {
         mainTl.fromTo(
           line,
@@ -89,6 +101,7 @@ export default function Personal() {
         );
       });
 
+      // Animación de los ítems de información (Nombre, País, etc.)
       mainTl.fromTo(
         infoItemsRef.current,
         { x: -30, opacity: 0 },
@@ -96,6 +109,7 @@ export default function Personal() {
         1
       );
 
+      // Animación de la descripción (texto largo)
       mainTl.fromTo(
         descriptionRef.current,
         { y: 20, opacity: 0 },
@@ -103,11 +117,13 @@ export default function Personal() {
         1.5
       );
 
+      // Animaciones continuas (loops)
       gsap.to(imageRef.current, {
         scale: 1.05,
         duration: 3,
         ease: "sine.inOut",
       });
+
       orbsRef.current.forEach((orb, index) => {
         gsap.to(orb, {
           rotation: "+=360",
@@ -116,6 +132,7 @@ export default function Personal() {
           ease: "none",
         });
       });
+
       linesRef.current.forEach((line) => {
         gsap.to(line, {
           opacity: 0.3,
@@ -126,6 +143,7 @@ export default function Personal() {
           delay: Math.random() * 2,
         });
       });
+
       gsap.to(cardRef.current, {
         scale: 1.02,
         duration: 4,
@@ -133,9 +151,11 @@ export default function Personal() {
       });
     }, cardRef);
 
+    // Limpieza al desmontar
     return () => ctx.revert();
   }, []);
 
+  // Preparamos la info personal para mostrar
   const personalInfo = [
     { label: "Nombre", value: data?.name },
     { label: "País", value: data?.country },
@@ -156,11 +176,12 @@ export default function Personal() {
             "0 0 40px rgba(74, 222, 128, 0.2), inset 0 0 40px rgba(74, 222, 128, 0.05)",
         }}
       >
-        {/* Orbes decorativos */}
+        {/* Orbes decorativos distribuidos alrededor */}
         <div className="absolute inset-0 pointer-events-none">
           {[...Array(6)].map((_, i) => (
             <div
               key={i}
+              // Guardamos referencia de cada orb
               // @ts-expect-error bien
               ref={(el) => (orbsRef.current[i] = el)}
               className={`absolute ${
@@ -180,8 +201,9 @@ export default function Personal() {
           ))}
         </div>
 
-        {/* IZQUIERDA: imagen + info personal */}
+        {/* Columna izquierda: avatar + info personal */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-center gap-6 lg:w-1/2 lg:h-full">
+          {/* Avatar circular */}
           <div className="flex justify-center lg:block">
             <div
               ref={imageRef}
@@ -193,14 +215,17 @@ export default function Personal() {
                   JG
                 </div>
               </div>
+              {/* Anillo animado */}
               <div className="absolute inset-0 w-28 h-28 -top-2 -left-2 border border-grass/30 rounded-full animate-ping opacity-30"></div>
             </div>
           </div>
 
+          {/* Lista de datos personales */}
           <div className="space-y-3">
             {personalInfo.map((item, index) => (
               <div
                 key={index}
+                // Guardamos referencia de cada ítem
                 // @ts-expect-error bien
                 ref={(el) => (infoItemsRef.current[index] = el)}
                 className="flex justify-between items-center py-2 px-3 rounded-xl bg-grass/5 border border-grass/20 hover:bg-grass/10 transition-all duration-300"
@@ -216,12 +241,13 @@ export default function Personal() {
           </div>
         </div>
 
-        {/* LINEA SEPARADORA */}
+        {/* Separador vertical */}
         <div className="hidden lg:block w-px bg-grass/30 mx-4"></div>
 
-        {/* DERECHA: descripción */}
+        {/* Columna derecha: descripción profesional */}
         <div ref={descriptionRef} className="relative lg:w-1/2 h-full">
           <div className="px-4 py-3 h-full rounded-2xl bg-grass/10 backdrop-blur-sm border border-grass/30 hover:bg-grass/20 transition-all duration-300 cursor-pointer group">
+            {/* Iconitos tipo "ventana" */}
             <div className="flex justify-center mb-2">
               {[...Array(3)].map((_, i) => (
                 <div
@@ -235,6 +261,7 @@ export default function Personal() {
               ))}
             </div>
 
+            {/* Texto descriptivo */}
             <p className="text-white/90 text-md text-center lg:text-left leading-relaxed">
               Desarrollador Full Stack especializado en crear experiencias web
               únicas y funcionales. Apasionado por el diseño UI/UX, tecnologías
@@ -246,6 +273,7 @@ export default function Personal() {
               herramientas y frameworks
             </p>
 
+            {/* Indicador visual abajo a la derecha */}
             <div className="flex justify-center lg:justify-end mt-3">
               <div className="w-4 h-4 border border-grass/70 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                 <div className="w-1.5 h-1.5 bg-grass rounded-full animate-pulse"></div>

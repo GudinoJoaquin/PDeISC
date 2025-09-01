@@ -1,3 +1,4 @@
+// Importación de íconos de diferentes librerías para representar tecnologías
 import { BiLogoCPlusPlus } from "react-icons/bi";
 import { FaJava } from "react-icons/fa";
 import {
@@ -18,15 +19,17 @@ import {
 } from "react-icons/si";
 import { RiNextjsFill } from "react-icons/ri";
 
+// Definición de las propiedades que recibe el componente Proyect
 interface ProyectProps {
-  img: string;
-  title: string;
-  type: string;
-  description: string;
-  languajes: string[];
-  link: string;
+  img: string; // URL de la imagen del proyecto
+  title: string; // Título del proyecto
+  type: string; // Tipo o categoría del proyecto
+  description: string; // Descripción del proyecto
+  languajes: string[]; // Lista de tecnologías utilizadas
+  link: string; // Enlace al proyecto
 }
 
+// Componente funcional que muestra la información de un proyecto
 export default function Proyect({
   img,
   title,
@@ -43,20 +46,21 @@ export default function Proyect({
         boxShadow:
           "0 0 40px rgba(74, 222, 128, 0.2), inset 0 0 40px rgba(74, 222, 128, 0.05)",
       }}
+      // Al hacer clic, abre el enlace del proyecto en una nueva pestaña
       onClick={() => window.open(link)}
     >
-      {/* Imagen */}
+      {/* Imagen del proyecto */}
       <div className="relative">
         <img src={img} alt={title} className="rounded-2xl w-full" />
       </div>
 
-      {/* Nombre y tipo */}
+      {/* Título y tipo del proyecto */}
       <h1 className="text-white font-bold text-xl text-center font-montserrat mt-4">
         {title}
       </h1>
       <h2 className="text-center text-white mt-2">{type}</h2>
 
-      {/* Tecnologías */}
+      {/* Íconos de las tecnologías utilizadas */}
       <div className="flex gap-4 justify-center items-center my-4">
         {languajes.includes("javascript") && (
           <IoLogoJavascript color="#3c7068" size={38} />
@@ -95,12 +99,12 @@ export default function Proyect({
         )}
       </div>
 
-      {/* Descripción y GitHub solo en escritorio */}
+      {/* Descripción del proyecto, visible solo en pantallas grandes */}
       <div className="hidden lg:block mt-4">
         <p className="text-white/80 text-sm mb-2">{description}</p>
       </div>
 
-      {/* Efecto de brillo */}
+      {/* Efecto visual de brillo al pasar el mouse */}
       <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-transparent via-grass/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
     </div>
   );
