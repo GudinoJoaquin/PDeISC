@@ -28,7 +28,7 @@ export default function Hero() {
         {/* Componente Title que rota entre las palabras del array */}
         <Title
           words={words}
-          className="font-bold text-grass font-montserrat text-5xl lg:text-6xl"
+          className="font-bold text-grass font-montserrat text-3xl lg:text-6xl"
         />
         {/* Nombre principal */}
         <h1 className="font-bold text-white font-montserrat mt-4 text-5xl lg:text-7xl">
