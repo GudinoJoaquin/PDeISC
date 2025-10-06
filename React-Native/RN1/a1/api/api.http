@@ -1,0 +1,10 @@
+GET http://localhost:3000/
+
+###
+POST http://10.156.162.177:3000/create/users
+Content-Type: application/json
+
+{
+  "username": "Facundo",
+  "password": "Elmasboludo1234"
+}
