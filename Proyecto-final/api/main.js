@@ -16,36 +16,14 @@ app.get("/", (req, res) => {
   res.send("Api funcionando");
 });
 
-// Endpoint para mostrar la IP del servidor
-app.get("/ip", (req, res) => {
-  const interfaces = os.networkInterfaces();
-  let addresses = [];
-
-  for (let iface in interfaces) {
-    for (let i = 0; i < interfaces[iface].length; i++) {
-      const addr = interfaces[iface][i];
-      if (addr.family === "IPv4" && !addr.internal) {
-        addresses.push(addr.address);
-      }
-    }
-  }
-
-  res.json({
-    localIPs: addresses,
-    publicIP: req.ip, // IP desde donde llega la petición (útil si estás en red externa)
-  });
-});
-
 app.get("/auth/google", (req, res) => {
   const { data, error } = supabase.auth.signInWithOAuth({
     provider: "google",
-    options: {
-      redirectTo: `http://localhost:${PORT}/auth/callback`,
-    },
   });
 
   if (error) return res.status(500).json({ error: error.message });
-  res.redirect(data.url); // Redirige al usuario a Google
+  console.log(data);
+  res.send(data); // Redirige al usuario a Google
 });
 
 app.get("/auth/callback", async (req, res) => {
