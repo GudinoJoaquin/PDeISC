@@ -1,11 +1,37 @@
 import { View, Text, TextInput, Pressable } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; // icono de Google
 import * as Linking from 'expo-linking';
+import axios from 'axios';
+import { useState } from 'react';
+import saveSession from '@/utils/saveSession';
+import { useRouter } from 'expo-router';
+import { useSessionStore } from '@/store/sessionStore';
 
 export default function Login() {
+  const [data, setData] = useState({ email: '', password: '' });
+  const router = useRouter();
+  const { jwt, setSession } = useSessionStore();
   const googleLogin = () => {
-    Linking.openURL('http://192.168.1.37:3000/auth/google');
+    Linking.openURL('http://192.168.1.37:3000/oauth/google');
   };
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://192.168.1.37:3000/auth/signIn', {
+        email: data.email,
+        password: data.password,
+      });
+      const { token, user_id, access_token } = response.data;
+      setSession(token, user_id, access_token);
+      saveSession(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  if (jwt) {
+    router.push('/');
+  }
 
   return (
     <View className="flex-1 items-center justify-center bg-gray-100 px-6">
@@ -17,6 +43,7 @@ export default function Login() {
           placeholder="usuario@ejemplo.com"
           className="mb-4 rounded-xl border border-gray-300 px-4 py-3 text-gray-800"
           keyboardType="email-address"
+          onChangeText={(e) => setData((prev) => ({ ...prev, email: e }))}
         />
 
         <Text className="mb-2 text-gray-700">Contraseña</Text>
@@ -24,9 +51,10 @@ export default function Login() {
           placeholder="••••••••"
           secureTextEntry
           className="mb-6 rounded-xl border border-gray-300 px-4 py-3 text-gray-800"
+          onChangeText={(e) => setData((prev) => ({ ...prev, password: e }))}
         />
 
-        <Pressable className="rounded-xl bg-blue-600 py-3">
+        <Pressable onPress={handleLogin} className="rounded-xl bg-blue-600 py-3">
           <Text className="text-center text-lg font-semibold text-white">Entrar</Text>
         </Pressable>
 
