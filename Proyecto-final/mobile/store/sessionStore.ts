@@ -1,19 +1,16 @@
 import { create } from "zustand";
+import { Session } from "@supabase/supabase-js";
 
 interface SessionState {
-  jwt: string | null;
-  user_id: string | null;
-  access_token: string | null;
-  setSession: (jwt: string, user_id: string, access_token: string) => void;
+  session: Session | null
+  setSession: (session: Session) => void;
   clearSession: () => void;
 }
 
 export const useSessionStore = create<SessionState>((set) => ({
-  jwt: null,
-  user_id: null,
-  access_token: null,
-  setSession: (jwt, user_id, access_token) =>
-    set({ jwt, user_id, access_token }),
+  session: null,
+  setSession: (session: Session) =>
+    set({ session }),
   clearSession: () =>
-    set({ jwt: null, user_id: null, access_token: null }),
+    set({ session: null }),
 }));

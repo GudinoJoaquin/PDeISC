@@ -106,17 +106,15 @@ export async function signUp(req, res) {
 }
 
 export async function signOut(req, res) {
-  const { access_token } = req.body;
+  const { user_id } = req.body;
 
-  if (!access_token) {
-    return res.status(400).json({ error: "access_token es requerido" });
+  if (!user_id) {
+    return res.status(400).json({ error: "user_id es requerido" });
   }
 
   try {
     // Supabase tiene un método para revocar la sesión
-    const { error } = await supabase.auth.signOut({
-      access_token,
-    });
+    const { error } = await supabase.auth.signOut({ user_id });
 
     if (error) {
       return res.status(400).json({ error: error.message });

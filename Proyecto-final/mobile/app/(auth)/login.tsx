@@ -1,37 +1,75 @@
 import { View, Text, TextInput, Pressable } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; // icono de Google
 import * as Linking from 'expo-linking';
-import axios from 'axios';
-import { useState } from 'react';
-import saveSession from '@/utils/saveSession';
+import { useEffect } from 'react';
 import { useRouter } from 'expo-router';
-import { useSessionStore } from '@/store/sessionStore';
+import { supabase } from '@/config/supabase';
+import { useSessionStore } from '@/store/sessionStore'; // 👈 importar el store
+import { Session } from '@supabase/supabase-js';
 
 export default function Login() {
-  const [data, setData] = useState({ email: '', password: '' });
   const router = useRouter();
-  const { jwt, setSession } = useSessionStore();
-  const googleLogin = () => {
-    Linking.openURL('http://192.168.1.37:3000/oauth/google');
-  };
+  const { setSession } = useSessionStore(); // 👈 obtener setter del store
 
-  const handleLogin = async () => {
+  useEffect(() => {
+    const handleDeepLink = async (event: Linking.EventType) => {
+      const url = event.url;
+      console.log('🔗 URL capturada:', url);
+
+      const hashFragment = url.split('#')[1];
+      if (!hashFragment) return;
+
+      const params = Object.fromEntries(new URLSearchParams(hashFragment));
+      const access_token = params['access_token'];
+      const refresh_token = params['refresh_token'];
+
+      console.log('✅ access_token:', access_token);
+      console.log('♻ refresh_token:', refresh_token);
+
+      if (access_token) {
+        const { data, error } = await supabase.auth.setSession({
+          access_token,
+          refresh_token,
+        });
+
+        if (error) {
+          console.error('Error al establecer sesión:', error);
+          return;
+        }
+
+        console.log('🔓 Sesión establecida:', data.session?.user?.email);
+
+        // ✅ Actualizamos el store global
+        setSession(data.session as Session);
+
+        // 🔁 Redirigimos al home
+        router.replace('/');
+      }
+    };
+
+    const subscription = Linking.addEventListener('url', handleDeepLink);
+
+    (async () => {
+      const initialUrl = await Linking.getInitialURL();
+      if (initialUrl) handleDeepLink({ url: initialUrl } as Linking.EventType);
+    })();
+
+    return () => subscription.remove();
+  }, [router, setSession]);
+
+  const handleGoogle = async () => {
     try {
-      const response = await axios.post('http://192.168.1.37:3000/auth/signIn', {
-        email: data.email,
-        password: data.password,
+      const redirectTo = 'exp://192.168.1.37:8081';
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo },
       });
-      const { token, user_id, access_token } = response.data;
-      setSession(token, user_id, access_token);
-      saveSession(response.data);
+      if (error) console.log(error);
+      if (data?.url) Linking.openURL(data.url);
     } catch (error) {
       console.log(error);
     }
   };
-
-  if (jwt) {
-    router.push('/');
-  }
 
   return (
     <View className="flex-1 items-center justify-center bg-gray-100 px-6">
@@ -43,7 +81,6 @@ export default function Login() {
           placeholder="usuario@ejemplo.com"
           className="mb-4 rounded-xl border border-gray-300 px-4 py-3 text-gray-800"
           keyboardType="email-address"
-          onChangeText={(e) => setData((prev) => ({ ...prev, email: e }))}
         />
 
         <Text className="mb-2 text-gray-700">Contraseña</Text>
@@ -51,10 +88,9 @@ export default function Login() {
           placeholder="••••••••"
           secureTextEntry
           className="mb-6 rounded-xl border border-gray-300 px-4 py-3 text-gray-800"
-          onChangeText={(e) => setData((prev) => ({ ...prev, password: e }))}
         />
 
-        <Pressable onPress={handleLogin} className="rounded-xl bg-blue-600 py-3">
+        <Pressable className="rounded-xl bg-blue-600 py-3">
           <Text className="text-center text-lg font-semibold text-white">Entrar</Text>
         </Pressable>
 
@@ -62,16 +98,15 @@ export default function Login() {
           <Text className="text-center text-blue-600">¿Olvidaste tu contraseña?</Text>
         </Pressable>
 
-        {/* --- Separador --- */}
         <View className="my-6 flex-row items-center">
           <View className="h-[1px] flex-1 bg-gray-300" />
           <Text className="mx-3 text-sm text-gray-500">o</Text>
           <View className="h-[1px] flex-1 bg-gray-300" />
+          <View className="h-[1px] flex-1 bg-gray-300" />
         </View>
 
-        {/* --- Botón de Google --- */}
         <Pressable
-          onPress={googleLogin}
+          onPress={handleGoogle}
           className="flex-row items-center justify-center rounded-xl border border-gray-300 py-3 active:bg-gray-50">
           <AntDesign name="google" size={20} color="#DB4437" />
           <Text className="ml-3 text-base font-semibold text-gray-700">

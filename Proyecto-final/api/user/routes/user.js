@@ -3,6 +3,6 @@ import { getUser } from "../controllers/getUser.js";
 
 const router = express.Router();
 
-router.get("/get/:user_id", getUser);
+router.post("/get", getUser);
 
 export default router;

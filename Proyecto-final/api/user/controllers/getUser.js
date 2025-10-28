@@ -1,7 +1,7 @@
 import { supabaseAdmin } from "../../config/supabase.js";
 
 export async function getUser(req, res) {
-  const { user_id } = req.params;
+  const { user_id } = req.body;
 
   if (!user_id) return res.status(400).json({ error: "User id es requerido" });
 

@@ -1,24 +1,25 @@
 import { View, Text, Image, Pressable } from 'react-native';
 import Screen from '@/components/Screen';
-import useAccount from '@/hooks/useAccount';
 import { MaterialIcons } from '@expo/vector-icons';
-import clearLocalSession from '@/utils/clearLocalSession';
 import { useSessionStore } from '@/store/sessionStore';
-import axios from 'axios';
+import { supabase } from '@/config/supabase';
 import { useRouter } from 'expo-router';
 
 export default function Account() {
-  const { account } = useAccount();
   const router = useRouter();
-  const { access_token, clearSession } = useSessionStore();
-  const user = account?.user_metadata;
+  const { session, clearSession } = useSessionStore();
 
   const handleLogout = async () => {
     try {
-      await axios.post('http://192.168.1.37:3000/auth/signOut', { access_token });
-      await clearLocalSession();
+      console.log(session);
+      const { error } = await supabase.auth.signOut();
       clearSession();
-      router.replace('/');
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Cerrao');
+        router.replace('/');
+      }
     } catch (error) {
       console.log(error);
     }
@@ -29,9 +30,9 @@ export default function Account() {
       <View className="flex-1 items-center justify-center bg-white px-6">
         {/* Avatar */}
         <View className="mb-6">
-          {user?.avatar_url ? (
+          {session?.user?.raw_user_meta_data?.picture ? (
             <Image
-              source={{ uri: user.avatar_url }}
+              source={{ uri: session.user?.avatar_url }}
               className="h-28 w-28 rounded-full border-4 border-blue-500"
             />
           ) : (
@@ -43,11 +44,13 @@ export default function Account() {
 
         {/* Nombre */}
         <Text className="mb-2 text-2xl font-semibold text-gray-900">
-          {user?.full_name || 'Usuario sin nombre'}
+          {session?.user?.full_name || 'Usuario sin nombre'}
         </Text>
 
         {/* Email */}
-        <Text className="mb-8 text-gray-500">{account?.email || 'Sin correo electrónico'}</Text>
+        <Text className="mb-8 text-gray-500">
+          {session?.user?.email || 'Sin correo electrónico'}
+        </Text>
 
         {/* Botones */}
         <View className="mt-4 w-full space-y-3">

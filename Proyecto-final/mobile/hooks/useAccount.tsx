@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useSessionStore } from '@/store/sessionStore';
-import { type User } from "@supabase/supabase-js"
+import { type User } from '@supabase/supabase-js';
 
 export default function useAccount() {
   const { user_id } = useSessionStore();
@@ -12,7 +12,7 @@ export default function useAccount() {
   useEffect(() => {
     const getAccount = async () => {
       try {
-        const response = await axios.get(`http://192.168.1.37:3000/user/get/${user_id}`);
+        const response = await axios.post(`http://192.168.1.37:3000/user/get`, { user_id });
         setAccount(response.data);
         setLoading(false);
       } catch (error) {
