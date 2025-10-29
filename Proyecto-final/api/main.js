@@ -4,7 +4,8 @@ import dotenv from "dotenv";
 import os from "os";
 import authRoutes from "./auth/routes/auth.js";
 import oauthRoutes from "./auth/routes/oauth.js";
-import userRoute from "./user/routes/user.js"
+import userRoute from "./user/routes/user.js";
+import profesorRoutes from "./profesor/routes/profesor.js";
 
 dotenv.config();
 
@@ -16,8 +17,9 @@ app.use(cors());
 
 app.use("/auth", authRoutes);
 app.use("/oauth", oauthRoutes);
+app.use("/profesor", profesorRoutes);
 
-app.use('/user', userRoute)
+app.use("/user", userRoute);
 
 app.get("/", (req, res) => {
   res.send("Api funcionando");

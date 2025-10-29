@@ -105,6 +105,33 @@ export default function Layout() {
         />
       )}
 
+      {session?.user?.user_metadata?.role === 'Profesor' ? (
+        <Tabs.Screen
+          name="(profesor)"
+          options={{
+            animation: 'shift',
+            tabBarIcon: ({ focused }) => (
+              <FontAwesome name="user" size={24} color={focused ? '#3b82f6' : '#9ca3af'} />
+            ),
+            title: 'Crear',
+            headerShown: false,
+          }}
+        />
+      ) : (
+        <Tabs.Screen
+          name="(profesor)"
+          options={{
+            animation: 'shift',
+            tabBarIcon: ({ focused }) => (
+              <FontAwesome name="user" size={24} color={focused ? '#3b82f6' : '#9ca3af'} />
+            ),
+            title: 'Crear',
+            headerShown: false,
+            href: null,
+          }}
+        />
+      )}
+
       <Tabs.Screen
         name="(auth)/(steps)"
         options={{
