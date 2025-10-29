@@ -51,7 +51,7 @@ export default function Layout() {
         }}
       />
 
-      {!session && (
+      {!session ? (
         <Tabs.Screen
           name="(auth)/login"
           options={{
@@ -63,11 +63,24 @@ export default function Layout() {
             headerShown: false,
           }}
         />
+      ) : (
+        <Tabs.Screen
+          name="(auth)/login"
+          options={{
+            animation: 'shift',
+            tabBarIcon: ({ focused }) => (
+              <FontAwesome name="sign-in" size={24} color={focused ? '#3b82f6' : '#9ca3af'} />
+            ),
+            title: 'Login',
+            headerShown: false,
+            href: null,
+          }}
+        />
       )}
 
-      {session && (
+      {session ? (
         <Tabs.Screen
-          name="account"
+          name="(account)"
           options={{
             animation: 'shift',
             tabBarIcon: ({ focused }) => (
@@ -75,6 +88,19 @@ export default function Layout() {
             ),
             title: 'Account',
             headerShown: false,
+          }}
+        />
+      ) : (
+        <Tabs.Screen
+          name="(account)"
+          options={{
+            animation: 'shift',
+            tabBarIcon: ({ focused }) => (
+              <FontAwesome name="user" size={24} color={focused ? '#3b82f6' : '#9ca3af'} />
+            ),
+            title: 'Account',
+            headerShown: false,
+            href: null,
           }}
         />
       )}
