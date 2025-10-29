@@ -21,10 +21,30 @@ export default function App() {
               paddingHorizontal: cardMargin, // 👈 espacio inicial y final
               alignItems: 'center',
             }}>
-            <ClassCard titulo="La meho clase" topics={['Matematica', 'Historia']} />
-            <ClassCard titulo="La peho clase" topics={['Matematica', 'Historia']} />
-            <ClassCard titulo="Buenah clase" topics={['Matematica', 'Historia']} />
-            <ClassCard titulo="clase" topics={['Matematica', 'Historia']} />
+            <ClassCard
+              titulo="La meho clase"
+              descripcion="Esta e la meho clase"
+              destacada
+              topics={['Matematica', 'Historia']}
+            />
+            <ClassCard
+              titulo="La peho clase"
+              descripcion="Esta e la meho clase"
+              destacada
+              topics={['Matematica', 'Historia']}
+            />
+            <ClassCard
+              titulo="Buenah clase"
+              descripcion="Esta e la meho clase"
+              destacada
+              topics={['Matematica', 'Historia']}
+            />
+            <ClassCard
+              titulo="clase"
+              descripcion="Esta e la meho clase"
+              destacada
+              topics={['Matematica', 'Historia']}
+            />
           </ScrollView>
         </View>
 

@@ -54,7 +54,7 @@ export default function CrearClase() {
   };
 
   return (
-    <View className="flex-1 items-center justify-center bg-gray-100 px-6">
+    <View className="mt-12 items-center justify-center bg-gray-100 px-6">
       {/* Alert global (se puede dejar fijo en el root layout también) */}
       <Alert />
 

@@ -57,7 +57,7 @@ export default function EditProfile() {
 
   return (
     <Screen>
-      <ScrollView className="flex-1 bg-white px-6 pt-8">
+      <ScrollView className="flex-1  px-6 pt-8">
         <Text className="mb-4 text-2xl font-bold text-gray-900">Completar perfil</Text>
 
         {/* Nombre completo */}

@@ -22,7 +22,7 @@ export default function CompleteProfile() {
   // 🚀 Si el usuario ya completó el perfil, redirigimos
   useEffect(() => {
     if (user?.user_metadata?.role && user?.user_metadata?.topics?.length > 0) {
-      router.replace('/(account)/account'); // ajustá esta ruta según tu app
+      router.replace('/'); // ajustá esta ruta según tu app
     }
   }, [user]);
 
@@ -60,7 +60,7 @@ export default function CompleteProfile() {
       await refreshSession();
 
       Alert.alert('Listo 🎉', 'Tu cuenta fue configurada correctamente.');
-      router.replace('/(account)/account'); // o la pantalla principal
+      router.replace('/'); // o la pantalla principal
     } catch (err) {
       console.log(err);
       Alert.alert('Error', 'No se pudo guardar la información.');
