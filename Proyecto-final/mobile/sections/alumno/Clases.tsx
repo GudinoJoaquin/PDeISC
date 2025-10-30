@@ -6,7 +6,6 @@ import ClassCard from '@/components/ClassCard';
 import { useRouter } from 'expo-router';
 import type { Class } from '@/interfaces/class';
 import { Config } from '@/enum/config';
-import AddButton from '@/components/AddButton';
 export default function Clases() {
   const [data, setData] = useState<Class[]>([]);
   const { session } = useSessionStore();
@@ -42,8 +41,6 @@ export default function Clases() {
           alignItems: 'center',
           paddingBottom: 150, // espacio para tabBar flotante
         }}>
-        <AddButton route={'/(profesor)/CrearClase'} text="Crear clase" />
-
         <View className="w-full items-center">
           {data.map((clase: Class) => (
             <Pressable

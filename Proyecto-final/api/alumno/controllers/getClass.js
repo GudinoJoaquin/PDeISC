@@ -1,15 +1,8 @@
 import { supabase } from "../../config/supabase.js";
 
-export async function getClass(req, res) {
-  const { profesor_id } = req.params;
-  if (!profesor_id)
-    return res.status(400).json({ error: "El profesor_id es requerido" });
-
+export async function getCursos(req, res) {
   try {
-    const { data, error } = await supabase
-      .from("cursos")
-      .select()
-      .eq("profesor", profesor_id);
+    const { data, error } = await supabase.from("cursos").select();
 
     if (error) {
       console.log(error);

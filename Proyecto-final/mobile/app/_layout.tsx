@@ -1,5 +1,5 @@
 import '@/global.css';
-import { Tabs } from 'expo-router';
+import { Tabs, usePathname } from 'expo-router';
 import { useEffect } from 'react';
 import { supabase } from '@/config/supabase';
 import { useSessionStore } from '@/store/sessionStore';
@@ -18,6 +18,8 @@ export default function Layout() {
 
     verifySession();
   }, []); // 👈 solo al montar
+
+ 
 
   return (
     <Tabs
@@ -78,7 +80,7 @@ export default function Layout() {
         />
       )}
 
-      {session ? (
+      {session && session.user.user_metadata.role === 'Profesor' ? (
         <Tabs.Screen
           name="(profesor)"
           options={{
@@ -104,13 +106,39 @@ export default function Layout() {
           }}
         />
       )}
+      {session && session.user.user_metadata.role === 'Estudiante' ? (
+        <Tabs.Screen
+          name="(alumno)"
+          options={{
+            animation: 'shift',
+            tabBarIcon: ({ focused }) => (
+              <FontAwesome name="user" size={24} color={focused ? '#3b82f6' : '#9ca3af'} />
+            ),
+            title: 'Account',
+            headerShown: false,
+          }}
+        />
+      ) : (
+        <Tabs.Screen
+          name="(alumno)"
+          options={{
+            animation: 'shift',
+            tabBarIcon: ({ focused }) => (
+              <FontAwesome name="user" size={24} color={focused ? '#3b82f6' : '#9ca3af'} />
+            ),
+            title: 'Account',
+            headerShown: false,
+            href: null,
+          }}
+        />
+      )}
       <Tabs.Screen
         name="(auth)/(steps)"
         options={{
           href: null,
         }}
       />
-    
+
       <Tabs.Screen
         name="(account)"
         options={{

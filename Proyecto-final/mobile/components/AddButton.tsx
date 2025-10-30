@@ -1,21 +1,23 @@
 import { AntDesign } from '@expo/vector-icons';
 import { Dimensions, Pressable, Text, View } from 'react-native';
-import type { RelativePathString } from 'expo-router';
+import type { RelativePathString, UnknownInputParams } from 'expo-router';
 import { useRouter } from 'expo-router';
 
 interface AddButtonProps {
   route: string;
   text: string;
+  params?: UnknownInputParams;
 }
 
-export default function AddButton({ route, text }: AddButtonProps) {
+export default function AddButton({ route, params, text }: AddButtonProps) {
   const router = useRouter();
 
   const screenWidth = Dimensions.get('window').width;
   const cardWidth = screenWidth * 0.9; // 👈 cada card ocupa el 80% del ancho
 
   return (
-    <Pressable onPress={() => router.push(route as RelativePathString)}>
+    <Pressable
+      onPress={() => router.push({ pathname: route as RelativePathString, params: params })}>
       <View
         style={{ width: cardWidth, borderStyle: 'dashed' }}
         className="mx-2 mb-4 mt-4 h-48 flex-col items-center justify-center rounded-xl border-2 border-gray-400 bg-gray-200">

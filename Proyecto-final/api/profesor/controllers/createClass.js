@@ -11,7 +11,7 @@ export async function createClass(req, res) {
   if (!profesor) res.status(400).json({ error: "El profesor es requerido" });
 
   try {
-    const { data, error } = await supabase.from("clases").insert([
+    const { data, error } = await supabase.from("cursos").insert([
       {
         titulo: titulo,
         descripcion: descripcion,

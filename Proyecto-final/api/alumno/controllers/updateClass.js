@@ -41,6 +41,7 @@ export async function updateClass(req, res) {
       archivoUrl = publicUrlData.publicUrl;
     }
 
+
     // Guardar en Supabase (ejemplo)
     const { data, error } = await supabase.from("contenidos").insert([
       {

@@ -1,16 +1,37 @@
-import { Text, ScrollView, View, Dimensions } from 'react-native';
-
+import { Text, ScrollView, View, Dimensions, Pressable } from 'react-native';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import type { Class } from '@/interfaces/class';
 import Screen from '@/components/Screen';
 import ClassCard from '@/components/ClassCard';
+import { Config } from '@/enum/config';
+import { useRouter } from 'expo-router';
 
 export default function App() {
+  const [data, setData] = useState<Class[]>([]);
+  const router = useRouter();
   const screenWidth = Dimensions.get('window').width;
   const cardWidth = screenWidth * 0.9; // 👈 cada card ocupa el 80% del ancho
   const cardMargin = 14; // 👈 margen para centrar
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://${Config.IP}:${Config.PORT}/alumno/cursos/get`);
+        console.log(response.data);
+        setData(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <Screen>
-      <ScrollView contentContainerClassName="items-center">
+      <ScrollView
+        contentContainerClassName="items-center"
+        contentContainerStyle={{ paddingBottom: 120 }}>
         <View className="mt-12 w-full">
           <ScrollView
             horizontal
@@ -50,43 +71,20 @@ export default function App() {
 
         <View className="">
           <Text className="mx-2 mb-4 mt-24 text-3xl font-bold">Matematiha</Text>
-          <View className="flex-col gap-16">
-            <View
-              style={{ width: cardWidth }}
-              className="mx-2 mt-4 h-48 flex-col items-start justify-center rounded-xl">
-              <View className="h-1/2 w-full rounded-t-xl bg-blue-500" />
-              <View className="min-h-1/2 w-full rounded-b-xl bg-white p-2 px-3">
-                <Text className="text-lg font-semibold text-black">Clase de matematica</Text>
-                <Text>Clase de matematica pa que aprendah alho pedazo</Text>
-                <View className="mt-2 flex-row gap-2">
-                  <Text className="rounded-full bg-slate-200 px-3 py-1 text-sm">Mateatica</Text>
-                </View>
-              </View>
-            </View>
-            <View
-              style={{ width: cardWidth }}
-              className="mx-2 mt-4 h-48 flex-col items-start justify-center rounded-xl">
-              <View className="h-1/2 w-full rounded-t-xl bg-blue-500" />
-              <View className="min-h-1/2 w-full rounded-b-xl bg-white p-2 px-3">
-                <Text className="text-lg font-semibold text-black">Clase de matematica</Text>
-                <Text>Clase de matematica pa que aprendah alho pedazo</Text>
-                <View className="mt-2 flex-row gap-2">
-                  <Text className="rounded-full bg-slate-200 px-3 py-1 text-sm">Mateatica</Text>
-                </View>
-              </View>
-            </View>
-            <View
-              style={{ width: cardWidth }}
-              className="mx-2 mt-4 h-48 flex-col items-start justify-center rounded-xl">
-              <View className="h-1/2 w-full rounded-t-xl bg-blue-500" />
-              <View className="min-h-1/2 w-full rounded-b-xl bg-white p-2 px-3">
-                <Text className="text-lg font-semibold text-black">Clase de matematica</Text>
-                <Text>Clase de matematica pa que aprendah alho pedazo</Text>
-                <View className="mt-2 flex-row gap-2">
-                  <Text className="rounded-full bg-slate-200 px-3 py-1 text-sm">Mateatica</Text>
-                </View>
-              </View>
-            </View>
+          <View className="flex-col gap-8">
+            {data?.map((curso) => (
+              <Pressable
+                onPress={() =>
+                  router.push({ pathname: '/(alumno)/[id]', params: { id: curso.id } })
+                }
+                key={curso.id}>
+                <ClassCard
+                  titulo={curso.titulo}
+                  descripcion={curso.descripcion}
+                  topics={curso.topicos}
+                />
+              </Pressable>
+            ))}
           </View>
         </View>
       </ScrollView>

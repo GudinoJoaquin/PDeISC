@@ -8,7 +8,7 @@ export default function ClassTabs({ data }: { data: Class }) {
   const [tab, setTab] = useState<'info' | 'contenidos'>('info');
 
   return (
-    <View className="-mt-9 flex-1">
+    <View className=" flex-1">
       {/* HEADER FIJO (imagen + título) */}
       <View className="mb-4">
         {/* Imagen o banner azul */}

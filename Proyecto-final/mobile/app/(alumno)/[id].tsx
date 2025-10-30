@@ -6,6 +6,9 @@ import type { Class } from '@/interfaces/class';
 import Screen from '@/components/Screen';
 import ClassTabs from '@/components/ClassTabs';
 import { View, Text } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { Pressable } from 'react-native';
+import Header from '@/components/Header';
 
 export default function ClassDetails() {
   const { id } = useLocalSearchParams();
@@ -37,6 +40,7 @@ export default function ClassDetails() {
 
   return (
     <Screen>
+      <Header title='Detalles de la clase'/>
       <ClassTabs data={data} />
     </Screen>
   );
