@@ -6,6 +6,7 @@ import axios from 'axios';
 import ClassCard from '@/components/ClassCard';
 import { useRouter } from 'expo-router';
 import type { Class } from '@/interfaces/class';
+import { Config } from '@/app/enum/config';
 
 export default function Clases() {
   const [data, setData] = useState([]);
@@ -16,7 +17,7 @@ export default function Clases() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://192.168.1.37:3000/profesor/class/get/${session?.user?.id}`
+          `http://${Config.IP}:${Config.PORT}/profesor/class/get/${session?.user?.id}`
         );
 
         console.log(response.data);
@@ -48,9 +49,17 @@ export default function Clases() {
         </View>
       </Pressable>
       {data.map((clase: Class) => (
-        <View className="mb-4 flex-col gap-4" key={clase.id}>
-          <ClassCard titulo={clase.titulo} descripcion={clase.descripcion} topics={clase.topicos} />
-        </View>
+        <Pressable
+          key={clase.id}
+          onPress={() => router.push({ pathname: '/(profesor)/[id]', params: { id: clase.id } })}>
+          <View className="mb-4 flex-col gap-4">
+            <ClassCard
+              titulo={clase.titulo}
+              descripcion={clase.descripcion}
+              topics={clase.topicos}
+            />
+          </View>
+        </Pressable>
       ))}
     </View>
   );

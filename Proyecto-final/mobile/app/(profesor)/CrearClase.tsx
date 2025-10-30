@@ -5,6 +5,7 @@ import { useAlertStore } from '@/store/alertStore';
 import { useState } from 'react';
 import axios from 'axios';
 import Alert from '@/components/Alert';
+import { Config } from '../enum/config';
 
 const topics = ['Tecnología', 'Salud', 'Educación', 'Negocios', 'Arte', 'Ciencia'];
 
@@ -34,12 +35,15 @@ export default function CrearClase() {
     }
 
     try {
-      const response = await axios.post('http://192.168.1.37:3000/profesor/class/create', {
-        titulo,
-        descripcion,
-        topics: selectedTopics,
-        profesor: session?.user?.id,
-      });
+      const response = await axios.post(
+        `http://${Config.IP}:${Config.PORT}/profesor/class/create`,
+        {
+          titulo,
+          descripcion,
+          topics: selectedTopics,
+          profesor: session?.user?.id,
+        }
+      );
 
       console.log(response.data);
 
