@@ -5,7 +5,9 @@ export default function Layout() {
   return (
     <Stack>
       <Stack.Screen options={{ headerShown: false }} name="index" />
-      <Stack.Screen name="CrearClase" />
+      <Stack.Screen options={{ title: 'Crear clase' }} name="CrearClase" />
+      <Stack.Screen options={{ title: 'Subir contenido' }} name="SubirContenido" />
+      <Stack.Screen options={{ title: 'Detalles de la clase' }} name="[id]" />
     </Stack>
   );
 }

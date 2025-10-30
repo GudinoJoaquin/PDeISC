@@ -1,4 +1,4 @@
 export enum Config {
-  IP = "10.0.7.80",
+  IP = "192.168.1.37",
   PORT = 3000
 }

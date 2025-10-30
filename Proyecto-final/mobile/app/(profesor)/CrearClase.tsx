@@ -5,7 +5,7 @@ import { useAlertStore } from '@/store/alertStore';
 import { useState } from 'react';
 import axios from 'axios';
 import Alert from '@/components/Alert';
-import { Config } from '../enum/config';
+import { Config } from '@/enum/config';
 
 const topics = ['Tecnología', 'Salud', 'Educación', 'Negocios', 'Arte', 'Ciencia'];
 

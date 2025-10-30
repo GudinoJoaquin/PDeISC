@@ -5,5 +5,5 @@ export interface Class {
   topicos: string[]
   profesor: string
   alumnos: string[]
-  createdAt: string
+  created_at: string
 }

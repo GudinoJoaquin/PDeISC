@@ -1,12 +1,15 @@
-import { Text, View } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Config } from '../enum/config';
+import axios from 'axios';
+import { Config } from '@/enum/config';
+import type { Class } from '@/interfaces/class';
+import Screen from '@/components/Screen';
+import ClassTabs from '@/components/ClassTabs';
+import { View, Text } from 'react-native';
 
 export default function ClassDetails() {
   const { id } = useLocalSearchParams();
-  const [data, setData] = useState();
+  const [data, setData] = useState<Class | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,19 +17,27 @@ export default function ClassDetails() {
         const response = await axios.get(
           `http://${Config.IP}:${Config.PORT}/profesor/class/getByID/${id}`
         );
-
-        console.log(response.data);
         setData(response.data.data);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
-  }, []);
+  }, [id]);
+
+  if (!data) {
+    return (
+      <Screen>
+        <View className="flex-1 items-center justify-center">
+          <Text className="text-lg text-gray-500">Cargando clase...</Text>
+        </View>
+      </Screen>
+    );
+  }
 
   return (
-    <View>
-      <Text>Clase con ID: {data?.titulo}</Text>
-    </View>
+    <Screen>
+      <ClassTabs data={data} />
+    </Screen>
   );
 }
