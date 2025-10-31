@@ -1,13 +1,17 @@
 import '@/global.css';
-import { Tabs, usePathname } from 'expo-router';
+import { Tabs, useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { supabase } from '@/config/supabase';
 import { useSessionStore } from '@/store/sessionStore';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Session } from '@supabase/supabase-js';
+import { Pressable } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import Header from '@/components/Header';
 
 export default function Layout() {
   const { session, setSession } = useSessionStore();
+  const router = useRouter();
 
   useEffect(() => {
     const verifySession = async () => {
@@ -18,8 +22,6 @@ export default function Layout() {
 
     verifySession();
   }, []); // 👈 solo al montar
-
- 
 
   return (
     <Tabs
@@ -80,6 +82,32 @@ export default function Layout() {
         />
       )}
 
+      {session && session.user.user_metadata.role === 'Institucion' ? (
+        <Tabs.Screen
+          name="(institucion)"
+          options={{
+            animation: 'shift',
+            tabBarIcon: ({ focused }) => (
+              <FontAwesome name="user" size={24} color={focused ? '#3b82f6' : '#9ca3af'} />
+            ),
+            title: 'Account',
+            headerShown: false,
+          }}
+        />
+      ) : (
+        <Tabs.Screen
+          name="(institucion)"
+          options={{
+            animation: 'shift',
+            tabBarIcon: ({ focused }) => (
+              <FontAwesome name="user" size={24} color={focused ? '#3b82f6' : '#9ca3af'} />
+            ),
+            title: 'Account',
+            headerShown: false,
+            href: null,
+          }}
+        />
+      )}
       {session && session.user.user_metadata.role === 'Profesor' ? (
         <Tabs.Screen
           name="(profesor)"
@@ -106,7 +134,7 @@ export default function Layout() {
           }}
         />
       )}
-      {session && session.user.user_metadata.role === 'Estudiante' ? (
+      {session && session.user.user_metadata.role !== 'Institucion' ? (
         <Tabs.Screen
           name="(alumno)"
           options={{
@@ -132,6 +160,7 @@ export default function Layout() {
           }}
         />
       )}
+
       <Tabs.Screen
         name="(auth)/(steps)"
         options={{
@@ -144,6 +173,17 @@ export default function Layout() {
         options={{
           href: null,
           headerShown: false,
+        }}
+      />
+
+      <Tabs.Screen
+        name="[id]"
+        key={Math.random().toString()}
+        options={{
+          href: null,
+          headerShown: true,
+          title: '',
+          headerLeft: () => <Header title="Detalles de la clase" />,
         }}
       />
     </Tabs>

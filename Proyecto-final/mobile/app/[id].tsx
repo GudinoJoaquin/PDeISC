@@ -16,11 +16,9 @@ export default function ClassDetails() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://${Config.IP}:${Config.PORT}/alumno/cursos/getCursosByID/${id}`
+          `http://${Config.IP}:${Config.PORT}/profesor/curso/getByID/${id}`
         );
-
         setData(response.data.data);
-        console.log('Clases en datails', response.data);
       } catch (error) {
         console.log(error);
       }

@@ -1,20 +1,6 @@
 import { supabase } from "../../config/supabase.js";
 
-export async function getCursos(req, res) {
-  try {
-    const { data, error } = await supabase.from("cursos").select();
 
-    if (error) {
-      console.log(error);
-      return res.status(500).json({ error: "Error al obtener la clase" });
-    }
-
-    res.status(200).json({ data });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error });
-  }
-}
 
 export async function getClassByID(req, res) {
   const { class_id } = req.params;

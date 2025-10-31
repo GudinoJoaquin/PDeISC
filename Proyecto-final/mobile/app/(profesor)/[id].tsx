@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Config } from '@/enum/config';
 import type { Class } from '@/interfaces/class';
 import Screen from '@/components/Screen';
-import ClassTabs from '@/components/ClassTabs';
+import ClassTabs from '@/components/profesor/ClassTabs';
 import { View, Text } from 'react-native';
 
 export default function ClassDetails() {
@@ -12,6 +12,7 @@ export default function ClassDetails() {
   const [data, setData] = useState<Class | null>(null);
 
   useEffect(() => {
+    setData(null);
     const fetchData = async () => {
       try {
         const response = await axios.get(

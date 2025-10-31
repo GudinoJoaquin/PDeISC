@@ -29,7 +29,7 @@ export default function AccountHeader() {
         {/* Imagen */}
         {metadata?.picture ? (
           <Image
-            source={{ uri: metadata.picture }}
+            source={{ uri: metadata.avatar_url }}
             className="h-20 w-20 rounded-full border-2 border-blue-500"
           />
         ) : (

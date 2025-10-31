@@ -44,7 +44,7 @@ export async function updateClass(req, res) {
     // Guardar en Supabase (ejemplo)
     const { data, error } = await supabase.from("contenidos").insert([
       {
-        clase_id: claseId,
+        curso_id: claseId,
         bucket_path: archivoUrl,
         url_path: link,
         titulo: titulo,
@@ -65,5 +65,33 @@ export async function updateClass(req, res) {
   } catch (err) {
     console.error("Error en updateClass:", err);
     return res.status(500).json({ error: "Error interno del servidor" });
+  }
+}
+
+export async function updateAlumnos(req, res) {
+  const { user_id } = req.body;
+
+  if (!user_id)
+    return res.status(400).json({ error: "El user id es requerido" });
+
+  try {
+    const { data, error } = await supabase.from("cursos").select();
+
+    const { data: updated, error: updateError } = await supabase
+      .from("cursos")
+      .update({
+        alumnos:
+          data?.alumnos?.length > 0 ? [...data?.alumnos, user_id] : [user_id],
+      });
+
+    if (updateError)
+      return res.status(400).json({ error: "Eerror actualizando" });
+
+    if (error)
+      return res.status(500).json({ error: "Error actualizando alumnos" });
+    res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    return res.status(error);
   }
 }

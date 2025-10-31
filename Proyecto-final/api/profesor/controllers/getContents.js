@@ -10,7 +10,7 @@ export async function getContents(req, res) {
     const { data, error } = await supabase
       .from("contenidos")
       .select()
-      .eq("clase_id", class_id);
+      .eq("curso_id", class_id);
     if (error)
       return res.status(500).json({ error: "Error recuperando contenidos" });
 

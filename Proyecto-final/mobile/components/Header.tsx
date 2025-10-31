@@ -11,7 +11,7 @@ export default function Header({ title }: HeaderProps) {
 
   return (
     <View className="h-16 flex-row items-center gap-8 px-4">
-      <Pressable onPress={() => router.push('/')}>
+      <Pressable onPress={() => router.back()}>
         <Ionicons name="arrow-back" size={24} color="black" />
       </Pressable>
       <Text className="text-3xl font-semibold">{title}</Text>

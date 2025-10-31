@@ -1,7 +1,7 @@
 import { View, Text, TextInput, Pressable } from 'react-native';
-import { AntDesign } from '@expo/vector-icons'; // icono de Google
+import { AntDesign, Entypo } from '@expo/vector-icons'; // icono de Google
 import * as Linking from 'expo-linking';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'expo-router';
 import { supabase } from '@/config/supabase';
 import { useSessionStore } from '@/store/sessionStore'; // 👈 importar el store
@@ -9,6 +9,7 @@ import { Session } from '@supabase/supabase-js';
 
 export default function Login() {
   const router = useRouter();
+  const [userData, setUserData] = useState({ email: '', password: '' });
   const { setSession } = useSessionStore(); // 👈 obtener setter del store
 
   useEffect(() => {
@@ -71,6 +72,35 @@ export default function Login() {
     }
   };
 
+  const handleGithub = async () => {
+    try {
+      const redirectTo = 'exp://192.168.1.37:8081';
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'github',
+        options: { redirectTo, scopes: 'repo read:user' },
+      });
+      if (error) console.log(error);
+      if (data?.url) Linking.openURL(data.url);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleLogin = async () => {
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: userData.email,
+        password: userData.password,
+      });
+      if (error) console.log(error);
+      console.log(data);
+      setSession(data.session as Session);
+      router.push('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <View className="flex-1 items-center justify-center bg-gray-100 px-6">
       <View className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-lg">
@@ -81,6 +111,7 @@ export default function Login() {
           placeholder="usuario@ejemplo.com"
           className="mb-4 rounded-xl border border-gray-300 px-4 py-3 text-gray-800"
           keyboardType="email-address"
+          onChangeText={(e) => setUserData((prev) => ({ ...prev, email: e }))}
         />
 
         <Text className="mb-2 text-gray-700">Contraseña</Text>
@@ -88,9 +119,10 @@ export default function Login() {
           placeholder="••••••••"
           secureTextEntry
           className="mb-6 rounded-xl border border-gray-300 px-4 py-3 text-gray-800"
+          onChangeText={(e) => setUserData((prev) => ({ ...prev, password: e }))}
         />
 
-        <Pressable className="rounded-xl bg-blue-600 py-3">
+        <Pressable onPress={handleLogin} className="rounded-xl bg-blue-600 py-3">
           <Text className="text-center text-lg font-semibold text-white">Entrar</Text>
         </Pressable>
 
@@ -111,6 +143,14 @@ export default function Login() {
           <AntDesign name="google" size={20} color="#DB4437" />
           <Text className="ml-3 text-base font-semibold text-gray-700">
             Iniciar sesión con Google
+          </Text>
+        </Pressable>
+        <Pressable
+          onPress={handleGithub}
+          className="flex-row items-center justify-center rounded-xl border border-gray-300 py-3 active:bg-gray-50">
+          <Entypo name="github" size={24} color="#3298ff" />
+          <Text className="ml-3 text-base font-semibold text-gray-700">
+            Iniciar sesión con Github
           </Text>
         </Pressable>
       </View>

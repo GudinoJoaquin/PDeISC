@@ -4,6 +4,9 @@ import ProfesorClases from '@/sections/profesor/Clases';
 import AlumnoClases from '@/sections/alumno/Clases';
 import ProfesorInfo from '@/sections/profesor/Info';
 import AlumnoInfo from '@/sections/alumno/Info';
+import InstitucionInfo from '@/sections/institucion/Info';
+import InstitucionClases from '@/sections/institucion/Clases';
+
 import Tab from './Tab';
 
 interface AccountTabsProps {
@@ -29,9 +32,10 @@ export default function AccountTabs({ role, topics = [] }: AccountTabsProps) {
             <Tab title="Cursos" tab={tab} onPress={() => setTab('Cursos')} />
           </>
         ) : (
-          <View className="mt-10 flex-1 items-center justify-center">
-            <Text className="text-gray-500">Información del perfil</Text>
-          </View>
+          <>
+            <Tab title="Perfil" tab={tab} onPress={() => setTab('Perfil')} />
+            <Tab title="Clases" tab={tab} onPress={() => setTab('Cursos')} />
+          </>
         )}
       </View>
 
@@ -43,7 +47,7 @@ export default function AccountTabs({ role, topics = [] }: AccountTabsProps) {
           ) : role === 'Estudiante' ? (
             <AlumnoInfo topics={topics} />
           ) : (
-            <ProfesorInfo topics={topics} />
+            <InstitucionInfo topics={topics} />
           )}
         </>
       ) : (
@@ -53,7 +57,7 @@ export default function AccountTabs({ role, topics = [] }: AccountTabsProps) {
           ) : role === 'Estudiante' ? (
             <AlumnoClases />
           ) : (
-            <ProfesorClases />
+            <InstitucionClases />
           )}
         </View>
       )}

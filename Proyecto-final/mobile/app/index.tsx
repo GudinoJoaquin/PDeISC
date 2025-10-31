@@ -74,9 +74,7 @@ export default function App() {
           <View className="flex-col gap-8">
             {data?.map((curso) => (
               <Pressable
-                onPress={() =>
-                  router.push({ pathname: '/(alumno)/[id]', params: { id: curso.id } })
-                }
+                onPress={() => router.push({ pathname: '/[id]', params: { id: curso.id } })}
                 key={curso.id}>
                 <ClassCard
                   titulo={curso.titulo}
