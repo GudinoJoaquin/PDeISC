@@ -9,3 +9,7 @@ GET http://localhost:3000/alumno/cursos/getAdded/3bb8694e-2b24-4408-a690-4f63d1b
 #   "class_id": "52f354b5-8201-419f-a611-9c8bf36a232f",
 #   "user_id": "3bb8694e-2b24-4408-a690-4f63d1b6c5f4"
 # }
+
+###
+
+GET http://localhost:3000/institucion/institucion/get/797263bb-fb79-4e18-ba39-8ed9041b5ad9

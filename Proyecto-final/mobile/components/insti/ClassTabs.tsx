@@ -1,7 +1,7 @@
 import { View, Text, Pressable } from 'react-native';
 import { useState } from 'react';
-import ClassInfo from '@/sections/institucion/ClassInfo';
-import ClassContents from '@/sections/institucion/ClassContents';
+import ClassInfo from '@/sections/insti/ClassInfo';
+import ClassContents from '@/sections/insti/ClassContents';
 import type { Class } from '@/interfaces/class';
 
 export default function ClassTabs({ data }: { data: Class }) {

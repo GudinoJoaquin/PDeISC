@@ -97,13 +97,19 @@ export default function App() {
             <Text style={styles.sectionTitle}>Instituciones</Text>
             <View style={{ flexDirection: 'column', gap: 16, paddingHorizontal: 16 }}>
               {instituciones?.map((inst) => (
-                <View key={inst.id} style={{ marginBottom: 4 }}>
-                  <ClassCard
-                    titulo={inst.nombre}
-                    descripcion={inst.descripcion}
-                    topics={inst.topicos || []}
-                  />
-                </View>
+                <Pressable
+                  key={inst.id}
+                  onPress={() =>
+                    router.push({ pathname: '/insti/[insti_id]', params: { insti_id: inst.id } })
+                  }>
+                  <View style={{ marginBottom: 4 }}>
+                    <ClassCard
+                      titulo={inst.nombre}
+                      descripcion={inst.descripcion}
+                      topics={inst.topicos || []}
+                    />
+                  </View>
+                </Pressable>
               ))}
             </View>
           </View>

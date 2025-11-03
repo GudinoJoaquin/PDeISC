@@ -221,6 +221,26 @@ export default function Layout() {
           headerLeft: () => <Header title="Detalles de la clase" />,
         }}
       />
+      <Tabs.Screen
+        name="insti/[insti_id]"
+        key={Math.random().toString()}
+        options={{
+          href: null,
+          headerShown: true,
+          title: '',
+          headerLeft: () => <Header title="Detalles de la escuela" />,
+        }}
+      />
+      <Tabs.Screen
+        name="insti/clases/[id]"
+        key={Math.random().toString()}
+        options={{
+          href: null,
+          headerShown: true,
+          title: '',
+          headerLeft: () => <Header title="Detalles de la escuela" />,
+        }}
+      />
     </Tabs>
   );
 }

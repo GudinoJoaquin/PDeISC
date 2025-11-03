@@ -12,6 +12,7 @@ import { createInstitution } from "../controllers/createInstitution.js";
 import {
   listInstitutions,
   getInstitutionByOwner,
+  getInstitutionByID,
 } from "../controllers/getInstitutions.js";
 import { createClase } from "../controllers/createClase.js";
 import {
@@ -28,6 +29,7 @@ router.post("/register", createInstitution);
 
 router.get("/list", listInstitutions);
 router.get("/owner/:owner_id", getInstitutionByOwner);
+router.get("/institucion/get/:insti_id", getInstitutionByID);
 
 router.post("/clases/create", createClase);
 router.get("/clases/get/:institucion_id", getClasesByInstitucion);

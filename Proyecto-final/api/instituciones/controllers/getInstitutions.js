@@ -46,3 +46,28 @@ export async function getInstitutionByOwner(req, res) {
     res.status(500).json({ error });
   }
 }
+
+export async function getInstitutionByID(req, res) {
+  const { insti_id } = req.params;
+  if (!insti_id)
+    return res.status(400).json({ error: "insti_id es requerido" });
+
+  try {
+    // Fetch all institutions and find by encargado (new) or owner (old field)
+    const { data, error } = await supabase
+      .from("instituciones")
+      .select()
+      .eq("id", insti_id)
+      .single();
+
+    if (error) {
+      console.log(error);
+      return res.status(500).json({ error: "Error al obtener instituciones" });
+    }
+
+    res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error });
+  }
+}
