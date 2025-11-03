@@ -7,6 +7,7 @@ import oauthRoutes from "./auth/routes/oauth.js";
 import userRoute from "./user/routes/user.js";
 import profesorRoutes from "./profesor/routes/profesor.js";
 import alumnoRoutes from "./alumno/routes/alumno.js";
+import institucionRoutes from "./instituciones/routes/institucion.js"
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use("/auth", authRoutes);
 app.use("/oauth", oauthRoutes);
 app.use("/profesor", profesorRoutes);
 app.use("/alumno", alumnoRoutes);
+app.use("/institucion", institucionRoutes);
 
 app.use("/user", userRoute);
 

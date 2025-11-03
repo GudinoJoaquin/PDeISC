@@ -16,7 +16,7 @@ export default function ClassDetails() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://${Config.IP}:${Config.PORT}/profesor/curso/getByID/${id}`
+          `http://${Config.IP}:${Config.PORT}/institucion/curso/getByID/${id}`
         );
         setData(response.data.data);
       } catch (error) {

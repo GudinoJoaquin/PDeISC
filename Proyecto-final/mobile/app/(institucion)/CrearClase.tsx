@@ -36,12 +36,12 @@ export default function CrearClase() {
 
     try {
       const response = await axios.post(
-        `http://${Config.IP}:${Config.PORT}/profesor/curso/create`,
+        `http://${Config.IP}:${Config.PORT}/institucion/curso/create`,
         {
           titulo,
           descripcion,
           topics: selectedTopics,
-          profesor: session?.user?.id,
+          institucion: session?.user?.id, // owner id
         }
       );
 

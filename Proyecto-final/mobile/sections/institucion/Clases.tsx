@@ -16,7 +16,7 @@ export default function Clases() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://${Config.IP}:${Config.PORT}/profesor/curso/get/${session?.user?.id}`
+          `http://${Config.IP}:${Config.PORT}/institucion/curso/get/${session?.user?.id}`
         );
         setData(response.data.data);
       } catch (error) {
@@ -24,7 +24,7 @@ export default function Clases() {
       }
     };
     fetchData();
-  }, []);
+  }, [session?.user?.id]);
 
   if (!data) {
     return (
@@ -42,7 +42,7 @@ export default function Clases() {
           alignItems: 'center',
           paddingBottom: 150, // espacio para tabBar flotante
         }}>
-        <AddButton route={'/(profesor)/CrearClase'} text="Crear clase" />
+        <AddButton route={'/(institucion)/CrearClase'} text="Crear clase" />
 
         <View className="w-full items-center">
           {data.map((clase: Class) => (

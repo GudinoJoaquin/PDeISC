@@ -134,7 +134,7 @@ export default function Layout() {
           }}
         />
       )}
-      {session && session.user.user_metadata.role !== 'Institucion' ? (
+      {session && session.user.user_metadata.role === 'Estudiante' ? (
         <Tabs.Screen
           name="(alumno)"
           options={{

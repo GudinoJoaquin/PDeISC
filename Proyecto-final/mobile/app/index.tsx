@@ -9,6 +9,7 @@ import { useRouter } from 'expo-router';
 
 export default function App() {
   const [data, setData] = useState<Class[]>([]);
+  const [instituciones, setInstituciones] = useState<any[]>([]);
   const router = useRouter();
   const screenWidth = Dimensions.get('window').width;
   const cardWidth = screenWidth * 0.9; // 👈 cada card ocupa el 80% del ancho
@@ -25,6 +26,16 @@ export default function App() {
       }
     };
     fetchData();
+    // instituciones
+    const fetchInstituciones = async () => {
+      try {
+        const r = await axios.get(`http://${Config.IP}:${Config.PORT}/institucion/list`);
+        setInstituciones(r.data.data || []);
+      } catch (e) {
+        console.log('Error fetching instituciones', e);
+      }
+    };
+    fetchInstituciones();
   }, []);
 
   return (
@@ -70,7 +81,20 @@ export default function App() {
         </View>
 
         <View className="">
-          <Text className="mx-2 mb-4 mt-24 text-3xl font-bold">Matematiha</Text>
+          <Text className="mx-2 mb-4 mt-24 text-3xl font-bold">Instituciones</Text>
+          <View className="flex-col gap-4 px-4">
+            {instituciones?.map((inst) => (
+              <View key={inst.id} className="mb-2">
+                <ClassCard
+                  titulo={inst.nombre}
+                  descripcion={inst.descripcion}
+                  topics={inst.topicos || []}
+                />
+              </View>
+            ))}
+          </View>
+
+          <Text className="mx-2 mb-4 mt-8 text-3xl font-bold">Cursos</Text>
           <View className="flex-col gap-8">
             {data?.map((curso) => (
               <Pressable
