@@ -4,8 +4,10 @@ import ProfesorClases from '@/sections/profesor/Clases';
 import AlumnoClases from '@/sections/alumno/Clases';
 import ProfesorInfo from '@/sections/profesor/Info';
 import AlumnoInfo from '@/sections/alumno/Info';
+import InvitadoInfo from '@/sections/invitado/Info';
 import InstitucionInfo from '@/sections/institucion/Info';
 import InstitucionClases from '@/sections/institucion/Clases';
+import InvitadoClases from '@/sections/invitado/Clases';
 
 import Tab from './Tab';
 
@@ -46,8 +48,10 @@ export default function AccountTabs({ role, topics = [] }: AccountTabsProps) {
             <ProfesorInfo topics={topics} />
           ) : role === 'Estudiante' ? (
             <AlumnoInfo topics={topics} />
-          ) : (
+          ) : role === 'Institucion' ? (
             <InstitucionInfo topics={topics} />
+          ) : (
+            <InvitadoInfo topics={topics} />
           )}
         </>
       ) : (
@@ -56,8 +60,10 @@ export default function AccountTabs({ role, topics = [] }: AccountTabsProps) {
             <ProfesorClases />
           ) : role === 'Estudiante' ? (
             <AlumnoClases />
-          ) : (
+          ) : role === 'Institucion' ? (
             <InstitucionClases />
+          ) : (
+            <InvitadoClases />
           )}
         </View>
       )}

@@ -161,6 +161,33 @@ export default function Layout() {
         />
       )}
 
+      {session && session.user.user_metadata.role === 'invitado' ? (
+        <Tabs.Screen
+          name="(invitado)"
+          options={{
+            animation: 'shift',
+            tabBarIcon: ({ focused }) => (
+              <FontAwesome name="user" size={24} color={focused ? '#3b82f6' : '#9ca3af'} />
+            ),
+            title: 'Account',
+            headerShown: false,
+          }}
+        />
+      ) : (
+        <Tabs.Screen
+          name="(invitado)"
+          options={{
+            animation: 'shift',
+            tabBarIcon: ({ focused }) => (
+              <FontAwesome name="user" size={24} color={focused ? '#3b82f6' : '#9ca3af'} />
+            ),
+            title: 'Account',
+            headerShown: false,
+            href: null,
+          }}
+        />
+      )}
+
       <Tabs.Screen
         name="(auth)/(steps)"
         options={{
