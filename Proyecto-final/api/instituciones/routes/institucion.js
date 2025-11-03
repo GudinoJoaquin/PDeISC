@@ -7,6 +7,7 @@ import {
   uploadMiddleware,
 } from "../controllers/updateClass.js";
 import { getContents } from "../controllers/getContents.js";
+import { getTareas } from "../controllers/getTareas.js";
 import { createInstitution } from "../controllers/createInstitution.js";
 import {
   listInstitutions,
@@ -31,6 +32,8 @@ router.get("/owner/:owner_id", getInstitutionByOwner);
 router.post("/clases/create", createClase);
 router.get("/clases/get/:institucion_id", getClasesByInstitucion);
 router.get("/clases/getByID/:clase_id", getClaseByID);
+
+router.get("/curso/tareas/get/:class_id", getTareas);
 
 router.put("/curso/update", uploadMiddleware, updateClass);
 router.put("/curso/addAlumno", updateAlumnos);

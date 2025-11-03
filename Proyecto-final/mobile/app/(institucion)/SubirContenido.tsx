@@ -15,6 +15,7 @@ export default function SubirContenido() {
   const [titulo, setTitulo] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [tipo, setTipo] = useState<'link' | 'file' | ''>('');
+  const [dueDate, setDueDate] = useState('');
   const [link, setLink] = useState('');
   const [archivo, setArchivo] = useState<any>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -47,6 +48,8 @@ export default function SubirContenido() {
       formData.append('titulo', titulo);
       formData.append('mensaje', descripcion);
       formData.append('tipo', tipo);
+      // due_date expected in format YYYY-MM-DD (date only)
+      if (dueDate) formData.append('due_date', dueDate);
 
       if (tipo === 'link') formData.append('link', link.toLowerCase());
 
@@ -60,7 +63,7 @@ export default function SubirContenido() {
       }
 
       const res = await axios.put(
-        `http://${Config.IP}:${Config.PORT}/profesor/curso/update`,
+        `http://${Config.IP}:${Config.PORT}/institucion/curso/update`,
         formData,
         {
           headers: { 'Content-Type': 'multipart/form-data' },
@@ -107,6 +110,15 @@ export default function SubirContenido() {
           placeholder="Esta es la mejor clase"
           value={descripcion}
           onChangeText={setDescripcion}
+        />
+
+        {/* Fecha de entrega (solo para instituciones -> crea una tarea) */}
+        <Text className="mb-2 text-gray-700">Fecha de entrega (YYYY-MM-DD)</Text>
+        <TextInput
+          placeholder="2025-12-31"
+          className="mb-4 rounded-xl border border-gray-300 px-4 py-3 text-gray-800"
+          value={dueDate}
+          onChangeText={setDueDate}
         />
 
         {/* Selector de tipo */}

@@ -41,27 +41,32 @@ export async function updateClass(req, res) {
       archivoUrl = publicUrlData.publicUrl;
     }
 
-    // Guardar en Supabase (ejemplo)
-    const { data, error } = await supabase.from("contenidos").insert([
-      {
-        curso_id: claseId,
-        bucket_path: archivoUrl,
-        url_path: link,
-        titulo: titulo,
-        mensaje: mensaje,
-      },
-    ]);
+    // Guardar como tarea en la tabla `tareas` cuando el origen es institución
+    // Esperamos recibir un campo adicional: due_date (YYYY-MM-DD) opcional
+    const { due_date } = req.body;
+
+    const tareaPayload = {
+      clase_id: claseId,
+      titulo: titulo,
+      descripcion: mensaje,
+      due_date: due_date || null,
+      bucket_path: archivoUrl,
+    };
+
+    const { data, error } = await supabase
+      .from("tareas")
+      .insert([tareaPayload]);
 
     if (error) {
-      console.error("Error al guardar la clase:", error);
+      console.error("Error al guardar la tarea:", error);
       return res
         .status(500)
-        .json({ error: "Error al guardar la clase en la DB" });
+        .json({ error: "Error al guardar la tarea en la DB" });
     }
 
     return res
       .status(200)
-      .json({ clase: data, message: "Clase actualizada correctamente" });
+      .json({ tarea: data, message: "Tarea creada correctamente" });
   } catch (err) {
     console.error("Error en updateClass:", err);
     return res.status(500).json({ error: "Error interno del servidor" });
