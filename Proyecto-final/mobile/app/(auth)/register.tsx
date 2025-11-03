@@ -7,7 +7,7 @@ import { supabase } from '@/config/supabase';
 import { useSessionStore } from '@/store/sessionStore'; // 👈 importar el store
 import { Session } from '@supabase/supabase-js';
 
-export default function Login() {
+export default function Register() {
   const router = useRouter();
   const [userData, setUserData] = useState({ email: '', password: '' });
   const { setSession } = useSessionStore(); // 👈 obtener setter del store
@@ -88,9 +88,14 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signUp({
         email: userData.email,
         password: userData.password,
+        options: {
+          data: {
+            role: 'invitado',
+          },
+        },
       });
       if (error) console.log(error);
       console.log(data);
@@ -104,7 +109,7 @@ export default function Login() {
   return (
     <View className="flex-1 items-center justify-center bg-gray-100 px-6">
       <View className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-lg">
-        <Text className="mb-6 text-center text-3xl font-bold text-blue-600">Iniciar sesión</Text>
+        <Text className="mb-6 text-center text-3xl font-bold text-blue-600">Registrarse</Text>
 
         <Text className="mb-2 text-gray-700">Correo electrónico</Text>
         <TextInput
@@ -126,8 +131,8 @@ export default function Login() {
           <Text className="text-center text-lg font-semibold text-white">Entrar</Text>
         </Pressable>
 
-        <Pressable onPress={() => router.push('/(auth)/register')} className="mt-4">
-          <Text className="text-center text-blue-600">¿No tenés cuenta? Crear una</Text>
+        <Pressable onPress={() => router.push('/(auth)/login')} className="mt-4">
+          <Text className="text-center text-blue-600">¿Ya tenés cuenta? Inicia sesion</Text>
         </Pressable>
 
         <View className="my-6 flex-row items-center">

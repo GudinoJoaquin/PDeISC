@@ -5,7 +5,7 @@ import { useSessionStore } from '@/store/sessionStore';
 import { supabase } from '@/config/supabase';
 import { useRouter } from 'expo-router';
 
-const roles = ['Estudiante', 'Profesor', 'Profesional'];
+const roles = ['Estudiante', 'Profesor', 'Institucion'];
 const topics = ['Tecnología', 'Salud', 'Educación', 'Negocios', 'Arte', 'Ciencia'];
 
 export default function CompleteProfile() {

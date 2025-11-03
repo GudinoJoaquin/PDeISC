@@ -41,7 +41,7 @@ export default function Info({ topics }: { topics: string[] }) {
   }, [session?.user?.id]);
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 px-4">
       <View className="mb-4">
         {hasInstitution === false && session?.user?.id && (
           <Pressable
@@ -53,7 +53,7 @@ export default function Info({ topics }: { topics: string[] }) {
       </View>
 
       {institution && (
-        <View className="mb-6 rounded-lg bg-white p-4 shadow">
+        <View className="mb-6 rounded-lg px-4">
           <Text className="text-xl font-semibold text-gray-800">{institution.nombre}</Text>
           <Text className="mt-2 text-gray-600">{institution.descripcion}</Text>
 

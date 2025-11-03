@@ -204,6 +204,14 @@ export default function Layout() {
       />
 
       <Tabs.Screen
+        name="(auth)/register"
+        options={{
+          href: null,
+          headerShown: false,
+        }}
+      />
+
+      <Tabs.Screen
         name="[id]"
         key={Math.random().toString()}
         options={{
