@@ -1,4 +1,12 @@
-import { Text, ScrollView, View, Dimensions, Pressable } from 'react-native';
+import {
+  Text,
+  ScrollView,
+  View,
+  Dimensions,
+  Pressable,
+  StyleSheet,
+  ImageBackground,
+} from 'react-native';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import type { Class } from '@/interfaces/class';
@@ -39,77 +47,101 @@ export default function App() {
   }, []);
 
   return (
-    <Screen>
-      <ScrollView
-        contentContainerClassName="items-center"
-        contentContainerStyle={{ paddingBottom: 120 }}>
-        <View className="mt-12 w-full">
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            snapToInterval={cardWidth + 16} // 👈 ancho card + margen entre cards
-            decelerationRate="fast"
-            contentContainerStyle={{
-              paddingHorizontal: cardMargin, // 👈 espacio inicial y final
-              alignItems: 'center',
-            }}>
-            <ClassCard
-              titulo="La meho clase"
-              descripcion="Esta e la meho clase"
-              destacada
-              topics={['Matematica', 'Historia']}
-            />
-            <ClassCard
-              titulo="La peho clase"
-              descripcion="Esta e la meho clase"
-              destacada
-              topics={['Matematica', 'Historia']}
-            />
-            <ClassCard
-              titulo="Buenah clase"
-              descripcion="Esta e la meho clase"
-              destacada
-              topics={['Matematica', 'Historia']}
-            />
-            <ClassCard
-              titulo="clase"
-              descripcion="Esta e la meho clase"
-              destacada
-              topics={['Matematica', 'Historia']}
-            />
-          </ScrollView>
-        </View>
-
-        <View className="">
-          <Text className="mx-2 mb-4 mt-24 text-3xl font-bold">Instituciones</Text>
-          <View className="flex-col gap-4 px-4">
-            {instituciones?.map((inst) => (
-              <View key={inst.id} className="mb-2">
-                <ClassCard
-                  titulo={inst.nombre}
-                  descripcion={inst.descripcion}
-                  topics={inst.topicos || []}
-                />
-              </View>
-            ))}
+    <ImageBackground
+      source={{
+        uri: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+      }}
+      style={{ flex: 1 }}
+      imageStyle={{ opacity: 0.18 }}>
+      <Screen>
+        <ScrollView
+          contentContainerClassName="items-center"
+          contentContainerStyle={{ paddingBottom: 120 }}
+          showsVerticalScrollIndicator={false}>
+          {/* DESTACADAS */}
+          <View style={{ marginTop: 36, width: '100%' }}>
+            <Text style={styles.sectionTitle}>Destacadas</Text>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              snapToInterval={cardWidth + 24}
+              decelerationRate="fast"
+              contentContainerStyle={{
+                paddingHorizontal: cardMargin,
+                alignItems: 'center',
+                gap: 12,
+              }}>
+              <ClassCard
+                titulo="La mejor clase"
+                descripcion="Esta es la mejor clase"
+                destacada
+                topics={['Matemática', 'Historia']}
+              />
+              <ClassCard
+                titulo="Clase creativa"
+                descripcion="Aprende de forma divertida"
+                destacada
+                topics={['Arte', 'Innovación']}
+              />
+              <ClassCard
+                titulo="Clase avanzada"
+                descripcion="Para los que quieren más"
+                destacada
+                topics={['Ciencia', 'Tecnología']}
+              />
+            </ScrollView>
           </View>
 
-          <Text className="mx-2 mb-4 mt-8 text-3xl font-bold">Cursos</Text>
-          <View className="flex-col gap-8">
-            {data?.map((curso) => (
-              <Pressable
-                onPress={() => router.push({ pathname: '/[id]', params: { id: curso.id } })}
-                key={curso.id}>
-                <ClassCard
-                  titulo={curso.titulo}
-                  descripcion={curso.descripcion}
-                  topics={curso.topicos}
-                />
-              </Pressable>
-            ))}
+          {/* INSTITUCIONES */}
+          <View style={{ marginTop: 36, width: '100%' }}>
+            <Text style={styles.sectionTitle}>Instituciones</Text>
+            <View style={{ flexDirection: 'column', gap: 16, paddingHorizontal: 16 }}>
+              {instituciones?.map((inst) => (
+                <View key={inst.id} style={{ marginBottom: 4 }}>
+                  <ClassCard
+                    titulo={inst.nombre}
+                    descripcion={inst.descripcion}
+                    topics={inst.topicos || []}
+                  />
+                </View>
+              ))}
+            </View>
           </View>
-        </View>
-      </ScrollView>
-    </Screen>
+
+          {/* CURSOS */}
+          <View style={{ marginTop: 36, width: '100%' }}>
+            <Text style={styles.sectionTitle}>Cursos</Text>
+            <View style={{ flexDirection: 'column', gap: 20, paddingHorizontal: 16 }}>
+              {data?.map((curso) => (
+                <Pressable
+                  onPress={() => router.push({ pathname: '/[id]', params: { id: curso.id } })}
+                  key={curso.id}
+                  style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}>
+                  <ClassCard
+                    titulo={curso.titulo}
+                    descripcion={curso.descripcion}
+                    topics={curso.topicos}
+                  />
+                </Pressable>
+              ))}
+            </View>
+          </View>
+        </ScrollView>
+      </Screen>
+    </ImageBackground>
   );
 }
+
+const styles = StyleSheet.create({
+  sectionTitle: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#1a237e',
+    marginLeft: 18,
+    marginBottom: 10,
+    letterSpacing: 0.5,
+    textShadowColor: 'rgba(0,0,0,0.08)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
+  },
+});
