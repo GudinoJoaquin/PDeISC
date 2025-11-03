@@ -45,12 +45,17 @@ export async function updateClass(req, res) {
     // Esperamos recibir un campo adicional: due_date (YYYY-MM-DD) opcional
     const { due_date } = req.body;
 
+    // Si viene un link (tipo === 'link') lo guardamos en bucket_path también
+    const fileOrLink =
+      archivoUrl ||
+      (tipo === "link" && link ? String(link).toLowerCase() : null);
+
     const tareaPayload = {
       clase_id: claseId,
       titulo: titulo,
       descripcion: mensaje,
       due_date: due_date || null,
-      bucket_path: archivoUrl,
+      bucket_path: fileOrLink,
     };
 
     const { data, error } = await supabase
