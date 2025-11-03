@@ -1,5 +1,6 @@
 import { View, Text, TextInput, Pressable } from 'react-native';
 import { useState } from 'react';
+import { useRouter } from 'expo-router';
 import axios from 'axios';
 import { useSessionStore } from '@/store/sessionStore';
 import { useAlertStore } from '@/store/alertStore';
@@ -9,6 +10,7 @@ import { Config } from '@/enum/config';
 export default function RegistrarInstitucion() {
   const { session } = useSessionStore();
   const { showAlert } = useAlertStore();
+  const router = useRouter();
 
   const [nombre, setNombre] = useState('');
   const [descripcion, setDescripcion] = useState('');
@@ -23,13 +25,15 @@ export default function RegistrarInstitucion() {
       const response = await axios.post(`http://${Config.IP}:${Config.PORT}/institucion/register`, {
         nombre,
         descripcion,
-        owner: session?.user?.id,
+        encargado: session?.user?.id,
       });
 
       console.log(response.data);
       showAlert('Institución creada con éxito', 'success');
       setNombre('');
       setDescripcion('');
+      // volver al perfil para que se refresque la vista
+      router.back();
     } catch (error) {
       console.log(error);
       showAlert('Error creando institución', 'error');

@@ -12,6 +12,11 @@ import {
   listInstitutions,
   getInstitutionByOwner,
 } from "../controllers/getInstitutions.js";
+import { createClase } from "../controllers/createClase.js";
+import {
+  getClasesByInstitucion,
+  getClaseByID,
+} from "../controllers/getClases.js";
 
 const router = express.Router();
 
@@ -22,6 +27,10 @@ router.post("/register", createInstitution);
 
 router.get("/list", listInstitutions);
 router.get("/owner/:owner_id", getInstitutionByOwner);
+
+router.post("/clases/create", createClase);
+router.get("/clases/get/:institucion_id", getClasesByInstitucion);
+router.get("/clases/getByID/:clase_id", getClaseByID);
 
 router.put("/curso/update", uploadMiddleware, updateClass);
 router.put("/curso/addAlumno", updateAlumnos);

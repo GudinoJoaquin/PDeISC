@@ -16,9 +16,19 @@ export default function ClassDetails() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://${Config.IP}:${Config.PORT}/institucion/curso/getByID/${id}`
+          `http://${Config.IP}:${Config.PORT}/institucion/clases/getByID/${id}`
         );
-        setData(response.data.data);
+        // Map clase shape to Class interface
+        const c = response.data.data;
+        setData({
+          id: c.id,
+          titulo: c.nombre || c.titulo || '',
+          descripcion: c.descripcion,
+          topicos: c.topicos || [],
+          profesor: c.profesor || null,
+          alumnos: [],
+          created_at: c.created_at || '',
+        });
       } catch (error) {
         console.log(error);
       }

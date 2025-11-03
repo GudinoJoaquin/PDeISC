@@ -15,12 +15,33 @@ export default function Clases() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `http://${Config.IP}:${Config.PORT}/institucion/curso/get/${session?.user?.id}`
+        // First get the institution for this user (encargado)
+        const instRes = await axios.get(
+          `http://${Config.IP}:${Config.PORT}/institucion/owner/${session?.user?.id}`
         );
-        setData(response.data.data);
+        const institucion = instRes?.data?.data;
+        if (!institucion?.id) {
+          setData([]);
+          return;
+        }
+
+        const response = await axios.get(
+          `http://${Config.IP}:${Config.PORT}/institucion/clases/get/${institucion.id}`
+        );
+        // map 'clases' shape to Class interface used by UI
+        const clases = (response.data.data || []).map((c: any) => ({
+          id: c.id,
+          titulo: c.nombre || c.titulo || '',
+          descripcion: c.descripcion,
+          topicos: c.topicos || [],
+          profesor: c.profesor || null,
+          alumnos: [],
+          created_at: c.created_at || '',
+        }));
+        setData(clases);
       } catch (error) {
         console.log(error);
+        setData([]);
       }
     };
     fetchData();
@@ -49,7 +70,7 @@ export default function Clases() {
             <Pressable
               key={clase.id}
               onPress={() =>
-                router.push({ pathname: '/(profesor)/[id]', params: { id: clase.id } })
+                router.push({ pathname: '/(institucion)/[id]', params: { id: clase.id } })
               }>
               <View className="mb-4 w-11/12">
                 <ClassCard

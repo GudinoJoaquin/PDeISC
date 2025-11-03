@@ -1,13 +1,11 @@
-import { View, Text, TextInput, Pressable } from 'react-native';
+import { View, Text, TextInput, Pressable, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useSessionStore } from '@/store/sessionStore';
 import { useAlertStore } from '@/store/alertStore';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Alert from '@/components/Alert';
 import { Config } from '@/enum/config';
-
-const topics = ['Tecnología', 'Salud', 'Educación', 'Negocios', 'Arte', 'Ciencia'];
 
 export default function CrearClase() {
   const router = useRouter();
@@ -15,13 +13,26 @@ export default function CrearClase() {
   const { showAlert } = useAlertStore();
   const [titulo, setTitulo] = useState('');
   const [descripcion, setDescripcion] = useState('');
-  const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
+  const [institucionId, setInstitucionId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const toggleTopic = (topic: string) => {
-    setSelectedTopics((prev) =>
-      prev.includes(topic) ? prev.filter((t) => t !== topic) : [...prev, topic]
-    );
-  };
+  useEffect(() => {
+    const fetchInstitution = async () => {
+      if (!session?.user?.id) return;
+      try {
+        const res = await axios.get(
+          `http://${Config.IP}:${Config.PORT}/institucion/owner/${session.user.id}`
+        );
+        if (res?.data?.data) {
+          setInstitucionId(res.data.data.id);
+        }
+      } catch (e: any) {
+        console.log('No institution found for user', e?.message || e);
+        setInstitucionId(null);
+      }
+    };
+    fetchInstitution();
+  }, [session?.user?.id]);
 
   const handleSubmit = async () => {
     if (!titulo.trim() || !descripcion.trim()) {
@@ -29,19 +40,22 @@ export default function CrearClase() {
       return;
     }
 
-    if (selectedTopics.length === 0) {
-      showAlert('Seleccioná al menos un tópico.', 'error');
+    if (!institucionId) {
+      showAlert(
+        'No se encontró la institución asociada. Asegurate de registrar la institución primero.',
+        'error'
+      );
       return;
     }
 
     try {
+      setLoading(true);
       const response = await axios.post(
-        `http://${Config.IP}:${Config.PORT}/institucion/curso/create`,
+        `http://${Config.IP}:${Config.PORT}/institucion/clases/create`,
         {
           titulo,
           descripcion,
-          topics: selectedTopics,
-          institucion: session?.user?.id, // owner id
+          institucion: institucionId, // use institution id (FK)
         }
       );
 
@@ -50,16 +64,25 @@ export default function CrearClase() {
       showAlert('Clase creada con éxito 🎉', 'success');
       setTitulo('');
       setDescripcion('');
-      setSelectedTopics([]);
+      router.back();
     } catch (error) {
       console.log(error);
       showAlert('Ocurrió un error al crear la clase.', 'error');
+    } finally {
+      setLoading(false);
     }
   };
 
+  if (institucionId === null) {
+    return (
+      <View className="flex-1 items-center justify-center">
+        <Text className="text-gray-600">Buscando institución asociada…</Text>
+      </View>
+    );
+  }
+
   return (
     <View className="mt-12 items-center justify-center bg-gray-100 px-6">
-      {/* Alert global (se puede dejar fijo en el root layout también) */}
       <Alert />
 
       <View className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-lg">
@@ -82,24 +105,15 @@ export default function CrearClase() {
           onChangeText={setDescripcion}
         />
 
-        <Text className="mb-2 font-medium text-gray-700">Elegí tus tópicos de interés</Text>
-        <View className="mb-4 flex-row flex-wrap">
-          {topics.map((t) => (
-            <Pressable
-              key={t}
-              onPress={() => toggleTopic(t)}
-              className={`m-1 rounded-full border px-4 py-2 ${
-                selectedTopics.includes(t) ? 'border-green-500 bg-green-500' : 'border-gray-300'
-              }`}>
-              <Text className={selectedTopics.includes(t) ? 'text-white' : 'text-gray-700'}>
-                {t}
-              </Text>
-            </Pressable>
-          ))}
-        </View>
-
-        <Pressable onPress={handleSubmit} className="rounded-xl bg-blue-600 py-3">
-          <Text className="text-center text-lg font-semibold text-white">Crear</Text>
+        <Pressable
+          onPress={handleSubmit}
+          className="rounded-xl bg-blue-600 py-3"
+          disabled={loading}>
+          {loading ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <Text className="text-center text-lg font-semibold text-white">Crear</Text>
+          )}
         </Pressable>
       </View>
     </View>

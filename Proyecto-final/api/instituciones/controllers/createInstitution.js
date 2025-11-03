@@ -1,12 +1,13 @@
 import { supabase } from "../../config/supabase.js";
 
 export async function createInstitution(req, res) {
-  const { nombre, descripcion, topics, owner } = req.body;
+  const { nombre, descripcion, topics, encargado } = req.body;
 
   if (!nombre) return res.status(400).json({ error: "El nombre es requerido" });
   if (!descripcion)
     return res.status(400).json({ error: "La descripcion es requerida" });
-  if (!owner) return res.status(400).json({ error: "El owner es requerido" });
+  if (!encargado)
+    return res.status(400).json({ error: "El encargado es requerido" });
 
   try {
     const { data, error } = await supabase.from("instituciones").insert([
@@ -14,7 +15,7 @@ export async function createInstitution(req, res) {
         nombre,
         descripcion,
         topicos: topics || [],
-        encargado: owner,
+        encargado: encargado,
       },
     ]);
 

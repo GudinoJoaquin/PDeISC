@@ -22,20 +22,25 @@ export async function getInstitutionByOwner(req, res) {
     return res.status(400).json({ error: "owner_id es requerido" });
 
   try {
-    const { data, error } = await supabase
-      .from("instituciones")
-      .select()
-      .eq("owner", owner_id)
-      .single();
+    // Fetch all institutions and find by encargado (new) or owner (old field)
+    const { data, error } = await supabase.from("instituciones").select();
 
-    if (error && error.code !== "PGRST116") {
+    if (error) {
       console.log(error);
-      return res.status(500).json({ error });
+      return res.status(500).json({ error: "Error al obtener instituciones" });
     }
 
-    if (!data) return res.status(404).json({ error: "No encontrada" });
+    const found = (data || []).find((inst) => {
+      // compare as strings to avoid uuid vs string mismatches
+      const encargado = inst?.encargado ? String(inst.encargado) : null;
+      const ownerField = inst?.owner ? String(inst.owner) : null;
+      const idStr = String(owner_id);
+      return encargado === idStr || ownerField === idStr;
+    });
 
-    res.status(200).json({ data });
+    if (!found) return res.status(404).json({ error: "No encontrada" });
+
+    res.status(200).json({ data: found });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error });
