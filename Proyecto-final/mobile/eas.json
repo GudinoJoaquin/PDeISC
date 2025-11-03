@@ -12,6 +12,7 @@
       "distribution": "internal"
     },
     "production": {
+      "workingDirectory": "proyecto-final/mobile",
       "android": {
         "buildType": "apk"
       }
